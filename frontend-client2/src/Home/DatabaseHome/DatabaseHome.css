@@ -1,0 +1,14 @@
+.navbar-Top{
+    position: fixed;
+    z-index: 1000;
+}
+.hometitle{
+    align-items: center;
+    text-align: center;
+    margin-top: -80px;
+    font-size: 24px;
+}
+
+.database{
+    margin-top: 10px;
+}

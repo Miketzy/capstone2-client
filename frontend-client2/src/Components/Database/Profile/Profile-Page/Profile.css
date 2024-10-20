@@ -1,0 +1,84 @@
+.Wrapper {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin-top: 24vh;
+    margin-left: 55vh;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 
+    0 8px 15px rgba(0, 0, 0, 0.05), 
+    0 20px 40px rgba(0, 0, 0, 0.05);
+    transform: translateY(0px);
+  }
+
+
+.Wrapper h2 {
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 20px;
+  }
+  
+    
+.Wrapper .profile-details {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+   
+.Wrapper  .profile-image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid #0a74da;
+    margin-right: 20px;
+  }
+  
+   
+.Wrapper  .profile-info {
+    text-align: left;
+  }
+  
+   
+.Wrapper  .profile-info p {
+    margin: 8px 0;
+    color: #555;
+    font-size: 1.1rem;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  
+   
+.Wrapper  .profile-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+   
+.Wrapper  .edit-btn, .password-btn {
+    background-color: #0a74da;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 25px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 48%;
+  }
+  
+    
+.Wrapper .edit-btn:hover, .password-btn:hover {
+    background-color: #0957a3;
+  }
+  
+    
+.Wrapper .edit-btn:focus, .password-btn:focus {
+    outline: none;
+    background-color: #074a8a;
+  }

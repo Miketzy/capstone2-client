@@ -1,0 +1,89 @@
+/* Background and overall page styling */
+.aboutUs-container {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  padding: 3rem;
+  min-height: 100vh;
+}
+
+/* Wrapper for content */
+.aboutUs-Wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  margin-top: 5vh;
+}
+
+/* General section styling */
+.aboutUS, .out-history, .mission-vission, .davao-oreintal, .Contact-Us {
+  margin-bottom: 3rem;
+}
+
+/* Main Title */
+.aboutUS h1 {
+  font-size: 2.8rem;
+  color: #00796b;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Section Headings */
+h2 {
+  font-size: 2.2rem;
+  color: #004d40;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #00796b;
+  padding-bottom: 0.5rem;
+}
+
+/* Paragraph text styling */
+p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 1.5rem;
+  text-align: justify; /* Aligns text for better readability */
+}
+
+/* Accent styling for each section */
+.aboutUS p {
+  border-left: 5px solid #00796b;
+  padding-left: 1rem;
+  background-color: #e0f2f1;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.out-history p, .mission-vission p, .davao-oreintal p, .Contact-Us p {
+  border-left: 5px solid #004d40;
+  padding-left: 1rem;
+  background-color: #e0f2f1;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* Hover effects for sections */
+.aboutUS:hover, .out-history:hover, .mission-vission:hover, .davao-oreintal:hover, .Contact-Us:hover {
+  background-color: #b2ebf2;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .aboutUs-Wrapper {
+    padding: 1.5rem;
+  }
+
+  .aboutUS h1, h2 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+}

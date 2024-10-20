@@ -1,0 +1,298 @@
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 images per row */
+    gap: 10px;
+    padding: 20px;
+ 
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: .3s ease-in-out;
+    margin: 10px;
+    background-color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.23); /* Deeper 5D shadow */
+    cursor: pointer;
+    width: 40vh;
+}
+
+.gallery-item:hover{
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+}
+.gallery-image {
+    width: 100%;
+    height: 300px; /* Set a larger height for the images */
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    border-radius: 10px;
+    background-size: contain; 
+}
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    font-family: sans-serif;
+}
+
+  
+.page1-container {
+    display: flex;
+    background-color: #fff; /* White background */
+    margin-left: 20px;
+    margin-top: 2vh;
+    border-radius: 20px;
+    width: 205vh;
+    margin-right: 20px;
+    
+
+    /* Add 5D effect */
+    box-shadow: 
+        10px 10px 30px rgba(0, 0, 0, 0.2),  /* Deep shadow */
+        -10px -10px 30px rgba(255, 255, 255, 0.5), /* Light shadow on opposite side */
+        inset 5px 5px 15px rgba(0, 0, 0, 0.15), /* Inner dark shadow */
+        inset -5px -5px 15px rgba(255, 255, 255, 0.9); /* Inner light highlight */
+}
+
+.page1-container .modal-image {
+    width: 50%;
+    height: 20%;
+    margin-left: 10vh;
+    margin-bottom: 30vh;
+    margin: 10px;
+    border-radius: 20px;
+    box-shadow: 
+        10px 10px 30px rgba(0, 0, 0, 0.3),  
+        -10px -10px 30px rgba(255, 255, 255, 0.7), 
+        inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
+        inset -5px -5px 15px rgba(255, 255, 255, 0.9);
+    background-color: #fff; 
+}
+
+
+.close-icon {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    font-size: 2rem;
+    color: black;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 10px;
+    border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), ; /* Outer and inner shadow */
+}
+
+.close-icon:hover {
+    transform: translateY(-3px); /* Lift effect */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4),; /* More pronounced shadow on hover */
+}
+
+.close-icon:active {
+    transform: translateY(1px); /* Press effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), ; /* Reduced shadow on active */
+}
+
+
+
+.title-text {
+    line-height: 15px;
+}
+
+.title-text span{
+    font-weight: 500;
+}
+.page2-container{
+    background-color: #fff; 
+    margin-left: 20px;
+    margin-top: 2vh;
+    border-radius: 20px;
+    width: 205vh;
+    margin-right: 20px;
+
+    
+    box-shadow: 
+        10px 10px 30px rgba(0, 0, 0, 0.2),  
+        -10px -10px 30px rgba(255, 255, 255, 0.5), 
+        inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
+        inset -5px -5px 15px rgba(255, 255, 255, 0.9);
+}
+
+.page2-container .description-page{
+    margin: 10px;
+    padding: 1px;
+}
+
+.description-page p {
+    margin-top: -20px;
+    text-align: justify;
+    line-height: 1.5;
+    text-indent: 50px;
+    font-size: 16px;
+    white-space: pre-line;
+}
+
+.description-page h1{
+    margin-top: 5px;
+}
+
+
+
+.page3-container{
+    background-color: #fff; 
+    margin-left: 20px;
+    margin-top: 2vh;
+    border-radius: 20px;
+    width: 205vh;
+    margin-right: 20px;
+    box-shadow: 
+        10px 10px 30px rgba(0, 0, 0, 0.2),  
+        -10px -10px 30px rgba(255, 255, 255, 0.5), 
+        inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
+        inset -5px -5px 15px rgba(255, 255, 255, 0.9);
+}
+
+.page3-container .threats-page{
+    margin: 10px;
+    padding: 1px;
+}
+
+.threats-page h1{
+    margin-top: 5px;
+}
+
+.threats-page p{
+    margin-top: -20px;
+    text-align: justify;
+    line-height: 1.5;
+    text-indent: 50px;
+    font-size: 16px;
+}
+
+.page4-container{
+    background-color: #fff; 
+    margin-left: 20px;
+    margin-top: 2vh;
+    border-radius: 20px;
+    width: 205vh;
+    margin-right: 20px;
+    box-shadow: 
+        10px 10px 30px rgba(0, 0, 0, 0.2),  
+        -10px -10px 30px rgba(255, 255, 255, 0.5), 
+        inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
+        inset -5px -5px 15px rgba(255, 255, 255, 0.9);
+}
+
+.page4-container .population-page{
+    margin: 10px;
+    padding: 1px;
+}
+
+.population-page h1{
+    margin-top: 5px;
+}
+
+.population-page p{
+    margin-top: -20px;
+    text-align: justify;
+    line-height: 1.5;
+    text-indent: 50px;
+    font-size: 16px;
+}
+
+.page5-container{
+    background-color: #fff; 
+    margin-left: 20px;
+    margin-top: 2vh;
+    border-radius: 20px;
+    width: 205vh;
+    margin-right: 20px;
+    box-shadow: 
+        10px 10px 30px rgba(0, 0, 0, 0.2),  
+        -10px -10px 30px rgba(255, 255, 255, 0.5), 
+        inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
+        inset -5px -5px 15px rgba(255, 255, 255, 0.9);
+}
+.page5-container .conservation-page{
+    margin: 10px;
+    padding: 1px;
+}
+
+.conservation-page h1{
+    margin-top: 5px;
+}
+
+.conservation-page p {
+    margin-top: -20px;
+    text-align: justify;
+    line-height: 1.5;
+    text-indent: 50px;
+    font-size: 16px;
+    white-space: pre-line;
+}
+
+.modal-mapping{
+    width: 20vh;
+    height: 5vh;
+    font-size: 16px;
+    background-color: rgb(85, 85, 202);
+    color: white;
+    border: none;
+    font-weight: 550;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.modal-mapping:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.title-commonname{
+    margin-top: 5px;
+    text-align: center;
+}
+
+.search-bar-container {
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  .search-input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #4a90e2; /* Change border color */
+    background-color: #f0f4f8; /* Change background color */
+    color: #333; /* Change text color */
+    width: 100%;
+    max-width: 700px;
+    margin-left: 330px;
+    display: block;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease; /* Smooth transition for border color */
+    font-size: 24px;
+  }
+  
+  .search-input:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+    background-color: #ffffff; /* Optional: Change background color on focus */
+  }
+
+
+  
+
+

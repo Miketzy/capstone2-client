@@ -1,0 +1,202 @@
+.registration-wrapper {
+    max-width: 710px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    margin-top: 4vh;
+  }
+
+  .addres{
+    margin-top: -25px;
+  }
+
+  .addres input{
+    margin: 10px 0;
+    padding: 10px;
+    width: 107vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+
+  .addres  label{
+    margin-left: 10px;
+  }
+  .registation-name{
+    display: flex;
+    gap: 10px;
+  }
+
+  .registration-lastname{
+    display: flex;
+    gap: 10px;
+  }
+
+  .registration-password{
+    display: flex;
+    gap: 10px;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .registration-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .registration-Firstname label{
+    margin-left: 10px;
+  }
+  .registration-Firstname input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 51vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+
+  .registration-Middlename label{
+    margin-left: 10px;
+  }
+
+  .registration-Middlename input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 51vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+
+  .lname label{
+    margin-left: 10px;
+  }
+
+  .lname input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 51vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+
+   .registration-email label{
+    margin-top: -30vh;
+    margin-left: 10px;
+  }
+
+  .registration-lastname{
+    margin-top: -20px;
+  }
+  
+  .registration-email input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 51vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+
+  .genderfith label{
+    margin-left: 2vh;
+  }
+
+  .addressfith label{
+    margin-left: 2vh;
+  }
+  .addressfith input{
+    margin: 10px 0;
+    padding: 10px;
+    width: 51vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+   
+  }
+
+  .pass label{
+    margin-left: 10px;
+  }
+  
+  .pass input{
+    margin: 10px 0;
+    padding: 10px;
+    width: 51vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+
+  .cpass label{
+    margin-left: 10px;
+  }
+  
+  .cpass input{
+    margin: 10px 0;
+    padding: 10px;
+    width: 51vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+
+  .registration-password{
+    margin-top: -20px;
+  }
+  
+  .registration-form input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .registration-form button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    width: 70vh;
+    margin-left: 20vh;
+  }
+
+  .fifth{
+    display: flex;
+    margin-top: -3vh;
+    gap: 10px;
+  }
+  
+  .genderfith select{
+    margin: 10px 0;
+    padding: 10px;
+    width: 54vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+
+  
+  .registration-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .regtolog{
+    margin-top: -2vh;
+    margin-left: 35vh;
+  }
+  .reglog{
+    cursor: pointer;
+  }
+
+  .reglog:hover{
+    color: #007bff;
+  }
