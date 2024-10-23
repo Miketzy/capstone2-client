@@ -13,11 +13,16 @@ import EditProfileDashboard from './Home/Profile-Dashboard/EditProfileDashboard/
 import ChangePasswordDashboard from './Home/Profile-Dashboard/ChangePassword/ChangePasswordDashboard';
 import Registration from './Components/Login-register-Form/Registration-Form/Registration';
 import Login from './Components/Login-register-Form/Login-Form/Login';
+import EnterEmail from './Create-New-Password/Enter-New-Email/EnterEmail';
+import EnterOtp from './Create-New-Password/Enter-Otp/EnterOtp';
+import EnterNewPassword from './Create-New-Password/Enter-New-Password/EnterNewPassword';
 
 function App() {
   return (
   <BrowserRouter>
     <Routes>
+    <Route path="/" element={<Login />} />
+    <Route path="/registration" element={<Registration />} />
     <Route path="/Home" element={<Home />} />
     <Route path="/mapping" element={<MapHome />} />
     <Route path="/database" element={<DatabaseHome />} />
@@ -27,8 +32,12 @@ function App() {
     <Route path="/My-Profile" element={<MyprofileDashboard />} />
     <Route path="/Edit-Profile" element={<EditProfileDashboard />} />
     <Route path="/change-password" element={<ChangePasswordDashboard />} />
-    <Route path="/registration" element={<Registration />} />
-    <Route path="/" element={<Login />} />
+    <Route path="/Enter-Email" element={<EnterEmail />} />
+    <Route path="/Enter-Otp" element={<EnterOtp />} />
+    <Route path="/Enter-new-password" element={<EnterNewPassword />} />
+    
+    
+    
 
     </Routes>
     </BrowserRouter>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Database.css";
 import axios from "axios"; // Import axios
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 function Database() {
   const [images, setImages] = useState([]);
@@ -8,6 +9,7 @@ function Database() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedSpecies, setSelectedSpecies] = useState(null);
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const navigate = useNavigate(); // Initialize navigate
 
   const openModal = (species) => {
     const imageUrl = `http://localhost:8081/uploads/images/${species.uploadimage}`; // Use the correct path for the images
@@ -63,6 +65,11 @@ function Database() {
     setFilteredImages(results);
   }, [searchTerm, images]);
 
+  const handleMappingClick = () => {
+    if (selectedSpecies) {
+      navigate(`/mapping?commonname=${selectedSpecies.commonname}`);
+    }
+  };
   return (
     <div className="Database">
       <div className="search-bar-container">
@@ -137,7 +144,9 @@ function Database() {
                 Habitat: <span>{selectedSpecies?.habitat}</span>
               </h3>
 
-              <button className="modal-mapping">Mapping</button>
+              <button className="modal-mapping" onClick={handleMappingClick}>
+                Mapping
+              </button>
             </div>
           </div>
 

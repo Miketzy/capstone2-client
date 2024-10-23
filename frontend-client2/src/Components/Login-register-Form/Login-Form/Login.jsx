@@ -59,6 +59,18 @@ const Login = () => {
     }
   };
 
+  const GoToForgotPassword = async () => {
+    try {
+      await axios.post("http://localhost:8081/gotoforgot");
+
+      localStorage.removeItem("token");
+
+      navigate("/Enter-Email");
+    } catch (error) {
+      console.error("Error during logout", error);
+    }
+  };
+
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
@@ -84,7 +96,9 @@ const Login = () => {
             required
           />
         </div>
-        <p className="logf">Forgot Password</p>
+        <p className="logf" onClick={GoToForgotPassword}>
+          Forgot Password
+        </p>
         <button type="submit" className="login-button">
           Login
         </button>

@@ -1,20 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { HiLocationMarker } from "react-icons/hi";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useLocation } from "react-router-dom"; // Import useLocation
 import "./Map.css";
 
 function MapSpecies() {
   const [searchTerm, setSearchTerm] = useState("");
   const [speciesData, setSpeciesData] = useState(null);
   const [error, setError] = useState("");
-  const [mapPosition, setMapPosition] = useState([7.1529, 126.4517]); // Davao Oriental center
+  const [mapPosition, setMapPosition] = useState([7.1529, 126.4517]); // Default map position (Davao Oriental)
+  const location = useLocation(); // Access the current location
 
-  const handleSearch = async () => {
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const commonName = params.get("commonname"); // Extract the 'commonname' query param
+    if (commonName) {
+      setSearchTerm(commonName);
+      handleSearch(commonName); // Trigger search automatically
+    }
+  }, [location]);
+
+  const handleSearch = async (term) => {
     try {
       setError("");
       const response = await axios.get(
-        `http://localhost:8081/api/species?name=${searchTerm}`
+        `http://localhost:8081/api/species?name=${term || searchTerm}`
       );
       if (response.data) {
         setSpeciesData(response.data);
@@ -55,7 +66,7 @@ function MapSpecies() {
           }}
         />
         <button
-          onClick={handleSearch}
+          onClick={() => handleSearch()}
           style={{
             padding: "10px",
             borderRadius: "0 5px 5px 0",
@@ -72,25 +83,6 @@ function MapSpecies() {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {speciesData && (
-        <div className="display-conainer">
-          <div className="seachshowname">
-            <img
-              src={`http://localhost:8081/uploads/images/${speciesData.uploadimage}`}
-              alt={speciesData.specificname}
-              style={{ width: "200px", height: "200px" }}
-            />
-            <div className="displayname">
-              <h3>Species: {speciesData.specificname}</h3>
-              <p>Common Name: {speciesData.commonname}</p>
-              <p>Scientific Name: {speciesData.scientificname}</p>
-              <p>Classification: {speciesData.speciescategory}</p>
-              <p>Location: {speciesData.location}</p>
-            </div>
-          </div>
-        </div>
-      )}
-      <br />
       <MapContainer
         center={mapPosition}
         zoom={10}
@@ -99,24 +91,53 @@ function MapSpecies() {
         <TileLayer
           className="mapping"
           url="https://api.maptiler.com/maps/jp-mierune-dark/256/{z}/{x}/{y}.png?key=txroCKKY059zWv1MqNe0"
-          attribution='&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a> contributors'
+          attribution='&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>'
         />
         {speciesData && (
           <Marker position={mapPosition}>
             <Popup>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <HiLocationMarker
-                  style={{ fontSize: "24px", marginRight: "8px" }}
-                />
-                <strong>{speciesData.specificname}</strong>
-                <br />
-                <em>{speciesData.location}</em>
-                <br />
-                <img
-                  src={`http://localhost:8081/uploads/images/${speciesData.uploadimage}`}
-                  alt={speciesData.specificname}
-                  style={{ width: "150px", height: "auto" }}
-                />
+                <div className="modalmappingImage">
+                  <img
+                    src={`http://localhost:8081/uploads/images/${speciesData.uploadimage}`}
+                    alt={speciesData.specificname}
+                    style={{ width: "150px", height: "150px" }}
+                  />
+                </div>
+                <div
+                  className="textmapping"
+                  style={{
+                    marginTop: "-10px",
+                    marginLeft: "10px",
+                    fontSize: "15px",
+                    lineHeight: "2",
+                  }}
+                >
+                  <strong
+                    className="strong-speciesdata"
+                    style={{ fontSize: "15px" }}
+                  >
+                    {speciesData.commonname}
+                  </strong>
+
+                  <br />
+                  <HiLocationMarker
+                    style={{
+                      fontSize: "15px",
+                      marginRight: "9px",
+                      color: "blue",
+                    }}
+                  />
+                  <em style={{ marginLeft: "-10px" }}>
+                    {speciesData.location}
+                  </em>
+                  <br />
+                  <em>{speciesData.specificname}</em>
+                  <br />
+                  <em>{speciesData.scientificname}</em>
+                  <br />
+                  <em>{speciesData.speciescategory}</em>
+                </div>
               </div>
             </Popup>
           </Marker>

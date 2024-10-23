@@ -8,6 +8,12 @@ const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const nodemailer = require("nodemailer");
+const crypto = require('crypto'); // Correct way to import crypto module
+
+const http = require('http');
+const { Server } = require('socket.io');
+
 
 
 const app = express();
@@ -45,10 +51,8 @@ db.connect((err) => {
     const informalPatterns = [
       /[qwertyuiopasdfghjklzxcvbnm]/i, // Common keyboard patterns
       /\d+/g, // Any digits
-      /[!@#$%^&*(),.?":{}|<>]/g, // Special characters
-      // Checks for sequences of 3 or more repeated characters
+      /[!@#$%^&*(),.?":{}|<>]/g,
       /(.)\1{2,}/i, 
-      // Check for common informal phrases or text-speak
       /\b(?:ew|ugh|omg|lol|lmao|brb|gtg|smh|bff|idk|fyi)\b/i,
       // Check for long strings without spaces
       /^([a-zA-Z0-9]{10,})$/ // Matches alphanumeric strings longer than 10
@@ -348,6 +352,14 @@ app.post("/gotologin", (req, res) => {
     res.json({ message: 'Logout successful' });
 });
 
+app.post("/gotoforgot", (req, res) => {
+    // Clear the token cookie
+    res.clearCookie('token', { httpOnly: true, secure: false, sameSite: 'lax' });
+    
+    // Optionally, send a success message
+    res.json({ message: 'Logout successful' });
+});
+
 
 app.post('/api/register', async (req, res) => {
     const { firstname, middlename, lastname, email, password, address, gender } = req.body;
@@ -376,6 +388,100 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
+// In-memory storage for OTPs
+const otpStore = {};
+
+// Function to send email using Nodemailer
+const sendOTPEmail = (email, otp) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'michaeljohnmargate11@gmail.com', // Your Gmail address
+      pass: 'ghcp yguc opnc kgwg', // Your Gmail password or app password
+    },
+  });
+
+  const mailOptions = {
+    from: 'michaeljohnmargate11@gmail.com',
+    to: email,
+    subject: 'Your OTP Code',
+    text: `Your OTP code is: ${otp}`,
+  };
+
+  return transporter.sendMail(mailOptions);
+};
+
+// Generate a 6-digit OTP code
+const generateOTP = () => {
+  return crypto.randomInt(100000, 999999).toString(); // Generates a number between 100000 and 999999
+};
+
+// Endpoint to handle OTP email sending
+app.post('/send-otp', (req, res) => {
+  const { email } = req.body;
+
+  // Generate an OTP and store it in memory
+  const otp = generateOTP();
+  otpStore[email] = otp; // Store OTP for the email
+
+  sendOTPEmail(email, otp)
+    .then(() => {
+      res.status(200).send('OTP sent to your email');
+    })
+    .catch((error) => {
+      console.error('Error sending email:', error); // Log the error
+      res.status(500).send('Error sending email');
+    });
+});
+
+// Endpoint to verify OTP
+app.post('/verify-otp', (req, res) => {
+    const { email, otp } = req.body;
+  
+    // Check if the email exists in the OTP store
+    if (!otpStore[email]) {
+      return res.status(400).json({ success: false, message: 'No OTP found for this email.' });
+    }
+  
+    // Check if the OTP matches
+    if (otpStore[email] === otp) {
+      // OTP verified successfully
+      delete otpStore[email]; // Remove OTP from store after successful verification
+      return res.json({ success: true, message: 'OTP verified successfully!' });
+    } else {
+      // Invalid OTP
+      return res.status(400).json({ success: false, message: 'Invalid OTP. Please try again.' });
+    }
+  });
+
+  app.post('/reset-password', (req, res) => {
+    const { email, password } = req.body;
+  
+    db.query('SELECT * FROM users WHERE email = ?', [email], (err, result) => {
+      if (err) {
+        return res.status(500).send('Server error');
+      }
+  
+      if (result.length > 0) {
+        // User found, proceed to hash and update the password
+        bcrypt.hash(password, 10, (hashErr, hashedPassword) => {
+          if (hashErr) {
+            return res.status(500).send('Error hashing password');
+          }
+  
+          db.query('UPDATE user1 SET password = ? WHERE email = ?', [hashedPassword, email], (updateErr) => {
+            if (updateErr) {
+              return res.status(500).send('Error updating password');
+            }
+  
+            res.json({ success: true, message: 'Password reset successfully!' });
+          });
+        });
+      } else {
+        res.status(404).json({ success: false, message: 'Email not registered' });
+      }
+    });
+  });
 
 
 app.use('/uploads/images', express.static('D:/capstone-dashboard/backend-dashboard1/uploads/images'));

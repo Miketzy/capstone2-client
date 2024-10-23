@@ -57,3 +57,8 @@
 .mapping{
     margin-top: -5vh;
 }
+
+.leaflet-popup{
+  width: 65vh;
+  margin-left: 1px;
+}
