@@ -1,176 +1,132 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Button from "@mui/material/Button";
-import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import Avatar from "@mui/material/Avatar";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Logout from "@mui/icons-material/Logout";
-import "./navbar.css";
-import SearchBox from "../searchbar/Searchbox";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import axios from "axios"; // Import axios
+import "./Quizzes.css";
 
-function Navbar() {
-  const [user, setUser] = useState({
-    firstname: "",
-    middlename: "",
-    lastname: "",
-    email: "",
-    image: "/images/unknown-person-icon-Image-from_20220304.png",
-  });
+const questions = [
+  {
+    question: "What is the largest bird of prey found in Davao Oriental?",
+    options: [
+      "A. Philippine Eagle",
+      "B. Brahminy Kite",
+      "C. Peregrine Falcon",
+      "D. Hawksbill Turtle",
+    ],
+    answer: "A. Philippine Eagle",
+  },
+  // ... other questions ...
+  {
+    question: "Which endangered species is a large wild pig endemic to the Philippines?",
+    options: [
+      "A. Philippine Warty Pig",
+      "B. Tamaraw",
+      "C. Mindanao Wild Boar",
+      "D. Dugong",
+    ],
+    answer: "A. Philippine Warty Pig",
+  },
+];
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const navigate = useNavigate();
+const Quizzes = () => {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showScore, setShowScore] = useState(false);
+  const [userAnswers, setUserAnswers] = useState(
+    Array(questions.length).fill(null)
+  );
 
-  const handleImageClick = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
+  const handleAnswerClick = (option) => {
+    const updatedAnswers = [...userAnswers];
+    updatedAnswers[currentQuestion] = option;
+    setUserAnswers(updatedAnswers);
 
-  const fetchUserData = () => {
-    axios
-      .get("http://localhost:8080/", { withCredentials: true })
-      .then((response) => {
-        if (response.data.message === "Profile retrieved successfully") {
-          setUser({
-            firstname: response.data.user.firstname || "",
-            middlename: response.data.user.middlename || "",
-            lastname: response.data.user.lastname || "",
-            email: response.data.user.email || "",
-            image: response.data.user.image
-              ? `http://localhost:8080/uploads/avatar/${response.data.user.image}`
-              : "/images/unknown-person-icon-Image-from_20220304.png",
-          });
-        } else {
-          alert("Failed to fetch user data");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-        alert("An error occurred while fetching user data. Please try again.");
-      });
-  };
+    if (option === questions[currentQuestion].answer) {
+      setScore(score + 1);
+    }
 
-  useEffect(() => {
-    fetchUserData(); // Fetch user data on component mount
-  }, []);
-
-  const handleLogout = () => {
-    const confirmLogout = window.confirm("Are you sure you want to log out?");
-    if (confirmLogout) {
-      axios
-        .get("http://localhost:8080/logout", { withCredentials: true })
-        .then((res) => {
-          if (res.data.Message === "Success") {
-            setUser({
-              firstname: "",
-              middlename: "",
-              lastname: "",
-              email: "",
-              image: "/images/unknown-person-icon-Image-from_20220304.png",
-            });
-            navigate("/"); // Redirect to home or login page
-          } else {
-            alert("Logout failed: " + (res.data.Message || "Unknown error"));
-          }
-        })
-        .catch((err) => {
-          console.error("Logout error:", err);
-          alert("An error occurred during logout. Please try again.");
-        });
+    const nextQuestion = currentQuestion + 1;
+    if (nextQuestion < questions.length) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setShowScore(true);
+      saveScore(); // Call saveScore function when the quiz is complete
     }
   };
 
-  const handleProfile = () => {
-    navigate("/my-profile"); // Navigate to user profile
+  const saveScore = async () => {
+    try {
+      const token = localStorage.getItem("token"); // Assuming you're storing the token in localStorage
+      const response = await axios.post(
+        "http://localhost:8081/api/save-score",
+        { score },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          },
+        }
+      );
+      console.log(response.data.message); // Log success message
+    } catch (error) {
+      console.error("Error saving score:", error);
+    }
+  };
+
+  const handleBack = () => {
+    const prevQuestion = currentQuestion - 1;
+    if (prevQuestion >= 0) {
+      setCurrentQuestion(prevQuestion);
+    }
+  };
+
+  const handleRestart = () => {
+    setCurrentQuestion(0);
+    setScore(0);
+    setShowScore(false);
+    setUserAnswers(Array(questions.length).fill(null)); // Reset answers
   };
 
   return (
-    <header className=" header d-flex align-items-center">
-      <div className="container-fluid w-100">
-        <div className="row d-flex align-items-center">
-          <div className="col d-flex align-items-center">
-            <Button className="rounded-circle" id="rounded-circle">
-              <MenuOpenIcon />
-            </Button>
-
-            <div className="search1" id="search1">
-              <SearchBox />{" "}
+    <div className="wrapper">
+      <div className="quiz-container">
+        <h2>Davao Oriental Species Quiz</h2>
+        {showScore ? (
+          <div className="score-section">
+            <p>
+              Your Score: {score} out of {questions.length}
+            </p>
+            <button className="restart-quiz" onClick={handleRestart}>
+              Restart Quiz
+            </button>
+          </div>
+        ) : (
+          <div className="question-card">
+            <h3>{questions[currentQuestion].question}</h3>
+            <div className="options">
+              {questions[currentQuestion].options.map((option, index) => (
+                <button
+                  key={index}
+                  className="option-button"
+                  onClick={() => handleAnswerClick(option)}
+                >
+                  {option}
+                </button>
+              ))}
             </div>
-
-            <div className="ms-auto d-flex align-items-center">
-              <div className="myAcc ms-3">
-                <div className="userImage">
-                  <span className="rounded-circle user-icon">
-                    <img
-                      src={user.image}
-                      alt="User"
-                      className="user-image"
-                      onClick={handleImageClick}
-                      style={{ cursor: "pointer" }}
-                    />
-                    <Menu
-                      anchorEl={anchorEl}
-                      id="account-menu"
-                      open={Boolean(anchorEl)}
-                      onClose={handleClose}
-                      PaperProps={{
-                        elevation: 0,
-                        sx: {
-                          overflow: "visible",
-                          filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                          mt: 1.5,
-                          "& .MuiAvatar-root": {
-                            width: 31,
-                            height: 31,
-                            ml: -0.5,
-                            mr: 1,
-                          },
-                          "&::before": {
-                            content: '""',
-                            display: "block",
-                            position: "absolute",
-                            top: 0,
-                            right: 14,
-                            width: 10,
-                            height: 10,
-                            bgcolor: "background.paper",
-                            transform: "translateY(-50%) rotate(45deg)",
-                            zIndex: 0,
-                          },
-                        },
-                      }}
-                      transformOrigin={{ horizontal: "right", vertical: "top" }}
-                      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-                    >
-                      <div className="menu" onClick={handleClose}>
-                        <div className="avatarAcc">
-                          <img src={user.image} alt="" className="avatar" />
-                        </div>
-                        <div>
-                          <h6 className="fname">{`${user.firstname} ${user.middlename} ${user.lastname}`}</h6>
-                          <p className="email">{user.email}</p>
-                        </div>
-                      </div>
-                      <hr />
-                      <MenuItem onClick={handleProfile}>
-                        <Avatar /> Profile
-                      </MenuItem>
-                      <MenuItem onClick={handleLogout}>
-                        <ListItemIcon>
-                          <Logout fontSize="small" />
-                        </ListItemIcon>
-                        Logout
-                      </MenuItem>
-                    </Menu>
-                  </span>
-                </div>
-              </div>
+            <p className="progress">
+              Question {currentQuestion + 1} of {questions.length}
+            </p>
+            <div className="navigation-buttons">
+              {currentQuestion > 0 && (
+                <button className="back-button" onClick={handleBack}>
+                  Back
+                </button>
+              )}
             </div>
           </div>
-        </div>
+        )}
       </div>
-    </header>
+      <br />
+    </div>
   );
-}
+};
 
-export default Navbar;
+export default Quizzes;

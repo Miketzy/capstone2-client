@@ -1,0 +1,50 @@
+/* QuizzesIntro.css */
+
+.quiz-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 30px;
+    background-color: #e3f2fd; /* Light blue background */
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 20vh;
+}
+
+.quiz-intro h2 {
+    font-size: 2rem;
+    color: #1565c0; /* Calming blue for header */
+    margin-bottom: 10px;
+}
+
+.quiz-intro p {
+    font-size: 1.1rem;
+    color: #555; /* Dark gray for easy readability */
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.quiz-intro button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #006D77; /* Soft blue */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.quiz-intro button:hover {
+    background-color: #1e88e5; /* Darker blue on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.quiz-intro button:active {
+    background-color: #1565c0;
+    transform: translateY(0);
+}

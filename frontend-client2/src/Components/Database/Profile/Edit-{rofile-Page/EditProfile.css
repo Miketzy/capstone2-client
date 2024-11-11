@@ -126,14 +126,13 @@ padding: 20px;
   border-radius: 30px;
   border: none;
   cursor: pointer;
-  background: #007bff;
+  background: #006D77;
   color:#fff;
   font-weight: bold;
 }
 
 .save-changes-button button:hover{
-  background: #0056b3; 
-  color: #fff;
+  background-color: #004D56;
 }
 
 .cancel-changesButton button{
@@ -144,12 +143,13 @@ padding: 20px;
   border-radius: 30px;
   border: none;
   cursor: pointer;
-  background: gray;
+  background: #006D77;
   color:#fff;
   font-weight: bold;
 }
 
 .cancel-changesButton button:hover{
-  background: rgba(0, 0, 0, 0.5); 
-  color: #fff;
+  background-color: #004D56;
 }
+
+

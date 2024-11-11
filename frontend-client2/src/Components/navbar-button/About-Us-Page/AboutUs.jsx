@@ -8,55 +8,51 @@ function AboutUs() {
         <div className="aboutUS">
           <h1>About Us</h1>
           <p>
-            {" "}
-            Welcome to [Your Organization/Project Name], a dedicated
-            organization focused on the conservation and study of the rich
-            biodiversity in Davao Oriental. Our passion is driven by the need to
-            protect and preserve the unique flora and fauna found in this
-            beautiful region, ensuring that future generations can enjoy the
-            natural wonders we have today.
+            We are a passionate team of biologists, developers, and
+            environmentalists united by a vision to make biodiversity
+            information accessible to everyone. Working alongside the Research
           </p>
         </div>
 
         <div className="out-history">
           <h2>Our Beginnings</h2>
           <p>
-            Founded in [year], [Your Organization/Project Name] started as a
-            small initiative by local conservationists and researchers who
-            recognized the urgent need to protect endangered species in Davao
-            Oriental. From our humble beginnings, we have grown into a thriving
-            organization with a strong commitment to environmental preservation.
-            Over the years, we have built partnerships with local communities,
-            environmental agencies, and academic institutions to bolster our
-            conservation efforts.
+            Our journey began as a small initiative, formed by a team of
+            dedicated researchers and developers who saw the need to make
+            biodiversity information accessible to everyone. Working closely
+            with the RIC, we collected and validated data on local species, with
+            the vision of creating a comprehensive and interactive platform.
+            Over time, this project evolved from a simple concept into a fully
+            developed system that not only serves as a valuable resource but
+            also engages users in learning about and protecting our environment.
           </p>
         </div>
 
         <div className="mission-vission">
           <h2>Mission and Vision</h2>
           <p>
-            Our mission is to maintain and enhance the biodiversity of Davao
-            Oriental through education, research, and community projects. We aim
-            to be a leading advocate for natural resources and to ensure the
-            survival of endangered species in the region.
+            Mission: To empower communities and individuals with accessible,
+            reliable information on biodiversity, fostering awareness,
+            education, and conservation through an interactive and user-friendly
+            platform.
           </p>
-        </div>
 
-        <div className="davao-oreintal">
-          <h2>Species in Davao Oriental</h2>
           <p>
-            Davao Oriental is home to many unique species, including [list some
-            species, e.g., Philippine Eagle, Davao Crocodile, etc.]. These
-            species are crucial to the ecology and culture of the region, and we
-            strive to promote their protection.
+            Vision: To be a leading resource in biodiversity information,
+            connecting people with the natural world to inspire lasting
+            environmental stewardship and sustainability.
           </p>
         </div>
 
         <div className="davao-oreintal">
           <h2>What We Do</h2>
           <p>
-            At [Your Organization/Project Name], we are committed to hands-on
-            conservation efforts through several key initiatives:
+            Our mission is to foster awareness and understanding of biodiversity
+            from ridge to reef. Through our interactive platform, we provide
+            insights into local species, their ecosystems, and conservation
+            efforts. We empower users with tools for species identification,
+            environmental quizzes, and dynamic learning resources to enhance
+            their knowledge of and appreciation for natural ecosystems.
           </p>
         </div>
 
@@ -64,8 +60,7 @@ function AboutUs() {
           <h2>Contact Us</h2>
           <p>
             If you want to learn more about our projects or participate in our
-            initiatives, please contact us at [insert contact information, e.g.,
-            email or phone number].
+            initiatives, please contact us at michaelmargate2@gmail.com.
           </p>
         </div>
       </div>

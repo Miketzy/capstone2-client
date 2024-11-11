@@ -12,7 +12,7 @@ function Database() {
   const navigate = useNavigate(); // Initialize navigate
 
   const openModal = (species) => {
-    const imageUrl = `http://localhost:8081/uploads/images/${species.uploadimage}`; // Use the correct path for the images
+    const imageUrl = `http://localhost:8080/uploads/images/${species.uploadimage}`; // Use the correct path for the images
     setSelectedImage(imageUrl);
     setSelectedSpecies(species);
   };
@@ -49,19 +49,23 @@ function Database() {
   }, [selectedImage]);
 
   // Filter images based on the search term
+  // Filter images based on the search term and sort alphabetically
   useEffect(() => {
-    const results = images.filter((species) =>
-      [
-        species.specificname,
-        species.scientificname,
-        species.commonname,
-        species.speciescategory,
-        species.conservationstatus,
-      ].some(
-        (field) =>
-          field && field.toLowerCase().includes(searchTerm.toLowerCase())
+    const results = images
+      .filter((species) =>
+        [
+          species.specificname,
+          species.scientificname,
+          species.commonname,
+          species.speciescategory,
+          species.conservationstatus,
+        ].some(
+          (field) =>
+            field && field.toLowerCase().includes(searchTerm.toLowerCase())
+        )
       )
-    );
+      .sort((a, b) => a.commonname.localeCompare(b.commonname)); // Sort alphabetically by common name
+
     setFilteredImages(results);
   }, [searchTerm, images]);
 
@@ -88,7 +92,7 @@ function Database() {
       <div className="gallery">
         {filteredImages.length > 0 ? (
           filteredImages.map((species) => {
-            const imageUrl = `http://localhost:8081/uploads/images/${species.uploadimage}`; // Correct URL
+            const imageUrl = `http://localhost:8080/uploads/images/${species.uploadimage}`; // Correct URL
             console.log(`Image URL: ${imageUrl}`); // Log the constructed URL
             return (
               // Return the gallery item

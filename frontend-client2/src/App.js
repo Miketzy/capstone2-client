@@ -16,6 +16,8 @@ import Login from './Components/Login-register-Form/Login-Form/Login';
 import EnterEmail from './Create-New-Password/Enter-New-Email/EnterEmail';
 import EnterOtp from './Create-New-Password/Enter-Otp/EnterOtp';
 import EnterNewPassword from './Create-New-Password/Enter-New-Password/EnterNewPassword';
+import QuizzesIntroDashboard from './Home/Quizzes-Dashboard/Quizzes-Intro-Dashboard/QuizzesIntroDashboard';
+import QuizzesDashboard from './Home/Quizzes-Dashboard/Quizzes-Folder-Dashboard/QuizzesDashboard';
 
 function App() {
   return (
@@ -35,6 +37,9 @@ function App() {
     <Route path="/Enter-Email" element={<EnterEmail />} />
     <Route path="/Enter-Otp" element={<EnterOtp />} />
     <Route path="/Enter-new-password" element={<EnterNewPassword />} />
+
+    <Route path="/quizzes-intro" element={<QuizzesIntroDashboard />} />
+    <Route path="/quizzes" element={<QuizzesDashboard />} />
     
     
     

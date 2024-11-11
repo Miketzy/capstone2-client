@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(cors({
-    origin: "http://localhost:3000", // Change this to your frontend URL
+    origin: "http://localhost:3001", // Change this to your frontend URL
     credentials: true,
 }));
 
@@ -484,7 +484,8 @@ app.post('/verify-otp', (req, res) => {
   });
 
 
-app.use('/uploads/images', express.static('D:/capstone-dashboard/backend-dashboard1/uploads/images'));
+// Serve static images
+app.use('/uploads/images', express.static(path.join(__dirname, 'uploads/images')));
 
 
 //API endpoint to fetch images and species details
@@ -499,49 +500,109 @@ app.get('/api/images', (req, res) => {
     });
 });
 
+// Define the route for getting species information
 app.get('/api/species', (req, res) => {
-    const { name } = req.query;
-    if (!name) {
-        return res.status(400).json({ error: 'Name query parameter is required' });
+  const { name } = req.query;
+  if (!name) {
+      return res.status(400).json({ error: 'Name query parameter is required' });
+  }
+
+  // Search across specificname, commonname, scientificname, and speciescategory (classification)
+  const query = `
+      SELECT specificname, commonname, scientificname, location, speciescategory, uploadimage 
+      FROM species 
+      WHERE specificname = ? OR commonname = ? OR scientificname = ? OR speciescategory = ?`;
+
+  db.query(query, [name, name, name, name], (error, results) => {
+      if (error) {
+          console.error('Database query error:', error); // Log the error
+          return res.status(500).json({ error: 'Database error' });
+      }
+
+      if (results.length > 0) {
+          const species = results[0];
+
+          // Check if location is defined
+          if (!species.location) {
+              return res.status(404).json({ error: 'Location not found for the species' });
+          }
+
+          // Geocode the species' location
+          const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(species.location)}`;
+
+          axios.get(geocodeUrl, {
+              timeout: 5000,
+              headers: {
+                  'User-Agent': 'YourAppName/1.0 (your.email@example.com)' // Replace with your app name and contact info
+              }
+          })
+          .then(response => {
+              if (response.data.length > 0) {
+                  const { lat, lon } = response.data[0];
+                  const speciesData = {
+                      ...species,
+                      latitude: parseFloat(lat),
+                      longitude: parseFloat(lon)
+                  };
+                  res.json(speciesData);
+              } else {
+                  res.status(404).json({ error: 'Location not found' });
+              }
+          })
+          .catch(err => {
+              console.error('Geocoding error:', err); // Log the error
+              res.status(500).json({ error: 'Geocoding error' });
+          });
+      } else {
+          res.json(null);  // No results found
+      }
+  });
+});
+
+
+// Route to save quiz scores
+app.post("/api/save-score", verifyUser, async (req, res) => {
+  const { score } = req.body;
+  const { firstname, lastname } = req.user; // Assuming req.user is set by verifyUser middleware
+
+  // Validate that the score is present and is a number
+  if (score === undefined || typeof score !== 'number' || score < 0 || score > 100) {
+      return res.status(400).json({ message: "Valid score (0-100) is required." });
+  }
+
+  try {
+      // SQL query to insert score into the quizzes table
+      const query = "INSERT INTO quizzes (score, firstname, lastname) VALUES (?, ?, ?)";
+      db.query(query, [score, firstname, lastname], (error, results) => {
+          if (error) {
+              console.error("Error saving score:", error);
+              return res.status(500).json({ message: "Error saving score", error: error.message });
+          }
+          // Send success response
+          res.status(200).json({ message: "Score saved successfully" });
+      });
+  } catch (error) {
+      console.error("Error saving score:", error);
+      res.status(500).json({ message: "Error saving score", error: error.message });
+  }
+});
+
+app.get('/api/random-questions', (req, res) => {
+  const numberOfQuestions = 25; // Baguhin ang bilang ng tanong dito
+  const query = `
+    SELECT question, optionA, optionB, optionC, optionD, correctAnswer 
+    FROM questions 
+    ORDER BY RAND() 
+    LIMIT ${numberOfQuestions}
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Error fetching questions');
     }
-
-    // Search across specificname, commonname, scientificname, and speciescategory (classification)
-    const query = `SELECT specificname, commonname, scientificname, location, speciescategory, uploadimage 
-                   FROM species 
-                   WHERE specificname = ? OR commonname = ? OR scientificname = ? OR speciescategory = ?`;
-
-    db.query(query, [name, name, name, name], (error, results) => {
-        if (error) {
-            return res.status(500).json({ error: 'Database error' });
-        }
-
-        if (results.length > 0) {
-            const species = results[0];
-
-            // Geocode the species' location
-            const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(species.location)}`;
-
-            axios.get(geocodeUrl, { timeout: 5000 })
-                .then(response => {
-                    if (response.data.length > 0) {
-                        const { lat, lon } = response.data[0];
-                        const speciesData = {
-                            ...species,
-                            latitude: parseFloat(lat),
-                            longitude: parseFloat(lon)
-                        };
-                        res.json(speciesData);
-                    } else {
-                        res.status(404).json({ error: 'Location not found' });
-                    }
-                })
-                .catch(err => {
-                    res.status(500).json({ error: 'Geocoding error' });
-                });
-        } else {
-            res.json(null);  // No results found
-        }
-    });
+    res.json(results);
+  });
 });
 
 // Start the server on port 8081

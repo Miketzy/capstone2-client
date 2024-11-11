@@ -1,5 +1,5 @@
 .navbar{
-    background: black;
+    background: #006D77;
     height: 65px;
     display: flex;
     z-index: 2000;
@@ -26,7 +26,7 @@ li{
     font-size: 17px;
     width: 18vh;
     text-decoration: none;
-    color: white;
+    color: #FAF9F5;
     border-radius: 10px;
     margin-top: 20px;
     cursor: pointer;
@@ -97,7 +97,7 @@ li{
     content: "";
     height: 2px;
     width: 100%;
-    background: rgb(0, 183, 255);
+    background: #F4A261;
     display: block;
     margin-top: 5px;
     opacity: 0;
@@ -116,12 +116,12 @@ li{
 
 .code ul li:hover,
 .code ul li:focus {
-    color: rgb(0, 183, 255); 
+    color: #F4A261; 
 }
 
 
 .code ul li.active {
-    color: rgb(0, 183, 255);
+    color: #F4A261;
 }
 
 

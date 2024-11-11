@@ -99,7 +99,7 @@ function MapSpecies() {
               <div style={{ display: "flex", alignItems: "center" }}>
                 <div className="modalmappingImage">
                   <img
-                    src={`http://localhost:8081/uploads/images/${speciesData.uploadimage}`}
+                    src={`http://localhost:8080/uploads/images/${speciesData.uploadimage}`}
                     alt={speciesData.specificname}
                     style={{ width: "150px", height: "150px" }}
                   />

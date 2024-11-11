@@ -1,0 +1,107 @@
+/* Quizzes.css */
+.wrapperquiz {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #F4A261;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.quiz-container {
+  width: 100%;
+  max-width: 600px;
+  background-color: #D3E4CD;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+  border: 2px solid #D3E4CD; /* Light green border */
+}
+
+.question-section {
+  text-align: center;
+}
+
+.question-count {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #006D77; /* Dark teal */
+}
+
+.question-text {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: black; /* Dark teal */
+}
+
+/* Answer buttons */
+.answer-section button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  background-color: #006D77; /* Dark teal */
+  color: #FAF9F6; /* Light beige */
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.answer-section button:hover {
+  background-color: #004D56; /* Darker shade of orange */
+}
+
+/* General buttons (like Restart, Back) */
+.quizB {
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #F4A261; /* Dark teal */
+  color: #FAF9F6; /* Light beige */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.quizB:hover {
+  background-color: #E76F51; /* Darker shade of teal */
+}
+
+/* Disabled button */
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Add margin between buttons */
+button + button {
+  margin-left: 10px;
+}
+
+.score-section {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #006D77; /* Dark teal */
+}
+
+@media (max-width: 768px) {
+  .quiz-container {
+    width: 90%;
+  }
+
+  .question-text {
+    font-size: 20px;
+  }
+
+  .answer-section button {
+    font-size: 14px;
+  }
+}

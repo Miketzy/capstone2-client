@@ -38,7 +38,7 @@
   }
   
   .cardbox:hover {
-    background-color: lightgreen;
+    background-color: #006D77;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
     transform: scale(1.1);
   }
@@ -60,7 +60,7 @@
     height: 90%;
     margin-top: 3px;
     margin-left: 1%;
-    background: #222;
+    background: rgb(230, 153, 38);
     border-radius: 30px;
     z-index: 1; /* Ensure this layer stays above ::before but below content */
   }

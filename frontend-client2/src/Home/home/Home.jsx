@@ -9,8 +9,8 @@ function Home() {
         <Navbar />
       </div>
 
-      <div className="hometitle">
-        <h1 className="hometitle1">WELCOME TO BIOEXPLORER</h1>
+      <div className="hometitlehome">
+        <h1 className="hometitlewelocome">WELCOME TO BIOEXPLORER</h1>
       </div>
 
       <div className="cards">

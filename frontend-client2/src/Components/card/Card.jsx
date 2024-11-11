@@ -18,9 +18,11 @@ function Card() {
           </div>
         </Link>
 
-        <div className="cardbox">
-          <h1>QUIZZES</h1>
-        </div>
+        <Link to="/quizzes-intro" className="card-link">
+          <div className="cardbox">
+            <h1>QUIZZES</h1>
+          </div>
+        </Link>
       </div>
     </div>
   );

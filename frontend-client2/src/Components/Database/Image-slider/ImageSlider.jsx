@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./ImageSlider.css";
 
 const images = [
-  "/picture/image1.jpg",
-  "/picture/image2.jpg",
-  "/picture/image3.jpg",
+  "/picture/R.jpg",
+  "/picture/OIP.jpg",
+  "/picture/article-cover-photo-mount-hamiguitan.jpg",
   // Add more image URLs as needed
 ];
 
