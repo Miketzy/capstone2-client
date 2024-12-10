@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios"; // Make sure to import axios
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./Login.css"; // Import the CSS file
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -20,11 +19,9 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:8081/login",
-        values,
-        { withCredentials: true } // Ensure credentials are included in the request
-      );
+      const response = await axios.post("http://localhost:8081/login", values, {
+        withCredentials: true,
+      });
 
       if (response.data) {
         alert("Login successful!");
@@ -50,9 +47,7 @@ const Login = () => {
   const GoToRegister = async () => {
     try {
       await axios.post("http://localhost:8081/gotoregister");
-
       localStorage.removeItem("token");
-
       navigate("/registration");
     } catch (error) {
       console.error("Error during logout", error);
@@ -62,9 +57,7 @@ const Login = () => {
   const GoToForgotPassword = async () => {
     try {
       await axios.post("http://localhost:8081/gotoforgot");
-
       localStorage.removeItem("token");
-
       navigate("/Enter-Email");
     } catch (error) {
       console.error("Error during logout", error);
@@ -72,43 +65,76 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        {error && <p className="error">{error}</p>} {/* Show error message */}
-        <div className="input-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            onChange={(e) => setValues({ ...values, email: e.target.value })}
-            required
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            onChange={(e) => setValues({ ...values, password: e.target.value })}
-            required
-          />
-        </div>
-        <p className="logf" onClick={GoToForgotPassword}>
-          Forgot Password
-        </p>
-        <button type="submit" className="login-button">
-          Login
-        </button>
-        <p className="dontAccount">
-          Don't have an account?{" "}
-          <span className="donReg" onClick={GoToRegister}>
-            Register
-          </span>
-        </p>
-      </form>
+    <div
+      className="min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/picture/durso.jpg')" }}
+    >
+      <div className="flex justify-center items-center min-h-screen">
+        <form
+          className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3" // Adjusted width classes here
+          onSubmit={handleSubmit}
+        >
+          <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
+            Login
+          </h2>
+
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-gray-700 mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your email"
+              onChange={(e) => setValues({ ...values, email: e.target.value })}
+              required
+            />
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="password" className="block text-gray-700 mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your password"
+              onChange={(e) =>
+                setValues({ ...values, password: e.target.value })
+              }
+              required
+            />
+          </div>
+
+          <p
+            className="text-blue-500 text-sm text-center cursor-pointer mb-4"
+            onClick={GoToForgotPassword}
+          >
+            Forgot Password
+          </p>
+
+          <button
+            type="submit"
+            className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
+          >
+            Login
+          </button>
+
+          <p className="text-center text-sm mt-4">
+            Don't have an account?{" "}
+            <span
+              className="text-blue-500 cursor-pointer"
+              onClick={GoToRegister}
+            >
+              Register
+            </span>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };

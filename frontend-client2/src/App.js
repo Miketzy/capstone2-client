@@ -18,6 +18,7 @@ import EnterOtp from './Create-New-Password/Enter-Otp/EnterOtp';
 import EnterNewPassword from './Create-New-Password/Enter-New-Password/EnterNewPassword';
 import QuizzesIntroDashboard from './Home/Quizzes-Dashboard/Quizzes-Intro-Dashboard/QuizzesIntroDashboard';
 import QuizzesDashboard from './Home/Quizzes-Dashboard/Quizzes-Folder-Dashboard/QuizzesDashboard';
+import GrapClient from './Home/AnalyticsHome/GrapClient';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
     <Route path="/Enter-Otp" element={<EnterOtp />} />
     <Route path="/Enter-new-password" element={<EnterNewPassword />} />
 
+    <Route path="/analytics" element={<GrapClient />} />
     <Route path="/quizzes-intro" element={<QuizzesIntroDashboard />} />
     <Route path="/quizzes" element={<QuizzesDashboard />} />
     

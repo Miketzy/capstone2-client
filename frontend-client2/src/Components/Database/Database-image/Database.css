@@ -1,39 +1,3 @@
-
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 images per row */
-    gap: 10px;
-    padding: 20px;
- 
-}
-
-.gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    transition: .3s ease-in-out;
-    margin: 10px;
-    background-color: white;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.23); /* Deeper 5D shadow */
-    cursor: pointer;
-    width: 40vh;
-}
-
-.gallery-item:hover{
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
-    transform: scale(1.1);
-}
-.gallery-image {
-    width: 100%; /* Adjust this value to fit the image within the container */
-    height: 220px; /* Reduce the height */
-    transition: transform 0.3s ease-in-out;
-    cursor: pointer;
-    border-radius: 10px;
-    background-size: contain;
-}
-
-
-
 .modal {
     position: fixed;
     top: 0;
@@ -49,35 +13,32 @@
     font-family: sans-serif;
 }
 
-  
 .page1-container {
     display: flex;
-    background-color: #fff; /* White background */
+    background-color: #fff;
     margin-left: 20px;
     margin-top: 2vh;
     border-radius: 20px;
     width: 205vh;
+    height: auto;
     margin-right: 20px;
-    
+    padding: 10px;
     box-shadow: 
-        10px 10px 30px rgba(0, 0, 0, 0.2),  /* Deep shadow */
-        -10px -10px 30px rgba(255, 255, 255, 0.5), /* Light shadow on opposite side */
-        inset 5px 5px 15px rgba(0, 0, 0, 0.15), /* Inner dark shadow */
-        inset -5px -5px 15px rgba(255, 255, 255, 0.9); /* Inner light highlight */
+        10px 10px 30px rgba(0, 0, 0, 0.2),  
+        -10px -10px 30px rgba(255, 255, 255, 0.5), 
+        inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
+        inset -5px -5px 15px rgba(255, 255, 255, 0.9);
 }
 
 .page1-container .modal-image {
-    width: 20vh; /* Same size as gallery images */
-    height: 20vh; /* Same size as gallery images */
+    width: 40vh;
+    height: 40vh;
     margin-left: 10vh;
     margin-bottom: 30vh;
     margin: 10px;
     border-radius: 20px;
-    object-fit: cover; /* Ensure image is contained correctly */
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
 }
-
-
 
 .close-icon {
     position: absolute;
@@ -90,20 +51,18 @@
     padding: 10px;
     border-radius: 50%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), ; /* Outer and inner shadow */
+    
 }
 
 .close-icon:hover {
-    transform: translateY(-3px); /* Lift effect */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4),; /* More pronounced shadow on hover */
+    transform: translateY(-3px);
+    
 }
 
 .close-icon:active {
-    transform: translateY(1px); /* Press effect */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), ; /* Reduced shadow on active */
+    transform: translateY(1px);
+    
 }
-
-
 
 .title-text {
     line-height: 15px;
@@ -111,11 +70,22 @@
     margin-top: 15px;
 }
 
-.title-text span{
+.title-text h3 {
+    font-weight: bold;
+}
+
+.title-text span {
     font-weight: 500;
 }
-.page2-container{
-    background-color: #fff; 
+
+h3 span {
+    line-height: 2.4;
+    text-align: justify;
+    font-size: 16px;
+}
+
+.page2-container, .page3-container, .page4-container, .page5-container {
+    background-color: #fff;
     margin-left: 20px;
     margin-top: 2vh;
     border-radius: 20px;
@@ -128,121 +98,39 @@
         inset -5px -5px 15px rgba(255, 255, 255, 0.9);
 }
 
-.page2-container .description-page{
-    margin: 20px;
-    padding: 1px;
-    
-}
-
-.description-page p {
-    margin-top: -20px;
+.description-page p, .threats-page p, .population-page p, .conservation-page p {
+    margin-top: -30vh;
     text-align: justify;
     line-height: 1.5;
     text-indent: 50px;
     font-size: 16px;
     white-space: pre-line;
-}
-
-.description-page h1{
-    margin-top: 15px;
-}
-
-
-
-.page3-container{
-    background-color: #fff; 
-    margin-left: 20px;
-    margin-top: 2vh;
-    border-radius: 20px;
-    width: 205vh;
-    margin-right: 20px;
-    box-shadow: 
-        10px 10px 30px rgba(0, 0, 0, 0.2),  
-        -10px -10px 30px rgba(255, 255, 255, 0.5), 
-        inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
-        inset -5px -5px 15px rgba(255, 255, 255, 0.9);
-}
-
-.page3-container .threats-page{
-    margin: 20px;
-    padding: 1px;
-}
-
-.threats-page h1{
-    margin-top: 15px;
+    margin: 20px ;
 }
 
 .threats-page p{
-    margin-top: -20px;
-    text-align: justify;
-    line-height: 1.5;
-    text-indent: 50px;
-    font-size: 16px;
+    margin-top: -1vh;
 }
 
-.page4-container{
-    background-color: #fff; 
-    margin-left: 20px;
-    margin-top: 2vh;
-    border-radius: 20px;
-    width: 205vh;
-    margin-right: 20px;
-    box-shadow: 
-        10px 10px 30px rgba(0, 0, 0, 0.2),  
-        -10px -10px 30px rgba(255, 255, 255, 0.5), 
-        inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
-        inset -5px -5px 15px rgba(255, 255, 255, 0.9);
-}
-
-.page4-container .population-page{
-    margin: 20px;
-    padding: 1px;
-}
-
-.population-page h1{
-    margin-top: 15px;
+.description-page p{
+    margin-top: -1vh;
 }
 
 .population-page p{
-    margin-top: -20px;
-    text-align: justify;
-    line-height: 1.5;
-    text-indent: 50px;
-    font-size: 16px;
+    margin-top: -1vh;
 }
 
-.page5-container{
-    background-color: #fff; 
-    margin-left: 20px;
-    margin-top: 2vh;
-    border-radius: 20px;
-    width: 205vh;
-    margin-right: 20px;
-    box-shadow: 
-        10px 10px 30px rgba(0, 0, 0, 0.2),  
-        -10px -10px 30px rgba(255, 255, 255, 0.5), 
-        inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
-        inset -5px -5px 15px rgba(255, 255, 255, 0.9);
+.conservation-page p{
+    margin-top: -1vh;
+
 }
-.page5-container .conservation-page{
-    margin: 20px;
-    padding: 1px;
+.description-page h1, .threats-page h1, .population-page h1, .conservation-page h1 {
+    font-weight: bold;
+    font-size: 21px;
+    padding: 10px 25px;
 }
 
-.conservation-page h1{
-    margin-top: 15px;
-}
-
-.conservation-page p {
-    margin-top: -20px;
-    text-align: justify;
-    line-height: 1.5;
-    text-indent: 50px;
-    font-size: 16px;
-    white-space: pre-line;
-}
-
-.modal-mapping{
+.modal-mapping {
     width: 20vh;
     height: 5vh;
     font-size: 16px;
@@ -254,11 +142,11 @@
     border-radius: 10px;
 }
 
-.modal-mapping:hover{
+.modal-mapping:hover {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-.title-commonname{
+.title-commonname {
     margin-top: 5px;
     text-align: center;
 }
@@ -266,30 +154,67 @@
 .search-bar-container {
     margin: 20px auto;
     text-align: center;
-  }
-  
-  .search-input {
+}
+
+.search-input {
     padding: 10px;
     border-radius: 5px;
-    border: 2px solid #006D77; /* Change border color */
-    background-color: #f0f4f8; /* Change background color */
-    color: #333; /* Change text color */
-    width: 100%;
-    max-width: 700px;
-    margin-left: 415px;
-    display: block;
+    border: 2px solid #006D77;
+    background-color: #f0f4f8;
+    color: #333;
+    width: 80%; /* Adjust width for centering */
+    margin-left: auto;  /* Center the input */
+    margin-right: auto; /* Center the input */
+    display: block; /* Ensure it's treated as a block-level element */
     box-sizing: border-box;
-    transition: border-color 0.3s ease; /* Smooth transition for border color */
+    transition: border-color 0.3s ease;
     font-size: 24px;
-  }
-  
-  .search-input:focus {
-    border-color: #006D77; /* Change border color on focus */
-    outline: none; /* Remove default outline */
-    background-color: #ffffff; /* Optional: Change background color on focus */
-  }
+}
 
+.search-input:focus {
+    border-color: #006D77;
+    outline: none;
+    background-color: #ffffff;
+}
 
-  
+/* Responsive Styles for Small Devices */
+@media only screen and (max-width: 768px) {
+    .page1-container,
+    .page2-container,
+    .page3-container,
+    .page4-container,
+    .page5-container {
+        width: 100%; /* Adjust width to fit small screens */
+        margin-left: 10px; /* Reduce left margin */
+        margin-right: 10px; /* Reduce right margin */
+    }
 
+    .search-input {
+        width: 80%; /* Make the search input fit better */
+        margin-left: auto;
+        margin-right: auto; /* Center align search input */
+    }
 
+    .modal {
+        display: block; /* Ensure modal remains visible */
+        justify-content: flex-start; /* Align modal content to the top */
+        padding: 20px; /* Add padding inside the modal */
+    }
+
+    .page1-container, .page2-container, .page3-container, .page4-container, .page5-container {
+        display: block; /* Remove flex display for smaller screens */
+    }
+
+    .modal-image {
+        width: 100%; /* Make image responsive */
+        height: auto; /* Maintain aspect ratio */
+        margin-left: 0;
+        margin-bottom: 10px; /* Adjust margins for smaller screens */
+    }
+
+    .close-icon {
+        top: 10px;
+        right: 10px;
+        font-size: 1.5rem; /* Make the close icon smaller */
+    }
+}

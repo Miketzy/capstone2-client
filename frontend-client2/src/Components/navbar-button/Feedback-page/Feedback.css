@@ -63,8 +63,8 @@
   }
   
   .submit-btn {
-    background-color: #008080;
-    color: white;
+    background-color: skyblue;
+    color: black;
     padding: 0.75rem 1.5rem;
     font-size: 1.2rem;
     border: none;
@@ -75,7 +75,7 @@
   }
   
   .submit-btn:hover {
-    background-color: #006666;
+    background-color: skyblue;
     transform: translateY(-2px);
   }
 
@@ -98,19 +98,52 @@
   }
   
   
-  /* Responsive Design */
-  @media (max-width: 768px) {
+  @media (max-width: 480px){
+    .Feedback-page{
+      margin-left: 1vh;
+      margin-top: 10vh;
+    }
+
     .feedback-wrapper {
-      padding: 1.5rem;
+      width: 70%;
     }
-  
-    h1 {
-      font-size: 2rem;
+
+    .star-rating {
+      margin-left: -5vh;
+      margin-left: 5vh;
     }
-  
-    input,
-    textarea {
-      padding: 0.5rem;
-      font-size: 0.9rem;
+
+    .star{
+      font-size: 35px;
+    }
+
+    .submit-btn{
+      width: 100%;
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 768px){
+    .Feedback-page{
+      margin-left: 1vh;
+      margin-top: 10vh;
+    }
+
+    .feedback-wrapper {
+      width: 70%;
+    }
+
+    .star-rating {
+      margin-left: -5vh;
+      margin-left: 20vh;
+    }
+
+    .star{
+      font-size: 45px;
+    }
+
+    .submit-btn{
+      width: 95%;
+      font-size: 16px;
     }
   }

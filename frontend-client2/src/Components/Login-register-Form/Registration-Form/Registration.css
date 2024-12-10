@@ -30,6 +30,8 @@
     gap: 10px;
   }
 
+  
+
   .registration-lastname{
     display: flex;
     gap: 10px;
@@ -200,3 +202,59 @@
   .reglog:hover{
     color: #007bff;
   }
+
+  /* Medium Devices (Tablets) */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+  .registration-wrapper {
+    width: 70%; /* Make it responsive for tablets */
+    margin-top: 97vh;
+  }
+
+  .registation-name,
+  .registration-lastname,
+  .registration-password,
+  .fifth {
+    display: block; /* Change from flex to block for tablet view */
+  }
+
+  .registation-name input,
+  .registration-lastname input,
+  .registration-password input,
+  .fifth input,
+  .genderfith select {
+    width: 100%; /* Adjust width for inputs */
+    margin-left: 0;
+  }
+
+  .registration-lastname .registration-email {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .fifth .genderfith,
+  .fifth .addressfith {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .registration-password .cpass {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .registration-form button {
+    width: 100%; /* Adjust button width for tablets */
+    max-width: 300px;
+    margin-left: 4vh;
+  }
+
+  .regtolog {
+    margin-left: 0;
+    margin-top: -5px;
+    text-align: center; /* Center-align for better display */
+  }
+
+  .registration-form input{
+    width: 64vh;
+  }
+}

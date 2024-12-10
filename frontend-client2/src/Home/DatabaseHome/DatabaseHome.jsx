@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import "./DatabaseHome.css";
 import Database from "../../Components/Database/Database-image/Database";
 import Navbar from "../../Components/Navbar/Navbar";
 import ImageSlider from "../../Components/Database/Image-slider/ImageSlider";
+import Sidebar from "../../Components/sidebar/Sidebar";
 
 function DatabaseHome() {
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarVisible(!isSidebarVisible);
+  };
   return (
     <div className="databasehome">
       <div className="navbar-Top">
-        <Navbar />
+        <Navbar toggleSidebar={toggleSidebar} />
+      </div>
+
+      <div className="databasehome-sidebar">
+        <Sidebar isSidebarVisible={isSidebarVisible} />
       </div>
       <div className="slider">
         <ImageSlider />
       </div>
       <div className="hometitle">
-        <h1>Welcome to Species Gallery</h1>
+        <h1>Species Gallery</h1>
       </div>
       <div className="database">
         <Database />

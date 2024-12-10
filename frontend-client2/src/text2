@@ -1,132 +1,196 @@
-import React, { useState } from "react";
-import axios from "axios"; // Import axios
-import "./Quizzes.css";
+.navbar{
+  background: #013392;
+  height: 65px;
+  display: flex;
+  z-index: 2000;
+  margin-top: -10px;
+  width: 300vh;
+  position: fixed;
+}
+.container{
+  display: flex;
+  font-family:sans-serif ;
+  margin-left: 60vh;
+  margin-top: -5px;
+}
+li{
+  list-style: none;
+}
 
-const questions = [
-  {
-    question: "What is the largest bird of prey found in Davao Oriental?",
-    options: [
-      "A. Philippine Eagle",
-      "B. Brahminy Kite",
-      "C. Peregrine Falcon",
-      "D. Hawksbill Turtle",
-    ],
-    answer: "A. Philippine Eagle",
-  },
-  // ... other questions ...
-  {
-    question: "Which endangered species is a large wild pig endemic to the Philippines?",
-    options: [
-      "A. Philippine Warty Pig",
-      "B. Tamaraw",
-      "C. Mindanao Wild Boar",
-      "D. Dugong",
-    ],
-    answer: "A. Philippine Warty Pig",
-  },
-];
 
-const Quizzes = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
-  const [userAnswers, setUserAnswers] = useState(
-    Array(questions.length).fill(null)
-  );
+.container .code{
+  margin-top: 20px;
+}
 
-  const handleAnswerClick = (option) => {
-    const updatedAnswers = [...userAnswers];
-    updatedAnswers[currentQuestion] = option;
-    setUserAnswers(updatedAnswers);
+.container span{
+  font-size: 17px;
+  width: 18vh;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
 
-    if (option === questions[currentQuestion].answer) {
-      setScore(score + 1);
-    }
+.img-profile img{
+  width: 35px;
+  height: 35px;
+  border-radius: 30px;
+  margin-left: 1vh;
+  margin-top: 3px;
+}
 
-    const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < questions.length) {
-      setCurrentQuestion(nextQuestion);
-    } else {
-      setShowScore(true);
-      saveScore(); // Call saveScore function when the quiz is complete
-    }
-  };
+.profile-info h3{
+  color: #fff;
+  margin-top: 5px;
+  font-size: 15px;
+  margin-left: -2px;
+}
 
-  const saveScore = async () => {
-    try {
-      const token = localStorage.getItem("token"); // Assuming you're storing the token in localStorage
-      const response = await axios.post(
-        "http://localhost:8081/api/save-score",
-        { score },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-          },
-        }
-      );
-      console.log(response.data.message); // Log success message
-    } catch (error) {
-      console.error("Error saving score:", error);
-    }
-  };
+.profile-info p{
+  color: #cabfbf;
+  margin-top: -15px;
+  font-size: 12px;
+  margin-left: -1px;
+}
 
-  const handleBack = () => {
-    const prevQuestion = currentQuestion - 1;
-    if (prevQuestion >= 0) {
-      setCurrentQuestion(prevQuestion);
-    }
-  };
+.container .profileimg-button{
+  margin-top: 3.5vh;
+  margin-left: 25vh;
+  cursor: pointer;
+  width: 35vh;
+  height: 40px;
+}
+.nav-icon{
+  margin-top: 32px;
+  display: none;
+}
+.img-container{
+  display: flex;
+  gap: 10px;
+}
 
-  const handleRestart = () => {
-    setCurrentQuestion(0);
-    setScore(0);
-    setShowScore(false);
-    setUserAnswers(Array(questions.length).fill(null)); // Reset answers
-  };
+.MuiPaper-root {
+  width: 28vh;
+  margin-left: -1vh;
+  margin-top: 7px;
+}
 
-  return (
-    <div className="wrapper">
-      <div className="quiz-container">
-        <h2>Davao Oriental Species Quiz</h2>
-        {showScore ? (
-          <div className="score-section">
-            <p>
-              Your Score: {score} out of {questions.length}
-            </p>
-            <button className="restart-quiz" onClick={handleRestart}>
-              Restart Quiz
-            </button>
-          </div>
-        ) : (
-          <div className="question-card">
-            <h3>{questions[currentQuestion].question}</h3>
-            <div className="options">
-              {questions[currentQuestion].options.map((option, index) => (
-                <button
-                  key={index}
-                  className="option-button"
-                  onClick={() => handleAnswerClick(option)}
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-            <p className="progress">
-              Question {currentQuestion + 1} of {questions.length}
-            </p>
-            <div className="navigation-buttons">
-              {currentQuestion > 0 && (
-                <button className="back-button" onClick={handleBack}>
-                  Back
-                </button>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-      <br />
-    </div>
-  );
-};
+.code {
+  color: rgba(255,255,255,0.75);
+  
+  transition: all 0.4s;
+}
+.code ul {
+  list-style-type: none;
+  padding: 0; 
+  display: flex;
+  margin-left: 5vh;
+}
 
-export default Quizzes;
+.code ul li {
+  position: relative; 
+  margin: 0 15px; 
+  cursor: pointer; 
+  transition: color 0.3s ease; 
+}
+
+
+.code ul li::after {
+  content: "";
+  height: 2px;
+  width: 100%;
+  background: skyblue;
+  display: block;
+  margin-top: 5px;
+  opacity: 0;
+  transition: all 0.3s ease-in-out; 
+  pointer-events: none;
+  color: white;
+  font-weight: bolder;
+}
+
+
+.code ul li:hover::after,
+.code ul li:focus::after {
+  opacity: 1;
+}
+
+
+.code ul li:hover,
+.code ul li:focus {
+  color: skyblue; 
+}
+
+
+.code ul li.active {
+  color: skyblue;
+}
+
+
+.code ul li.active::after {
+  opacity: 1; 
+}
+
+
+.code ul li.active {
+  transform: scale(1.1); 
+  transition: transform 0.3s ease; 
+}
+
+
+
+
+.small-profile img{
+  display: none;
+}
+
+
+/* Small Devices (Phones) */
+@media only screen and (max-width: 480px) {
+
+/* Devices:
+   - iPhone 8 (375px)
+   - iPhone X (375px)
+   - Samsung Galaxy S9 (360px)
+   - Google Pixel 3 (393px)
+   - OnePlus 6T (412px)
+   - Huawei P20 (360px)
+*/
+
+
+.small-profile img{
+  width: 40px;
+  height:40px;
+  margin-top:22px;
+  border-radius:50px;
+  margin-left: 57vh;
+  display: block;
+}
+
+.container .profileimg-button{
+ display:none;
+}
+.nav-icon{
+  display: block;
+  margin-left: -58vh;
+  color: #FAF9F5;
+}
+.code{
+  display: none;
+}
+.customMenu{
+  display: none;
+}
+
+.profile-info .fname, .email{
+  display: none;
+}
+}
+
+
+
+
+
+
+

@@ -27,6 +27,28 @@
 
 
 .hometitle{
-    margin-top: 5vh;
+    margin-top: 15vh;
     color: white;
+}
+
+.hometitle h1{
+ font-size: 40px;
+ font-weight: bold;
+}
+
+/* Responsive Styles for Smaller Screens */
+@media (max-width: 768px) {
+    .maphome {
+        overflow-y: auto; /* Ensure scrolling is allowed */
+    }
+    .hometitle {
+        margin-top: 20vh;
+      
+    }
+}
+
+@media (max-width: 480px) {
+    .maphome {
+        overflow-y: auto; /* Ensure scrolling is allowed */
+    }
 }

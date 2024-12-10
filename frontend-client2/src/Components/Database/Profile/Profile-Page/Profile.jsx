@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./Profile.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -63,37 +62,53 @@ function Profile() {
   }, [navigate]);
 
   return (
-    <div className="profile-container">
-      <div className="Wrapper">
-        <div className="profile-card">
-          <div className="profile-header">
-            <h2>My Profile</h2>
+    <div>
+      <div className="flex justify-center items-center min-h-screen bg-gray-100 py-4 pt-24 ">
+        {/* Adding pt-24 for padding-top equal to the typical navbar height (adjust as needed) */}
+        <div className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-6 border border-gray-300">
+          <div className="text-center mb-4">
+            <h2 className="text-2xl font-semibold text-gray-700">My Profile</h2>
           </div>
-          <div className="profile-details">
-            <div className="profile-image">
-              <img src={userData.image} alt="" />
+
+          <div className="flex flex-col md:flex-row items-center space-x-6">
+            {/* Profile Image */}
+            <div className="w-32 h-32 rounded-full overflow-hidden mb-4 md:mb-0">
+              <img
+                className="w-full h-full object-cover"
+                src={userData.image}
+                alt="Profile"
+              />
             </div>
-            <div className="profile-info">
-              <p>
+
+            {/* Profile Info */}
+            <div className="flex flex-col space-y-2">
+              <p className="text-lg font-medium text-gray-600">
                 <strong>Name:</strong> {userData.firstname}{" "}
                 {userData.middlename} {userData.lastname}
               </p>
-              <p>
+              <p className="text-lg font-medium text-gray-600">
                 <strong>Email:</strong> {userData.email}
               </p>
-              <p>
+              <p className="text-lg font-medium text-gray-600">
                 <strong>Gender:</strong> {userData.gender}
               </p>
-              <p>
+              <p className="text-lg font-medium text-gray-600">
                 <strong>Address:</strong> {userData.address}
               </p>
             </div>
           </div>
-          <div className="profile-actions">
-            <button onClick={handleEditprofile} className="edit-btn">
+
+          <div className="mt-6 flex justify-center gap-4">
+            <button
+              onClick={handleEditprofile}
+              className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 transition duration-200"
+            >
               Edit Profile
             </button>
-            <button onClick={handleChangePassword} className="password-btn">
+            <button
+              onClick={handleChangePassword}
+              className="bg-green-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-green-600 transition duration-200"
+            >
               Change Password
             </button>
           </div>

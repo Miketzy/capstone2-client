@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Navbar.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import Menu from "@mui/material/Menu";
@@ -7,8 +7,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import { IoPerson } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
 import axios from "axios";
+import MenuIcon from "@mui/icons-material/Menu";
 
-function Navbar() {
+function Navbar({ toggleSidebar }) {
   const navigate = useNavigate();
   const location = useLocation(); // Get the current location
   const [anchorEl, setAnchorEl] = useState(null);
@@ -99,10 +100,13 @@ function Navbar() {
   };
 
   return (
-    <div className="navbar">
-      <div className="container">
-        <div className="code">
-          <ul>
+    <div className="navbar bg-blue-900 text-white py-1 ml-10px">
+      <div className=" mx-auto flex justify-between items-center p-1">
+        <div className="md:hidden cursor-pointer" onClick={toggleSidebar}>
+          <MenuIcon />
+        </div>
+        <div className="code flex space-x-6">
+          <ul className="flex space-x-6">
             <li
               className={activeTab === "/Home" ? "active" : ""}
               onClick={() => handleNavigation("/Home")}
@@ -145,17 +149,24 @@ function Navbar() {
           </ul>
         </div>
 
-        <div className="profileimg-button" onClick={handleClick}>
-          <div className="img-container">
-            <div className="img-profile">
-              <img src={user.image} alt="" />
+        <div
+          className="profileimg-button flex items-center space-x-3 cursor-pointer justify-start" // Added justify-start to align the content to the left
+          onClick={handleClick}
+        >
+          <div className="img-container relative">
+            <div className="img-profile relative">
+              <img src={user.image} alt="" className="w-16 h-16 rounded-full" />{" "}
+              {/* Optional: Add width, height, and rounded styling */}
             </div>
             <div className="profile-info">
-              <h3 className="fname">{`${user.firstname} ${user.lastname}`}</h3>
-              <p className="email">{user.email}</p>
+              <h3 className="fname text-lg font-semibold">{`${user.firstname} ${user.lastname}`}</h3>{" "}
+              {/* Styled name */}
+              <p className="email text-sm text-gray-500 ">{user.email}</p>{" "}
+              {/* Styled email */}
             </div>
           </div>
         </div>
+
         <Menu
           anchorEl={anchorEl}
           id="account-menu"
@@ -164,6 +175,7 @@ function Navbar() {
           onClick={handleClose}
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          classes={{ paper: "customMenu" }}
         >
           <MenuItem onClick={handleMyprofile}>
             <ListItemIcon>

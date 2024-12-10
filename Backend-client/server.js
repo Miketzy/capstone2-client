@@ -500,64 +500,69 @@ app.get('/api/images', (req, res) => {
     });
 });
 
-// Define the route for getting species information
 app.get('/api/species', (req, res) => {
   const { name } = req.query;
   if (!name) {
-      return res.status(400).json({ error: 'Name query parameter is required' });
+    return res.status(400).json({ error: 'Name query parameter is required' });
   }
 
-  // Search across specificname, commonname, scientificname, and speciescategory (classification)
   const query = `
-      SELECT specificname, commonname, scientificname, location, speciescategory, uploadimage 
-      FROM species 
-      WHERE specificname = ? OR commonname = ? OR scientificname = ? OR speciescategory = ?`;
+    SELECT specificname, commonname, scientificname, location, speciescategory, uploadimage 
+    FROM species 
+    WHERE (specificname LIKE ? OR commonname LIKE ? OR scientificname LIKE ? OR speciescategory LIKE ?) 
+      AND (speciescategory = ? OR ? = '')`;
 
-  db.query(query, [name, name, name, name], (error, results) => {
+  const searchPattern = `%${name}%`; // Para sa flexible na paghahanap
+  const isCategorySearch = name.toLowerCase() === 'vertebrates' ? 'Vertebrates' : '';
+  db.query(
+    query,
+    [searchPattern, searchPattern, searchPattern, searchPattern, isCategorySearch, isCategorySearch],
+    async (error, results) => {
       if (error) {
-          console.error('Database query error:', error); // Log the error
-          return res.status(500).json({ error: 'Database error' });
+        console.error('Database query error:', error);
+        return res.status(500).json({ error: 'Database error' });
       }
 
-      if (results.length > 0) {
-          const species = results[0];
-
-          // Check if location is defined
-          if (!species.location) {
-              return res.status(404).json({ error: 'Location not found for the species' });
-          }
-
-          // Geocode the species' location
-          const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(species.location)}`;
-
-          axios.get(geocodeUrl, {
-              timeout: 5000,
-              headers: {
-                  'User-Agent': 'YourAppName/1.0 (your.email@example.com)' // Replace with your app name and contact info
-              }
-          })
-          .then(response => {
-              if (response.data.length > 0) {
-                  const { lat, lon } = response.data[0];
-                  const speciesData = {
-                      ...species,
-                      latitude: parseFloat(lat),
-                      longitude: parseFloat(lon)
-                  };
-                  res.json(speciesData);
-              } else {
-                  res.status(404).json({ error: 'Location not found' });
-              }
-          })
-          .catch(err => {
-              console.error('Geocoding error:', err); // Log the error
-              res.status(500).json({ error: 'Geocoding error' });
-          });
-      } else {
-          res.json(null);  // No results found
+      if (results.length === 0) {
+        return res.status(404).json({ error: 'No matching species found' });
       }
-  });
+
+      try {
+        const geocodedResults = await Promise.all(
+          results.map(async (species) => {
+            if (!species.location) return { ...species, latitude: null, longitude: null };
+
+            const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+              species.location
+            )}`;
+            const response = await axios.get(geocodeUrl, {
+              timeout: 10000,
+              headers: { 'User-Agent': 'YourAppName/1.0 (your.email@example.com)' },
+            });
+
+            if (response.data.length > 0) {
+              const { lat, lon } = response.data[0];
+              return {
+                ...species,
+                latitude: parseFloat(lat),
+                longitude: parseFloat(lon),
+              };
+            } else {
+              return { ...species, latitude: null, longitude: null };
+            }
+          })
+        );
+        res.json(geocodedResults);
+      } catch (err) {
+        console.error('Geocoding error:', err);
+        res.status(500).json({ error: 'Geocoding error' });
+      }
+    }
+  );
 });
+
+
+
 
 
 // Route to save quiz scores
@@ -601,6 +606,70 @@ app.get('/api/random-questions', (req, res) => {
       console.error(err);
       return res.status(500).send('Error fetching questions');
     }
+    res.json(results);
+  });
+})
+
+// Define the endpoint to get species counts for each category in bar graph
+app.get('/speciesCounts', (req, res) => {
+  const queries = [
+    "SELECT COUNT(*) AS count FROM species WHERE speciescategory = 'mammals'",
+   "SELECT COUNT(*) AS count FROM species WHERE speciescategory = 'birds'",
+   "SELECT COUNT(*) AS count FROM species WHERE speciescategory = 'reptiles'",
+   "SELECT COUNT(*) AS count FROM species WHERE speciescategory = 'amphibians'",
+    "SELECT COUNT(*) AS count FROM species WHERE speciescategory = 'invertebrates'",
+    "SELECT COUNT(*) AS count FROM species WHERE speciescategory = 'vertebrates'",
+    "SELECT COUNT(*) AS count FROM species WHERE speciescategory = 'fish'",
+  ];
+
+  Promise.all(queries.map(query => new Promise((resolve, reject) => {
+    db.query(query, (err, results) => {
+      if (err) reject(err);
+      resolve(results[0].count);
+    });
+  })))
+    .then(counts => {
+      res.json({
+        mammals: counts[0],
+        birds: counts[1],
+        reptiles: counts[2],
+        amphibians: counts[3],
+        invertebrates: counts[4],
+        vertebrates:counts[5],
+        fish: counts[6],
+      });
+    })
+    .catch(err => {
+      console.error('Error fetching species counts:', err);
+      res.status(500).json({ error: 'Failed to fetch species counts' });
+    });
+  });
+
+   // Route to get the count of each conservation status
+app.get('/api/conservation-status-count', (req, res) => {
+  const conservationStatuses = [
+    'critically-endangered',
+    'endangered',
+    'vulnerable',
+    'near-threatened',
+    'least-concern'
+  ];
+
+  // Construct the query to count each conservation status from the 'species' table
+  const queries = conservationStatuses.map(status => 
+    `SELECT '${status}' AS conservationstatus, COUNT(*) AS count FROM species WHERE conservationstatus = '${status}'`
+  );
+
+  const combinedQuery = queries.join(' UNION ALL ');
+
+  // Execute the combined query
+  db.query(combinedQuery, (err, results) => {
+    if (err) {
+      console.error('Error fetching data:', err);
+      return res.status(500).json({ message: 'Database error', error: err });
+    }
+
+    // Return the result as JSON
     res.json(results);
   });
 });

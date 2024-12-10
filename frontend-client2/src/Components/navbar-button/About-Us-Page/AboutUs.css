@@ -25,7 +25,7 @@
 /* Main Title */
 .aboutUS h1 {
   font-size: 2.8rem;
-  color: #00796b;
+  color: black;
   margin-bottom: 1rem;
   text-align: center;
 }
@@ -33,7 +33,7 @@
 /* Section Headings */
 h2 {
   font-size: 2.2rem;
-  color: #004d40;
+  color: black;
   margin-bottom: 1rem;
   border-bottom: 2px solid #00796b;
   padding-bottom: 0.5rem;
@@ -43,7 +43,7 @@ h2 {
 p {
   font-size: 1.1rem;
   line-height: 1.7;
-  color: #555;
+  color: black;
   margin-bottom: 1.5rem;
   text-align: justify; /* Aligns text for better readability */
 }
@@ -73,17 +73,3 @@ p {
   transition: all 0.3s ease-in-out;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .aboutUs-Wrapper {
-    padding: 1.5rem;
-  }
-
-  .aboutUS h1, h2 {
-    font-size: 2rem;
-  }
-
-  p {
-    font-size: 0.9rem;
-  }
-}

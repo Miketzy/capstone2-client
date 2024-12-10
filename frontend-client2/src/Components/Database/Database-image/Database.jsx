@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Database.css";
 import axios from "axios"; // Import axios
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import CloseIcon from "@mui/icons-material/Close";
 
 function Database() {
   const [images, setImages] = useState([]);
@@ -74,39 +75,43 @@ function Database() {
       navigate(`/mapping?commonname=${selectedSpecies.commonname}`);
     }
   };
+
   return (
-    <div className="Database">
-      <div className="search-bar-container">
-        <div className="search-bar-wrapper">
+    <div className="Database flex flex-col items-center  p-4">
+      {/* Search Bar */}
+      <div className="search-bar-container w-full max-w-2xl mb-8">
+        <div className="search-bar-wrapper flex items-center border border-gray-300 rounded-lg p-2">
           <input
             type="text"
             placeholder="Search the species..."
             aria-label="Search"
-            className="search-input"
+            className="search-input w-full p-2 rounded-lg focus:outline-none"
             value={searchTerm} // Bind the search input value to state
             onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
           />
-          <i className="fas fa-search search-icon"></i>
+          <i className="fas fa-search search-icon text-gray-500 ml-2"></i>
         </div>
       </div>
-      <div className="gallery">
+
+      {/* Gallery */}
+      <div className="gallery grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full max-w-screen-xl">
         {filteredImages.length > 0 ? (
           filteredImages.map((species) => {
             const imageUrl = `http://localhost:8080/uploads/images/${species.uploadimage}`; // Correct URL
-            console.log(`Image URL: ${imageUrl}`); // Log the constructed URL
             return (
-              // Return the gallery item
               <div
-                className="gallery-item"
+                className="gallery-item cursor-pointer relative rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
                 key={species.id}
                 onClick={() => openModal(species)} // Open modal with the entire species object
               >
                 <img
                   src={imageUrl} // Use the constructed image URL
                   alt={species.commonname}
-                  className="gallery-image"
+                  className="gallery-image w-full h-64 "
                 />
-                <h3 className="title-commonname">{species.commonname}</h3>
+                <h3 className="title-commonname text-center mt-2 text-lg font-semibold text-gray-800">
+                  {species.commonname}
+                </h3>
               </div>
             );
           })
@@ -119,33 +124,47 @@ function Database() {
         <div className="modal">
           <div className="page1-container">
             <span className="close-icon" onClick={closeModal}>
-              &times;
+              <CloseIcon />
             </span>
             <img
               src={selectedImage} // Use the correct image URL here
               alt="Selected"
               className="modal-image"
-              style={{ width: "auto", height: "300px" }} // Set width and height
             />
             <div className="title-text">
-              <h3>
-                Specific Name: <span>{selectedSpecies?.specificname}</span>
+              <h3 className="line1">
+                Specific Name:{" "}
+                <span>
+                  {selectedSpecies?.specificname || "Insufficient data"}
+                </span>
               </h3>
-              <h3>
-                Scientific Name: <span>{selectedSpecies?.scientificname}</span>
+              <h3 className="line2">
+                Scientific Name:{" "}
+                <span>
+                  {selectedSpecies?.scientificname || "Insufficient data"}
+                </span>
               </h3>
-              <h3>
-                Common Name: <span>{selectedSpecies?.commonname}</span>
+              <h3 className="line3">
+                Common Name:{" "}
+                <span>
+                  {selectedSpecies?.commonname || "Insufficient data"}
+                </span>
               </h3>
-              <h3>
-                Classification: <span>{selectedSpecies?.speciescategory}</span>
+              <h3 className="line4">
+                Classification:{" "}
+                <span>
+                  {selectedSpecies?.speciescategory || "Insufficient data"}
+                </span>
               </h3>
-              <h3>
+              <h3 className="line5">
                 Conservation Status:{" "}
-                <span>{selectedSpecies?.conservationstatus}</span>
+                <span>
+                  {selectedSpecies?.conservationstatus || "Insufficient data"}
+                </span>
               </h3>
-              <h3>
-                Habitat: <span>{selectedSpecies?.habitat}</span>
+              <h3 className="line6">
+                Habitat:{" "}
+                <span>{selectedSpecies?.habitat || "Insufficient data"}</span>
               </h3>
 
               <button className="modal-mapping" onClick={handleMappingClick}>
@@ -157,28 +176,32 @@ function Database() {
           <div className="page2-container">
             <div className="description-page">
               <h1>Description</h1>
-              <p>{selectedSpecies?.description}</p>
+              <p>{selectedSpecies?.description || "Insufficient data"}</p>
             </div>
           </div>
 
           <div className="page3-container">
             <div className="threats-page">
               <h1>Threats</h1>
-              <p>{selectedSpecies?.threats}</p>
+              <p className="par1">
+                {selectedSpecies?.threats || "Insufficient data"}
+              </p>
             </div>
           </div>
 
           <div className="page4-container">
             <div className="population-page">
               <h1>Population</h1>
-              <p>{selectedSpecies?.population}</p>
+              <p>{selectedSpecies?.population || "Insufficient data"}</p>
             </div>
           </div>
 
           <div className="page5-container">
             <div className="conservation-page">
               <h1>Conservation Effort</h1>
-              <p>{selectedSpecies?.conservationeffort}</p>
+              <p>
+                {selectedSpecies?.conservationeffort || "Insufficient data"}
+              </p>
             </div>
           </div>
         </div>

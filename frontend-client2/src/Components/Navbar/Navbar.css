@@ -1,137 +1,199 @@
-.navbar{
-    background: #006D77;
+/* General Styles */
+.navbar {
+    width: 100%;
+    background: #013392;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Fixes the navbar to the top */
+    top: 0; /* Keeps the navbar at the top of the page */
+    left: 0; /* Ensures it aligns with the left edge */
+    right: 0; /* Ensures it aligns with the right edge */
+    z-index: 1000; /* Keeps it above other content */
     height: 65px;
-    display: flex;
-    z-index: 2000;
-    margin-top: -10px;
-    width: 300vh;
-    position: fixed;
-}
-.container{
-    display: flex;
-    font-family:sans-serif ;
-    margin-left: 60vh;
-    margin-top: -5px;
-}
-li{
-    list-style: none;
-}
+  }
+  
 
 
-.container .code{
-    margin-top: 20px;
-}
-
-.container span{
-    font-size: 17px;
-    width: 18vh;
-    text-decoration: none;
-    color: #FAF9F5;
-    border-radius: 10px;
-    margin-top: 20px;
-    cursor: pointer;
-}
-
-.img-profile img{
-    width: 35px;
-    height: 35px;
-    border-radius: 30px;
-    margin-left: 1vh;
-    margin-top: 3px;
-}
-
-.profile-info h3{
-    color: #fff;
-    margin-top: 5px;
-    font-size: 15px;
-    margin-left: -2px;
-}
-
-.profile-info p{
-    color: #cabfbf;
-    margin-top: -15px;
-    font-size: 12px;
-    margin-left: -1px;
-}
-
-.container .profileimg-button{
-    margin-top: 3.5vh;
-    margin-left: 25vh;
-    cursor: pointer;
-    width: 35vh;
-    height: 40px;
-}
-
- .img-container{
-    display: flex;
-    gap: 10px;
-}
-
-.MuiPaper-root {
-    width: 28vh;
-    margin-left: -1vh;
-    margin-top: 7px;
-}
-
-.code {
-    color: rgba(255,255,255,0.75);
-    
+  .code {
+    color: white;
     transition: all 0.4s;
-}
-.code ul {
+    margin-top: 10px;
+  }
+  
+  .code ul {
     list-style-type: none;
-    padding: 0; 
+    padding: 0;
     display: flex;
-    margin-left: 5vh;
-}
-
-.code ul li {
-    position: relative; 
-    margin: 0 15px; 
-    cursor: pointer; 
-    transition: color 0.3s ease; 
-}
-
-
-.code ul li::after {
+  }
+  
+  .code ul li {
+    position: relative;
+    margin: 0 10px; /* Reduce margin to bring items closer */
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .code ul li::after {
     content: "";
     height: 2px;
     width: 100%;
-    background: #F4A261;
+    background: skyblue;
     display: block;
     margin-top: 5px;
     opacity: 0;
-    transition: all 0.3s ease-in-out; 
+    transition: all 0.3s ease-in-out;
     pointer-events: none;
     color: white;
     font-weight: bolder;
-}
-
-
-.code ul li:hover::after,
-.code ul li:focus::after {
+  }
+  
+  .code ul li:hover::after,
+  .code ul li:focus::after {
     opacity: 1;
+  }
+  
+  .code ul li:hover,
+  .code ul li:focus {
+    color: skyblue;
+  }
+  
+  .code ul li.active {
+    color: white;
+  }
+  
+  .code ul li.active::after {
+    opacity: 1;
+  }
+  
+  .code ul li.active {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .small-device {
+    display: none; /* Hidden by default */
+  }
+  
+  .small-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+ /* Profile Image Button Align to Right */
+.profileimg-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: auto; /* Pushes the button to the right */
+  }
+  
+  .img-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .img-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .profile-info {
+    margin-left: 10px;
+  }
+  
+  .fname {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+  }
+  
+  .email {
+    font-size: 12px;
+    margin: 0;
+    color: white;
+  }
+  
+  /* Menu Styles */
+  .customMenu {
+    border-radius: 8px;
+  }
+  
+  .ioPerson,
+  .ioLogout {
+    color: #007bff;
+    font-size: 20px;
+  }
+  
+  .MuiPaper-root {
+    width: 28vh;
+    margin-left: 1vh;
+    margin-top: 7px;
+    
+}
+
+.nav-icon{
+    display: none;
+
+}
+
+ /* Small phones */
+ @media (max-width: 375px) {
+  /* CSS for small phones */
+  .MuiPaper-root {
+  z-index: 1000;
+    
+}
 }
 
 
-.code ul li:hover,
-.code ul li:focus {
-    color: #F4A261; 
-}
-
-
-.code ul li.active {
-    color: #F4A261;
-}
-
-
-.code ul li.active::after {
-    opacity: 1; 
-}
-
-
-.code ul li.active {
-    transform: scale(1.1); 
-    transition: transform 0.3s ease; 
-}
-
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .nav-icon {
+      display: block; /* Show menu icon on small screens */
+      font-size: 24px;
+      margin-left: -59vh;
+      color: white;
+    }
+  
+    .code {
+      display: none; /* Hide navigation links */
+    }
+  
+    .small-device {
+      display: block; /* Show small-device profile */
+    }
+    .code {
+        display: none;
+      }
+      
+   
+  }
+  
+  
+  @media (max-width: 480px) {
+    .container {
+      padding: 10px;
+    }
+  
+    .small-profile img {
+      width: 35px;
+      height: 35px;
+    }
+  
+    .fname {
+      display: none;
+    }
+  
+    .email {
+      display: none;
+    }
+    .code {
+        display: none;
+      }
+    
+  }
+  

@@ -1,25 +1,39 @@
 .home {
     position: relative;
     height: 100vh;
-    overflow: hidden;
-    justify-content: center;
-    align-items: center;
+    overflow-y: auto; /* Allows vertical scrolling */
     color: black;
     font-family: 'Arial', sans-serif;
-  }
-  
+}
 
-.hometitlehome{
+.hometitlehome {
     align-items: center;
     text-align: center;
     margin-top: 20vh;
     font-size: 24px;
 }
 
-.hometitlewelocome h1{
+.hometitlewelocome h1 {
     margin-top: 25vh;
 }
 
-.cards{
+.cards {
     margin-top: 10px;
+}
+
+/* Responsive Styles for Smaller Screens */
+@media (max-width: 768px) {
+    .home {
+        overflow-y: auto; /* Ensure scrolling is allowed */
+    }
+    .hometitlehome {
+        
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home {
+        overflow-y: auto; /* Ensure scrolling is allowed */
+    }
 }

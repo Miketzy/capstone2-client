@@ -6,7 +6,7 @@ function AboutUs() {
     <div className="aboutUs-container">
       <div className="aboutUs-Wrapper">
         <div className="aboutUS">
-          <h1>About Us</h1>
+          <h1>ABOUT US</h1>
           <p>
             We are a passionate team of biologists, developers, and
             environmentalists united by a vision to make biodiversity
@@ -15,7 +15,7 @@ function AboutUs() {
         </div>
 
         <div className="out-history">
-          <h2>Our Beginnings</h2>
+          <h2>OUR BEGININGS</h2>
           <p>
             Our journey began as a small initiative, formed by a team of
             dedicated researchers and developers who saw the need to make
@@ -29,7 +29,7 @@ function AboutUs() {
         </div>
 
         <div className="mission-vission">
-          <h2>Mission and Vision</h2>
+          <h2>MISSION AND VISSION</h2>
           <p>
             Mission: To empower communities and individuals with accessible,
             reliable information on biodiversity, fostering awareness,
@@ -45,7 +45,7 @@ function AboutUs() {
         </div>
 
         <div className="davao-oreintal">
-          <h2>What We Do</h2>
+          <h2>WHAT WE DO</h2>
           <p>
             Our mission is to foster awareness and understanding of biodiversity
             from ridge to reef. Through our interactive platform, we provide
@@ -57,7 +57,7 @@ function AboutUs() {
         </div>
 
         <div className="Contact-Us">
-          <h2>Contact Us</h2>
+          <h2>CONTACT US</h2>
           <p>
             If you want to learn more about our projects or participate in our
             initiatives, please contact us at michaelmargate2@gmail.com.

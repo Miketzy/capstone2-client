@@ -1,87 +1,45 @@
-  .card-container {
-    display: flex;
-    gap: 40px;
-    text-align: center;
-    justify-content: center; /* Center the cards horizontally */
-    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
-    margin-top: 18vh;
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  .cardbox {
-    position: relative; /* Ensure ::before and ::after are positioned relative to this */
-    background: white;
-    width: 60vh;
-    height: 20vh;
-    border-radius: 30px;
-    cursor: pointer;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
-    z-index: 10; /* Ensure content stays above ::before */
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .cardbox::before {
-    position: absolute;
-    content: '';
-    width: 30%; /* Increased width to cover more of the card */
-    height: 420%; /* Extended height to create a noticeable diagonal */
-    top: -70%; /* Centered the diagonal across the card */
-    left: 30%; /* Adjusted the position to make the diagonal visible */
-    background: #fff;
-    transform: rotate(45deg);
-    transition: all 0.3s ease-in-out;
-    z-index: -1; /* Ensure it stays behind the card content */
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out;
+}
+
+/* Glowing border effect with rotating light */
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #3498db, 0 0 20px #3498db, 0 0 25px #3498db;
   }
-  
-  .cardbox:hover::before {
-    animation: animate2 2s linear infinite;
+  50% {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #3498db, 0 0 30px #3498db, 0 0 35px #3498db;
   }
-  
-  .cardbox:hover {
-    background-color: #006D77;
-    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-    transform: scale(1.1);
+  100% {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #3498db, 0 0 20px #3498db, 0 0 25px #3498db;
   }
-  
-  @keyframes animate2 {
-    from {
-      transform: rotate(45deg);
-    }
-    to {
-      transform: rotate(405deg); /* 360deg + 45deg for continuous rotation */
-    }
-  }
-  
-  .cardbox::after {
-    position: absolute;
-    content: '';
-    inset: 5px;
-    width: 96%;
-    height: 90%;
-    margin-top: 3px;
-    margin-left: 1%;
-    background: rgb(230, 153, 38);
-    border-radius: 30px;
-    z-index: 1; /* Ensure this layer stays above ::before but below content */
-  }
-  
-  .cardbox h1 {
-    position: relative; /* Ensure z-index works correctly */
-    margin: 0;
-    font-size: 2.5rem;
-    line-height: 20vh; /* Vertically center the text */
-    color: white;
-    z-index: 1000; /* Highest z-index to stay above all other elements */
-    transition: color 0.3s ease-in-out;
-  }
-  
-  .cardbox:hover h1 {
-    color: white; /* Text color on hover */
-  }
-  
-  /* Styling for Link elements to ensure no unwanted effects */
-  .card-link {
-    text-decoration: none;
-    color: inherit; /* Ensure the text color is inherited from the cardbox */
-  }
-  
+}
+
+/* Apply the glowing animation only on hover over the card */
+.cardbox:hover {
+  animation: glowing 1.5s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+.cardbox {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Ensure the inner box doesn't inherit the glowing effect */
+.inner-box {
+  position: relative;
+  z-index: 2;
+}

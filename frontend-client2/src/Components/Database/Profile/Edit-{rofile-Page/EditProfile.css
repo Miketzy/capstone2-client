@@ -126,13 +126,13 @@ padding: 20px;
   border-radius: 30px;
   border: none;
   cursor: pointer;
-  background: #006D77;
-  color:#fff;
+  background: skyblue;
+  color:black;
   font-weight: bold;
 }
 
 .save-changes-button button:hover{
-  background-color: #004D56;
+  background-color: skyblue;
 }
 
 .cancel-changesButton button{
@@ -143,13 +143,85 @@ padding: 20px;
   border-radius: 30px;
   border: none;
   cursor: pointer;
-  background: #006D77;
-  color:#fff;
+  background: skyblue;
+  color:black;
   font-weight: bold;
 }
 
 .cancel-changesButton button:hover{
-  background-color: #004D56;
+  background-color: skyblue;
 }
 
+ /* Medium Devices (Tablets) */
+ @media only screen and (min-width: 480px) and (max-width: 768px) {
+  /* Devices:
+     - iPad Mini (768px)
+     - Amazon Fire HD 8 (800px)
+  */
+  .edit-profile-container {
+    flex-direction: column;
+    width: 70vh;
+    height:60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+  }
 
+  .edit-profile-inputfield {
+    flex-direction: column;
+    align-items: flex-start;
+    border-left: none;
+  }
+
+  .edit-profile-inputfield .edit-profile-inputfield-1 {
+    display: block;
+    margin-left: -10px;
+    width: 100%;
+    margin-top: -60px;
+  }
+
+  .edit-profile-1 label{
+    margin-top: 20px;
+  }
+
+  .edit-profile-1 input,
+  .edit-profile-1 select {
+    width: 120%;
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  #edit-profile-1{
+    margin-top:25px;
+    
+  }
+
+  .edit-profile-inputfield .edit-profile-inputfield-2{
+    display: block;
+    margin-left: -10px;
+    width: 100%;
+  }
+
+  #edit-profile-email{
+    margin-top:25px;
+  }
+
+  #edit-profile-address{
+    margin-top:25px;
+  }
+
+
+  .save-changes-button button{
+    margin-top: -10px;
+    width: 60vh;
+    margin-left: 10px;
+  }
+
+  .cancel-changesButton button{
+    margin-top: 1vh;
+    width: 60vh;
+    margin-left: 10px;
+  }
+
+
+}

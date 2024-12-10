@@ -1,0 +1,52 @@
+.grap-cards {
+    position: relative;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-family: 'Arial', sans-serif;
+  }
+  .graph-navbarTop{
+    position: fixed;
+    margin-top: -13vh;
+    z-index: 2000;
+}
+  
+
+.graphtitlehome{
+    align-items: center;
+    text-align: center;
+    margin-top: 13vh;
+    font-size: 40px;
+}
+
+.graphtitlewelocome h1{
+    margin-top: 20vh;
+    font-weight: bold;
+}
+
+.Grap-home{
+    margin-top: -8vh;
+}
+
+.Grap-home2 {
+    margin-top: 5vh;
+}
+
+@media (max-width: 768px) {
+    .graphtitlehome{
+        font-size: 18px;
+    }
+    .graphtitlewelocome{
+        margin-top: 18vh;
+    }
+  }
+
+  @media (max-width: 480px){
+    .graphtitlehome{
+        font-size: 16px;
+    }
+    .graphtitlewelocome{
+        margin-top: 18vh;
+    }
+  }

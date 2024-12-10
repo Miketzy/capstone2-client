@@ -33,7 +33,7 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    border: 5px solid #F4A261;
+    border: 5px solid darkblue;
     margin-right: 20px;
   }
   
@@ -60,8 +60,8 @@
   
    
 .Wrapper  .edit-btn, .password-btn {
-    background-color: #006D77;
-    color: white;
+    background-color: skyblue;
+    color: black;
     padding: 10px 25px;
     border: none;
     border-radius: 25px;
@@ -74,11 +74,44 @@
   
     
 .Wrapper .edit-btn:hover, .password-btn:hover {
-    background-color: #004D56;
+    background-color: skyblue;
   }
   
     
 .Wrapper .edit-btn:focus, .password-btn:focus {
     outline: none;
-    background-color: #004D56;
+    background-color: skyblue;
   }
+
+
+  @media (max-width: 480px){
+    .Wrapper {
+      margin-left: 1vh;
+      width: 85%;
+    }
+
+    .Wrapper h2{
+      font-size: 25px;
+    }
+
+    .Wrapper  .profile-info p {
+      font-size: 16px;
+      
+    }
+  }
+  @media (max-width: 768px){
+    .Wrapper {
+      margin-left: 1vh;
+      width: 85%;
+    }
+
+    .Wrapper h2{
+      font-size: 25px;
+    }
+
+    .Wrapper  .profile-info p {
+      font-size: 16px;
+      
+    }
+  }
+  

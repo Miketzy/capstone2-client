@@ -1,7 +1,4 @@
-.navbar-Top{
-    position: fixed;
-    z-index: 1000;
-}
+
 .hometitle{
     align-items: center;
     text-align: center;
@@ -17,3 +14,23 @@
 .database{
     margin-top: 10px;
 }
+
+
+
+@media (max-width: 480px) {
+    .slider {
+       display: none; 
+    }
+    
+    .hometitle h1{
+        margin-left: 30px;
+    }
+    .navbar-Top{
+        margin-top:-10vh;
+    }
+
+    
+}
+
+
+
