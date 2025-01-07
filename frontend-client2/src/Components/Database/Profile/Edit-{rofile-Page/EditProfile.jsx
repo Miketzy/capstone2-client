@@ -30,13 +30,13 @@ const EditProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await axios.get("http://localhost:8081/", {
+        const res = await axios.get("https://capstone2-client.onrender.com/", {
           withCredentials: true,
         });
 
         const user = res.data.user;
         const imageUrl = user.image
-          ? `http://localhost:8081/images/${user.image}`
+          ? `https://capstone2-client.onrender.com/images/${user.image}`
           : "./picture/Unknown_Member.jpg";
 
         setUserData({
@@ -83,18 +83,22 @@ const EditProfile = () => {
     }
 
     try {
-      const res = await axios.put("http://localhost:8081/profile", formData, {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.put(
+        "https://capstone2-client.onrender.com/profile",
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (res.status === 200) {
         setUserData(res.data);
         setSelectedImage(
           res.data.image
-            ? `http://localhost:8081/images/${res.data.image}`
+            ? `https://capstone2-client.onrender.com/images/${res.data.image}`
             : "/picture/Unknown_Member.jpg"
         );
         alert("Profile updated successfully");

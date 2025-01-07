@@ -35,7 +35,7 @@ function EnterNewPassword() {
 
     // Send password reset request to backend
     axios
-      .post("http://localhost:8081/reset-password", {
+      .post("https://capstone2-client.onrender.com/reset-password", {
         email,
         password: newPassword,
       })

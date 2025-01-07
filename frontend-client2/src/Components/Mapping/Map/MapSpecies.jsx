@@ -38,7 +38,9 @@ function MapSpecies() {
     try {
       setError("");
       const response = await axios.get(
-        `http://localhost:8081/api/species?name=${term || searchTerm}`
+        `https://capstone2-client.onrender.com/api/species?name=${
+          term || searchTerm
+        }`
       );
 
       if (response.data && response.data.length > 0) {
@@ -106,7 +108,7 @@ function MapSpecies() {
                   <div className="flex flex-col items-center space-y-2">
                     {/* Image */}
                     <img
-                      src={`http://localhost:8080/uploads/images/${species.uploadimage}`}
+                      src={`https://bioexplorer-backend.onrender.com/uploads/images/${species.uploadimage}`}
                       alt={species.specificname}
                       className="w-32 h-32  rounded-md"
                     />

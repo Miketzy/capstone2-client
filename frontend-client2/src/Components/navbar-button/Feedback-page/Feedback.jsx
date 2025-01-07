@@ -13,7 +13,7 @@ function Feedback() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8081/submit-feedback", // Pointing to your backend
+        "https://capstone2-client.onrender.com/submit-feedback", // Pointing to your backend
         { rating, message },
         { withCredentials: true } // Send cookies for token verification
       );

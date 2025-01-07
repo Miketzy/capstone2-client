@@ -18,7 +18,7 @@ function Graph2() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8081/api/conservation-status-count"
+          "https://capstone2-client.onrender.com/api/conservation-status-count"
         );
         const formattedData = response.data.map((item) => ({
           name: item.conservationstatus,

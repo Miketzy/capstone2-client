@@ -33,15 +33,18 @@ const Registration = () => {
 
     setLoading(true); // Start loading
     try {
-      const response = await axios.post("http://localhost:8081/api/register", {
-        firstname: formData.firstname,
-        middlename: formData.middlename,
-        lastname: formData.lastname,
-        email: formData.email,
-        gender: formData.gender,
-        password: formData.password,
-        address: formData.address,
-      });
+      const response = await axios.post(
+        "https://capstone2-client.onrender.com/api/register",
+        {
+          firstname: formData.firstname,
+          middlename: formData.middlename,
+          lastname: formData.lastname,
+          email: formData.email,
+          gender: formData.gender,
+          password: formData.password,
+          address: formData.address,
+        }
+      );
 
       console.log(response.data);
       alert("Registration successful!");
@@ -67,7 +70,7 @@ const Registration = () => {
 
   const GoToLogin = async () => {
     try {
-      await axios.post("http://localhost:8081/gotologin");
+      await axios.post("https://capstone2-client.onrender.com/gotologin");
       localStorage.removeItem("token");
       navigate("/");
     } catch (error) {

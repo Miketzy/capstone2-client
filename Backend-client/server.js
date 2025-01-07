@@ -28,12 +28,12 @@ app.use(cors({
 
 
 
-// MySQL connection setup
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "reposatory01"
+  host: 'sql12.freemysqlhosting.net',    // The server address
+  user: 'sql12755763',                   // Your username
+  password: 'Pmfi2itF78',               // Your password
+  database: 'sql12755763',               // Your database name
+  port: 3306,                          // Default MySQL port
 });
 
 // Connect to MySQL database
@@ -42,6 +42,7 @@ db.connect((err) => {
         console.error('Database connection failed: ' + err.stack);
         return;
     }
+    
     console.log('Connected to database.');
 });
 

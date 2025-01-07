@@ -32,7 +32,7 @@ function Navbar({ toggleSidebar }) {
 
   const fetchUserData = () => {
     axios
-      .get("http://localhost:8081/", { withCredentials: true })
+      .get("https://capstone2-client.onrender.com/", { withCredentials: true })
       .then((response) => {
         if (response.data.message === "Profile retrieved successfully") {
           setUser({
@@ -41,7 +41,7 @@ function Navbar({ toggleSidebar }) {
             lastname: response.data.user.lastname || "",
             email: response.data.user.email || "",
             image: response.data.user.image
-              ? `http://localhost:8081/images/${response.data.user.image}`
+              ? `https://capstone2-client.onrender.com/images/${response.data.user.image}`
               : "/picture/Unknown_Member.jpg",
           });
         } else {
@@ -83,7 +83,7 @@ function Navbar({ toggleSidebar }) {
     if (confirmLogout) {
       try {
         // Call the logout endpoint
-        await axios.post("http://localhost:8081/logout");
+        await axios.post("https://capstone2-client.onrender.com/logout");
 
         // Optionally, clear the token from localStorage (if stored)
         localStorage.removeItem("token");

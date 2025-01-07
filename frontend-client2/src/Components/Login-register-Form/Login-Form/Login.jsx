@@ -19,9 +19,13 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8081/login", values, {
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        "https://capstone2-client.onrender.com/login",
+        values,
+        {
+          withCredentials: true,
+        }
+      );
 
       if (response.data) {
         alert("Login successful!");
@@ -46,7 +50,7 @@ const Login = () => {
 
   const GoToRegister = async () => {
     try {
-      await axios.post("http://localhost:8081/gotoregister");
+      await axios.post("https://capstone2-client.onrender.com/gotoregister");
       localStorage.removeItem("token");
       navigate("/registration");
     } catch (error) {
@@ -56,7 +60,7 @@ const Login = () => {
 
   const GoToForgotPassword = async () => {
     try {
-      await axios.post("http://localhost:8081/gotoforgot");
+      await axios.post("https://capstone2-client.onrender.com/gotoforgot");
       localStorage.removeItem("token");
       navigate("/Enter-Email");
     } catch (error) {

@@ -26,7 +26,7 @@ function Database() {
   // Fetch images from the backend
   useEffect(() => {
     axios
-      .get("http://localhost:8081/api/images")
+      .get("https://capstone2-client.onrender.com/api/images")
       .then((response) => {
         console.log("Fetched images:", response.data);
         setImages(response.data); // Set the fetched images to state
@@ -97,7 +97,7 @@ function Database() {
       <div className="gallery grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full max-w-screen-xl">
         {filteredImages.length > 0 ? (
           filteredImages.map((species) => {
-            const imageUrl = `http://localhost:8080/uploads/images/${species.uploadimage}`; // Correct URL
+            const imageUrl = `https://bioexplorer-backend.onrender.com/uploads/images/${species.uploadimage}`; // Correct URL
             return (
               <div
                 className="gallery-item cursor-pointer relative rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"

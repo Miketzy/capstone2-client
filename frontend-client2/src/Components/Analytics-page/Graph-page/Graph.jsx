@@ -26,7 +26,7 @@ function Graph() {
   useEffect(() => {
     // Fetch species counts from the backend API
     axios
-      .get("http://localhost:8081/speciesCounts")
+      .get("https://capstone2-client.onrender.com/speciesCounts")
       .then((res) => {
         const counts = res.data;
         setData([

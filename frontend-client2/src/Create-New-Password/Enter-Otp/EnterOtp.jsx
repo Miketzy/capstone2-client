@@ -58,7 +58,10 @@ function EnterOtp() {
   const handleVerifyOTP = () => {
     const otpCode = otp.join("");
     axios
-      .post("http://localhost:8081/verify-otp", { email, otp: otpCode })
+      .post("https://capstone2-client.onrender.com/verify-otp", {
+        email,
+        otp: otpCode,
+      })
       .then((response) => {
         if (response.data.success) {
           alert("OTP verified successfully!");

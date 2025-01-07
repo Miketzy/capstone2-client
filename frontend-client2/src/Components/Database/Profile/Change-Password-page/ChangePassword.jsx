@@ -28,7 +28,7 @@ function ChangePassword() {
     try {
       // Send a POST request to the backend API to change the password
       const response = await axios.post(
-        "http://localhost:8081/password-changes",
+        "https://capstone2-client.onrender.com/password-changes",
         {
           currentPassword,
           newPassword,

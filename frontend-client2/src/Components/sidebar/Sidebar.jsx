@@ -20,7 +20,7 @@ function Sidebar({ isSidebarVisible }) {
   // Fetch user data on component mount
   const fetchUserData = () => {
     axios
-      .get("http://localhost:8081/", { withCredentials: true })
+      .get("https://capstone2-client.onrender.com/", { withCredentials: true })
       .then((response) => {
         if (response.data.message === "Profile retrieved successfully") {
           setUser({
@@ -29,7 +29,7 @@ function Sidebar({ isSidebarVisible }) {
             lastname: response.data.user.lastname || "",
             email: response.data.user.email || "",
             image: response.data.user.image
-              ? `http://localhost:8081/images/${response.data.user.image}`
+              ? `https://capstone2-client.onrender.com/images/${response.data.user.image}`
               : "/picture/Unknown_Member.jpg",
           });
         } else {

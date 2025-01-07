@@ -27,7 +27,7 @@ function Profile() {
     // Fetch user data from backend
     const fetchUserData = async () => {
       try {
-        const res = await axios.get("http://localhost:8081/", {
+        const res = await axios.get("https://capstone2-client.onrender.com/", {
           withCredentials: true,
         });
         console.log("Fetched profile data:", res.data); // Log response
@@ -36,7 +36,7 @@ function Profile() {
         const user = res.data.user; // Get user object from response
 
         const imageUrl = user.image
-          ? `http://localhost:8081/images/${user.image}`
+          ? `https://capstone2-client.onrender.com/images/${user.image}`
           : "/picture/Unknown_Member.jpg"; // Default image
 
         setUserData({

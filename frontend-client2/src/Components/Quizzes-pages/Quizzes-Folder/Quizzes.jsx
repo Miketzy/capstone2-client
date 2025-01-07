@@ -16,7 +16,7 @@ const Quizzes = () => {
   const fetchQuestions = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8081/api/random-questions"
+        "https://capstone2-client.onrender.com/api/random-questions"
       );
       setQuestions(response.data);
       setUserAnswers(Array(response.data.length).fill(null)); // Initialize answers array
@@ -47,7 +47,7 @@ const Quizzes = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:8081/api/save-score",
+        "https://capstone2-client.onrender.com/api/save-score",
         { score: finalScore }, // Send the exact score
         {
           headers: {

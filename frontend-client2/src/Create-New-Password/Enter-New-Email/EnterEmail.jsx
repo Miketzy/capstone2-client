@@ -29,7 +29,7 @@ function EnterEmail() {
 
     setLoading(true);
     axios
-      .post("http://localhost:8081/send-otp", { email })
+      .post("https://capstone2-client.onrender.com/send-otp", { email })
       .then((response) => {
         setMessage(response.data);
         navigate("/Enter-Otp", { state: { email } });
@@ -48,7 +48,7 @@ function EnterEmail() {
 
   const GoToLogin = async () => {
     try {
-      await axios.post("http://localhost:8081/logout");
+      await axios.post("https://capstone2-client.onrender.com/logout");
       localStorage.removeItem("token");
       navigate("/");
     } catch (error) {
