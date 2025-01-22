@@ -259,8 +259,8 @@ app.post("/login", (req, res) => {
           // Set the JWT token in a cookie
           res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax",
+            secure: true,
+            sameSite: "None",
           });
           return res.json({
             Status: "Success",
