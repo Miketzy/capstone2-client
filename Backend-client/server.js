@@ -36,6 +36,9 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
+  authPlugins: {
+    mysql_native_password: () => {},
+  },
 });
 
 // Connect to MySQL database
@@ -204,7 +207,6 @@ app.put("/profile", verifyUser, profileUpload.single("image"), (req, res) => {
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
   const sql = "SELECT * FROM user1 WHERE email = ?";
-  console.log(sql);
 
   db.query(sql, [email], (err, data) => {
     if (err) {
