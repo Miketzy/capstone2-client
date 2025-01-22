@@ -10,6 +10,7 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto"); // Correct way to import crypto module
+require("dotenv").config();
 
 const http = require("http");
 const { Server } = require("socket.io");
