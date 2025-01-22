@@ -13,7 +13,7 @@ function Database() {
   const navigate = useNavigate(); // Initialize navigate
 
   const openModal = (species) => {
-    const imageUrl = `http://localhost:8080/uploads/images/${species.uploadimage}`; // Use the correct path for the images
+    const imageUrl = `https://bioexplorer-backend.onrender.com/uploads/images/${species.uploadimage}`; // Use the correct path for the images
     setSelectedImage(imageUrl);
     setSelectedSpecies(species);
   };
