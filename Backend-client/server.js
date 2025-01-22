@@ -203,6 +203,8 @@ app.put("/profile", verifyUser, profileUpload.single("image"), (req, res) => {
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
   const sql = "SELECT * FROM user1 WHERE email = ?";
+  console.log(sql);
+
   db.query(sql, [email], (err, data) => {
     if (err) {
       console.error("Database error:", err);
