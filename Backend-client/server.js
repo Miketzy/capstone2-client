@@ -30,11 +30,11 @@ app.use(
 );
 
 const db = mysql.createConnection({
-  host: "sql12.freemysqlhosting.net", // The server address
-  user: "sql12755763", // Your username
-  password: "Pmfi2itF78", // Your password
-  database: "sql12755763", // Your database name
-  port: 3306, // Default MySQL port
+  host: process.env.DB_HOST,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
 });
 
 // Connect to MySQL database
@@ -416,12 +416,10 @@ app.post("/api/register", async (req, res) => {
           console.error(err); // Log the error for debugging
           return res.status(500).json({ error: err.message });
         }
-        res
-          .status(201)
-          .json({
-            message: "User registered successfully",
-            userId: results.insertId,
-          });
+        res.status(201).json({
+          message: "User registered successfully",
+          userId: results.insertId,
+        });
       }
     );
   } catch (error) {
