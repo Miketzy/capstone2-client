@@ -26,19 +26,25 @@ app.use(
       "http://localhost:3001",
       "https://davao-oriental-bioexplorer-client.vercel.app",
     ], // Change this to your frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
 
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
-  authPlugins: {
-    mysql_native_password: () => {},
-  },
+// const db = mysql.createConnection({
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USERNAME,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_NAME,
+//   port: process.env.DB_PORT,
+// });
+
+const db = mysql2.createConnection({
+  host: "sql12.freesqldatabase.com", // The server address
+  user: "sql12758599", // Your username
+  password: "rj85EkwRck", // Your password
+  database: "sql12758599", // Your database name
+  port: 3306, // Default MySQL port
 });
 
 console.log(process.env.DB_HOST);
