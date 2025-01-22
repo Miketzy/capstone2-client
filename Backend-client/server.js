@@ -454,7 +454,7 @@ const sendOTPEmail = (email, otp) => {
     service: "gmail",
     auth: {
       user: "michaeljohnmargate11@gmail.com", // Your Gmail address
-      pass: "ghcp yguc opnc kgwg", // Your Gmail password or app password
+      pass: "hdfz sazb vhna xwyn", // Your Gmail password or app password
     },
   });
 
