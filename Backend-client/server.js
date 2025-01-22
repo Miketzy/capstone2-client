@@ -206,7 +206,7 @@ app.post("/login", (req, res) => {
   db.query(sql, [email], (err, data) => {
     if (err) {
       console.error("Database error:", err);
-      return res.status(500).json({ Message: "Server Side Error" });
+      return res.status(500).json({ Message: err });
     }
     if (data.length > 0) {
       const user = data[0];
