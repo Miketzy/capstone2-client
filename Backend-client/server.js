@@ -23,7 +23,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3001",
-      "https://davao-oriental-bioexplorer-client.vercel.app/",
+      "https://davao-oriental-bioexplorer-client.vercel.app",
     ], // Change this to your frontend URL
     credentials: true,
   })
