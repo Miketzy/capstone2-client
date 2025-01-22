@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require("mysql");
+// const mysql = require("mysql");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
@@ -11,7 +11,7 @@ const cookieParser = require("cookie-parser");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto"); // Correct way to import crypto module
 require("dotenv").config();
-
+const mysql = require('mysql2');
 const http = require("http");
 const { Server } = require("socket.io");
 
@@ -39,7 +39,7 @@ app.use(
 //   port: process.env.DB_PORT,
 // });
 
-const db = mysql2.createConnection({
+const db = mysql.createConnection({
   host: "sql12.freesqldatabase.com", // The server address
   user: "sql12758599", // Your username
   password: "rj85EkwRck", // Your password
