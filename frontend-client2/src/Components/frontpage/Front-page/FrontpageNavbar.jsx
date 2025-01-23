@@ -48,7 +48,7 @@ const FrontpageNavbar = () => {
             {[
               { href: "/", label: "Home" },
               { href: "/about-the-project", label: "About the Project" },
-              { href: "#team", label: "Team" },
+              { href: "/team", label: "Team" },
               { href: "#developer", label: "Developer" },
             ].map((link) => (
               <Link
@@ -90,7 +90,7 @@ const FrontpageNavbar = () => {
           {[
             { href: "/", label: "Home" },
             { href: "/about-the-project", label: "About the Project" },
-            { href: "#team", label: "Team" },
+            { href: "/team", label: "Team" },
             { href: "#developer", label: "Developer" },
           ].map((link) => (
             <Link

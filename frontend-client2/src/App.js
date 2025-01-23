@@ -48,6 +48,7 @@ function App() {
 
     <Route path="/" element={<FrontPagesHome/>} />
     <Route path="/about-the-project" element={<AboutPages/>} />
+    <Route path="/team" element={<AboutPages/>} />
     
     
     
