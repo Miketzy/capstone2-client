@@ -85,13 +85,13 @@ const Login = () => {
         </div>
 
         {/* Login Form */}
-        <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-3/4 md:w-2/3 lg:w-1/3">
+        <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-3/4 md:w-2/3 lg:w-1/3 lg:ml-16">
+          {" "}
+          {/* Added lg:ml-16 to move it right */}
           <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
             Login
           </h2>
-
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="email" className="block text-gray-700 mb-2">
@@ -139,7 +139,6 @@ const Login = () => {
               Login
             </button>
           </form>
-
           <p className="text-center text-sm mt-4">
             Don't have an account?{" "}
             <span
