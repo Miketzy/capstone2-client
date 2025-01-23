@@ -7,7 +7,7 @@ const AboutTheProject = () => {
         <h2 className="text-5xl font-extrabold text-green-800 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
           About the Project
         </h2>
-        <p className="mt-6 text-xl text-gray-700 max-w-3xl mx-auto">
+        <p className="mt-6 text-xl text-gray-700 max-w-3xl mx-auto text-justify">
           BioExplorer is an innovative platform developed to showcase and
           explore the diverse species found in Davao Oriental. It provides a
           comprehensive database of species, offering detailed information about
@@ -22,7 +22,7 @@ const AboutTheProject = () => {
             <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
               Project Goals:
             </h3>
-            <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto">
+            <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto text-justify">
               <li>
                 Raise Awareness: Educate the public on the importance of local
                 biodiversity and its conservation.
@@ -44,7 +44,7 @@ const AboutTheProject = () => {
             <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
               How It Works:
             </h3>
-            <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto">
+            <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto text-justify">
               <li>
                 <strong>Species Database:</strong> Users can search for species
                 based on their common name, scientific name, or classification.
@@ -68,7 +68,7 @@ const AboutTheProject = () => {
             <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
               Why It Matters:
             </h3>
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto text-justify">
               Biodiversity is critical to the health of our ecosystems, and by
               preserving and sharing knowledge about local species, BioExplorer
               hopes to foster a greater understanding of the natural world and
@@ -83,7 +83,7 @@ const AboutTheProject = () => {
             <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
               Features:
             </h3>
-            <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto">
+            <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto text-justify">
               <li>
                 <strong>Search and Filter:</strong> Easily search and filter
                 species based on names, categories, or locations.
