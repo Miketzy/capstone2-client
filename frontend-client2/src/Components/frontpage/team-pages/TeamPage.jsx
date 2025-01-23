@@ -3,19 +3,16 @@ import React from "react";
 const TeamPage = () => {
   const teamMembers = [
     {
-      name: "Jane Doe",
-      position: "Project Manager",
-      bio: "Jane is an environmental scientist with a passion for biodiversity conservation. She leads the BioExplorer team, ensuring the project stays on track and serves its mission of protecting local species.",
-      photo: "path/to/jane-photo.jpg",
+      name: "Joshu Lasap",
+      position: "Project Leader",
       socialLinks: {
         linkedin: "https://www.linkedin.com/in/jane-doe",
         twitter: "https://twitter.com/jane_doe",
       },
     },
     {
-      name: "John Smith",
-      position: "Lead Developer",
-      bio: "John is a software engineer who specializes in creating user-friendly platforms. His technical expertise powers the BioExplorer interface, ensuring an engaging and smooth user experience.",
+      name: "Michael John G. Margate",
+      position: "Developer",
       photo: "path/to/john-photo.jpg",
       socialLinks: {
         linkedin: "https://www.linkedin.com/in/john-smith",
@@ -23,9 +20,8 @@ const TeamPage = () => {
       },
     },
     {
-      name: "Emily Johnson",
-      position: "Conservation Specialist",
-      bio: "Emily brings her expertise in conservation and ecology to the team. She helps ensure that the species data in BioExplorer is accurate and meaningful, contributing to the preservation of local biodiversity.",
+      name: "Mary Joy A. Antonio",
+      position: "User interface",
       photo: "path/to/emily-photo.jpg",
       socialLinks: {
         linkedin: "https://www.linkedin.com/in/emily-johnson",
