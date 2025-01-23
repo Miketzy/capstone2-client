@@ -4,8 +4,8 @@ const AboutTheProject = () => {
   return (
     <div className="bg-gradient-to-b from-green-50 to-white py-16 px-8 sm:px-16">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-5xl font-extrabold text-green-800 bg-green-300 py-3 px-8 rounded-md shadow-md inline-block">
-          About the App
+        <h2 className="text-5xl font-extrabold text-emerald-800 bg-emerald-200 py-3 px-8 rounded-md shadow-md inline-block">
+          About the Project
         </h2>
         <p className="mt-6 text-xl text-gray-800 max-w-3xl mx-auto text-justify bg-green-50 py-6 px-4 rounded-lg shadow-md">
           BioExplorer is an innovative platform developed to showcase and
@@ -18,8 +18,8 @@ const AboutTheProject = () => {
         </p>
 
         <div className="mt-14 space-y-10">
-          <div className="space-y-6 bg-green-100 py-6 px-6 rounded-lg shadow-lg">
-            <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
+          <div className="space-y-6 bg-emerald-100 py-6 px-6 rounded-lg shadow-lg">
+            <h3 className="text-3xl font-semibold text-emerald-700 bg-emerald-300 py-2 px-6 rounded-md shadow-lg inline-block">
               Project Goals:
             </h3>
             <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto text-justify">
@@ -40,8 +40,8 @@ const AboutTheProject = () => {
             </ul>
           </div>
 
-          <div className="space-y-6 bg-green-100 py-6 px-6 rounded-lg shadow-lg">
-            <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
+          <div className="space-y-6 bg-emerald-100 py-6 px-6 rounded-lg shadow-lg">
+            <h3 className="text-3xl font-semibold text-emerald-700 bg-emerald-300 py-2 px-6 rounded-md shadow-lg inline-block">
               How It Works:
             </h3>
             <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto text-justify">
@@ -64,8 +64,8 @@ const AboutTheProject = () => {
             </ul>
           </div>
 
-          <div className="space-y-6 bg-green-100 py-6 px-6 rounded-lg shadow-lg">
-            <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
+          <div className="space-y-6 bg-emerald-100 py-6 px-6 rounded-lg shadow-lg">
+            <h3 className="text-3xl font-semibold text-emerald-700 bg-emerald-300 py-2 px-6 rounded-md shadow-lg inline-block">
               Why It Matters:
             </h3>
             <p className="text-lg text-gray-700 max-w-2xl mx-auto text-justify">
@@ -79,8 +79,8 @@ const AboutTheProject = () => {
             </p>
           </div>
 
-          <div className="mt-10 space-y-6 bg-green-100 py-6 px-6 rounded-lg shadow-lg">
-            <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
+          <div className="mt-10 space-y-6 bg-emerald-100 py-6 px-6 rounded-lg shadow-lg">
+            <h3 className="text-3xl font-semibold text-emerald-700 bg-emerald-300 py-2 px-6 rounded-md shadow-lg inline-block">
               Features:
             </h3>
             <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto text-justify">
