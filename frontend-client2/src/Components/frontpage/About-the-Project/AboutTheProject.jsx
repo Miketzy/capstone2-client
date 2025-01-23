@@ -2,12 +2,12 @@ import React from "react";
 
 const AboutTheProject = () => {
   return (
-    <div className="bg-gradient-to-b from-green-100 to-white py-16 px-8 sm:px-16">
+    <div className="bg-gradient-to-b from-green-50 to-white py-16 px-8 sm:px-16">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-5xl font-extrabold text-green-800 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
-          About the Project
+        <h2 className="text-5xl font-extrabold text-green-800 bg-green-300 py-3 px-8 rounded-md shadow-md inline-block">
+          About the App
         </h2>
-        <p className="mt-6 text-xl text-gray-700 max-w-3xl mx-auto text-justify">
+        <p className="mt-6 text-xl text-gray-800 max-w-3xl mx-auto text-justify bg-green-50 py-6 px-4 rounded-lg shadow-md">
           BioExplorer is an innovative platform developed to showcase and
           explore the diverse species found in Davao Oriental. It provides a
           comprehensive database of species, offering detailed information about
@@ -18,7 +18,7 @@ const AboutTheProject = () => {
         </p>
 
         <div className="mt-14 space-y-10">
-          <div className="space-y-6">
+          <div className="space-y-6 bg-green-100 py-6 px-6 rounded-lg shadow-lg">
             <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
               Project Goals:
             </h3>
@@ -40,7 +40,7 @@ const AboutTheProject = () => {
             </ul>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6 bg-green-100 py-6 px-6 rounded-lg shadow-lg">
             <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
               How It Works:
             </h3>
@@ -64,7 +64,7 @@ const AboutTheProject = () => {
             </ul>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6 bg-green-100 py-6 px-6 rounded-lg shadow-lg">
             <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
               Why It Matters:
             </h3>
@@ -79,7 +79,7 @@ const AboutTheProject = () => {
             </p>
           </div>
 
-          <div className="mt-10 space-y-6">
+          <div className="mt-10 space-y-6 bg-green-100 py-6 px-6 rounded-lg shadow-lg">
             <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
               Features:
             </h3>
