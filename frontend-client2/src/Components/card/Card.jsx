@@ -5,6 +5,20 @@ import "./Card.css";
 function Card() {
   return (
     <div className="card">
+      {/* Header Section */}
+      <header className="website-header text-center p-6 bg-blue-200 rounded-lg shadow-md mb-6">
+        <h1 className="text-2xl font-bold text-blue-800">
+          Welcome to BioExplorer
+        </h1>
+        <p className="mt-2 text-gray-700">
+          Explore the world of biodiversity through our interactive map,
+          detailed database, engaging quizzes, and insightful analytics. This
+          platform is designed to make learning about species and their habitats
+          easy and enjoyable. Start your journey now!
+        </p>
+      </header>
+
+      {/* Card Section */}
       <div className="card-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
         <Link to="/mapping" className="card-link">
           <div className="cardbox bg-blue-700 shadow-lg rounded-lg p-4 hover:shadow-xl transition-transform duration-300 flex flex-col items-center justify-center hover:scale-105 h-[210px] animate-fadeIn glow-animation">
