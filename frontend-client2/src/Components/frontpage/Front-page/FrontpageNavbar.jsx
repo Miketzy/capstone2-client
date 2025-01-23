@@ -9,7 +9,12 @@ const FrontpageNavbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="text-2xl font-bold tracking-wide">🐾 BioExplorer</div>
+          <div className="text-2xl font-bold tracking-wide flex items-center">
+            <span className="text-white bg-green-600 rounded-full p-1 mr-2">
+              🐾
+            </span>
+            BioExplorer
+          </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">
