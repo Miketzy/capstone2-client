@@ -19,12 +19,13 @@ import EnterNewPassword from './Create-New-Password/Enter-New-Password/EnterNewP
 import QuizzesIntroDashboard from './Home/Quizzes-Dashboard/Quizzes-Intro-Dashboard/QuizzesIntroDashboard';
 import QuizzesDashboard from './Home/Quizzes-Dashboard/Quizzes-Folder-Dashboard/QuizzesDashboard';
 import GrapClient from './Home/AnalyticsHome/GrapClient';
+import FrontpageNavbar from './Components/frontpage/Front-page/FrontpageNavbar';
 
 function App() {
   return (
   <BrowserRouter>
     <Routes>
-    <Route path="/" element={<Login />} />
+    <Route path="/login" element={<Login />} />
     <Route path="/registration" element={<Registration />} />
     <Route path="/Home" element={<Home />} />
     <Route path="/mapping" element={<MapHome />} />
@@ -42,6 +43,8 @@ function App() {
     <Route path="/analytics" element={<GrapClient />} />
     <Route path="/quizzes-intro" element={<QuizzesIntroDashboard />} />
     <Route path="/quizzes" element={<QuizzesDashboard />} />
+
+    <Route path="/" element={<FrontpageNavbar />} />
     
     
     
