@@ -50,7 +50,7 @@ function EnterEmail() {
     try {
       await axios.post("https://capstone2-client.onrender.com/logout");
       localStorage.removeItem("token");
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error("Error during logout", error);
     }
