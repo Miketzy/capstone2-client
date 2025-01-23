@@ -21,6 +21,7 @@ import QuizzesDashboard from './Home/Quizzes-Dashboard/Quizzes-Folder-Dashboard/
 import GrapClient from './Home/AnalyticsHome/GrapClient';
 import FrontpageNavbar from './Components/frontpage/Front-page/FrontpageNavbar';
 import FrontPagesHome from './FrontpageHomepage/FrontpageHome/FrontPagesHome';
+import AboutPages from './FrontpageHomepage/FrontAboutPages/AboutPages';
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
 
     <Route path="/" element={<FrontpageNavbar />} />
     <Route path="/frontpagehome" element={<FrontPagesHome/>} />
+    <Route path="/about-the-project" element={<AboutPages/>} />
     
     
     
