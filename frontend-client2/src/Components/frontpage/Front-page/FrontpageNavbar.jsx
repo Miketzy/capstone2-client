@@ -46,7 +46,7 @@ const FrontpageNavbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">
             {[
-              { href: "/frontpagehome", label: "Home" },
+              { href: "/", label: "Home" },
               { href: "/about-the-project", label: "About the Project" },
               { href: "#team", label: "Team" },
               { href: "#developer", label: "Developer" },
@@ -88,7 +88,7 @@ const FrontpageNavbar = () => {
       {isOpen && (
         <div className="md:hidden bg-green-800">
           {[
-            { href: "/frontpagehome", label: "Home" },
+            { href: "/", label: "Home" },
             { href: "/about-the-project", label: "About the Project" },
             { href: "#team", label: "Team" },
             { href: "#developer", label: "Developer" },

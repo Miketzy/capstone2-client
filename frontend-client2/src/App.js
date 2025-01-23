@@ -46,8 +46,7 @@ function App() {
     <Route path="/quizzes-intro" element={<QuizzesIntroDashboard />} />
     <Route path="/quizzes" element={<QuizzesDashboard />} />
 
-    <Route path="/" element={<FrontpageNavbar />} />
-    <Route path="/frontpagehome" element={<FrontPagesHome/>} />
+    <Route path="/" element={<FrontPagesHome/>} />
     <Route path="/about-the-project" element={<AboutPages/>} />
     
     
