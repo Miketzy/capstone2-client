@@ -48,7 +48,7 @@ const Registration = () => {
 
       console.log(response.data);
       alert("Registration successful!");
-      navigate("/"); // Navigate to login after successful registration
+      navigate("/login"); // Navigate to login after successful registration
 
       setFormData({
         firstname: "",
@@ -72,7 +72,7 @@ const Registration = () => {
     try {
       await axios.post("https://capstone2-client.onrender.com/gotologin");
       localStorage.removeItem("token");
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error("Error during logout", error);
     }

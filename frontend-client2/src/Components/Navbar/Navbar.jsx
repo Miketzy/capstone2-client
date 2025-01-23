@@ -89,7 +89,7 @@ function Navbar({ toggleSidebar }) {
         localStorage.removeItem("token");
 
         // Redirect to the login page
-        navigate("/"); // Make sure you import and use 'navigate' from 'react-router-dom'
+        navigate("/login"); // Make sure you import and use 'navigate' from 'react-router-dom'
       } catch (error) {
         console.error("Error during logout", error);
       }
