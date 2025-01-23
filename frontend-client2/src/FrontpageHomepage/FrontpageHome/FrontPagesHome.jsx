@@ -1,8 +1,8 @@
 import React from "react";
-import FrontpageNavbar from "../../src/Components/frontpage/Front-page/FrontpageNavbar";
-import FrontpageHome from "../../src/Components/frontpage/FrontpageHome/FrontpageHome";
+import FrontpageNavbar from "../../Components/frontpage/Front-page/FrontpageNavbar";
+import FrontpageHome from "../../Components/frontpage/FrontpageHome/FrontpageHome";
 
-const FrontPage = () => {
+const FrontPagesHome = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Navbar is persistent across all pages */}
@@ -16,4 +16,4 @@ const FrontPage = () => {
   );
 };
 
-export default FrontPage;
+export default FrontPagesHome;
