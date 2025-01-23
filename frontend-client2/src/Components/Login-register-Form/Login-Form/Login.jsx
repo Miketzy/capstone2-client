@@ -78,14 +78,14 @@ const Login = () => {
         <div className="lg:w-1/2 text-white text-center lg:text-left mb-8 lg:mb-0">
           <h3 className="text-3xl font-bold">Welcome to Our Application!</h3>
           <p className="mt-4 text-lg leading-relaxed">
-            This platform provides a seamless way to manage and track species
-            information in Davao Oriental. Whether you're a contributor or an
-            admin, our system bridges the gap between science and technology.
+            This platform helps users manage and track species information in
+            Davao Oriental. Whether you're a contributor or an admin, it
+            simplifies data management and enhances collaboration.
           </p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white p-10 rounded-lg shadow-lg w-full sm:w-3/4 md:w-2/3 lg:w-1/2">
+        <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-3/4 md:w-2/3 lg:w-1/3">
           <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
             Login
           </h2>
