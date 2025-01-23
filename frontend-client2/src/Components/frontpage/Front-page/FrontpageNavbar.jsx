@@ -3,6 +3,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 const FrontpageNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("#home"); // Track active link
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link); // Update the active link
+  };
 
   return (
     <nav className="bg-green-700 text-white shadow-lg">
@@ -39,30 +44,31 @@ const FrontpageNavbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">
-            <a
-              href="#home"
-              className="hover:text-green-300 transition duration-300"
-            >
-              Home
-            </a>
-            <a
-              href="#about"
-              className="hover:text-green-300 transition duration-300"
-            >
-              About the Project
-            </a>
-            <a
-              href="#team"
-              className="hover:text-green-300 transition duration-300"
-            >
-              Team
-            </a>
-            <a
-              href="#developer"
-              className="hover:text-green-300 transition duration-300"
-            >
-              Developer
-            </a>
+            {[
+              { href: "#home", label: "Home" },
+              { href: "#about", label: "About the Project" },
+              { href: "#team", label: "Team" },
+              { href: "#developer", label: "Developer" },
+            ].map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => handleLinkClick(link.href)}
+                className={`relative hover:text-green-300 transition duration-300 ${
+                  activeLink === link.href ? "text-green-300" : ""
+                }`}
+              >
+                {link.label}
+                {/* Underline */}
+                <span
+                  className={`absolute left-0 right-0 -bottom-1 h-1 rounded-full bg-green-300 transition-all duration-300 ${
+                    activeLink === link.href
+                      ? "opacity-100 scale-100"
+                      : "opacity-0 scale-0"
+                  }`}
+                />
+              </a>
+            ))}
           </div>
 
           {/* Mobile Menu Icon */}
@@ -80,30 +86,23 @@ const FrontpageNavbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-green-800">
-          <a
-            href="#home"
-            className="block px-4 py-2 hover:bg-green-600 transition duration-300"
-          >
-            Home
-          </a>
-          <a
-            href="#about"
-            className="block px-4 py-2 hover:bg-green-600 transition duration-300"
-          >
-            About the Project
-          </a>
-          <a
-            href="#team"
-            className="block px-4 py-2 hover:bg-green-600 transition duration-300"
-          >
-            Team
-          </a>
-          <a
-            href="#developer"
-            className="block px-4 py-2 hover:bg-green-600 transition duration-300"
-          >
-            Developer
-          </a>
+          {[
+            { href: "#home", label: "Home" },
+            { href: "#about", label: "About the Project" },
+            { href: "#team", label: "Team" },
+            { href: "#developer", label: "Developer" },
+          ].map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => handleLinkClick(link.href)}
+              className={`block px-4 py-2 hover:bg-green-600 transition duration-300 ${
+                activeLink === link.href ? "bg-green-600" : ""
+              }`}
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       )}
     </nav>
