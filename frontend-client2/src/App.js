@@ -22,6 +22,7 @@ import GrapClient from './Home/AnalyticsHome/GrapClient';
 import FrontpageNavbar from './Components/frontpage/Front-page/FrontpageNavbar';
 import FrontPagesHome from './FrontpageHomepage/FrontpageHome/FrontPagesHome';
 import AboutPages from './FrontpageHomepage/FrontAboutPages/AboutPages';
+import TeamHome from './FrontpageHomepage/TeamHomePage/TeamHome';
 
 function App() {
   return (
@@ -48,7 +49,7 @@ function App() {
 
     <Route path="/" element={<FrontPagesHome/>} />
     <Route path="/about-the-project" element={<AboutPages/>} />
-    <Route path="/team" element={<AboutPages/>} />
+    <Route path="/team" element={<TeamHome/>} />
     
     
     
