@@ -2,12 +2,12 @@ import React from "react";
 
 const AboutTheProject = () => {
   return (
-    <div className="bg-green-50 py-16 px-8 sm:px-16">
+    <div className="bg-gradient-to-b from-green-100 to-white py-16 px-8 sm:px-16">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-5xl font-extrabold text-green-800">
-          About the BioExplorer Project
+        <h2 className="text-5xl font-extrabold text-green-800 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
+          About the Project
         </h2>
-        <p className="mt-6 text-lg text-gray-700 leading-relaxed">
+        <p className="mt-6 text-xl text-gray-700 max-w-3xl mx-auto">
           BioExplorer is an innovative platform developed to showcase and
           explore the diverse species found in Davao Oriental. It provides a
           comprehensive database of species, offering detailed information about
@@ -17,34 +17,34 @@ const AboutTheProject = () => {
           environmentalists in preserving and protecting local species.
         </p>
 
-        <div className="mt-14 space-y-12">
+        <div className="mt-14 space-y-10">
           <div className="space-y-6">
-            <h3 className="text-3xl font-semibold text-green-700">
+            <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
               Project Goals:
             </h3>
-            <ul className="list-disc list-inside text-lg text-gray-700">
+            <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto">
               <li>
-                <strong>Raise Awareness:</strong> Educate the public on the
-                importance of local biodiversity and its conservation.
+                Raise Awareness: Educate the public on the importance of local
+                biodiversity and its conservation.
               </li>
               <li>
-                <strong>Explore Biodiversity:</strong> Provide users with a
-                platform to explore various species native to Davao Oriental
-                through an easy-to-use interface.
+                Explore Biodiversity: Provide users with a platform to explore
+                various species native to Davao Oriental through an easy-to-use
+                interface.
               </li>
               <li>
-                <strong>Contribute to Conservation:</strong> Enable users to
-                contribute to the database by submitting species they discover,
-                with a review and approval system in place.
+                Contribute to Conservation: Enable users to contribute to the
+                database by submitting species they discover, with a review and
+                approval system in place.
               </li>
             </ul>
           </div>
 
           <div className="space-y-6">
-            <h3 className="text-3xl font-semibold text-green-700">
+            <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
               How It Works:
             </h3>
-            <ul className="list-disc list-inside text-lg text-gray-700">
+            <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto">
               <li>
                 <strong>Species Database:</strong> Users can search for species
                 based on their common name, scientific name, or classification.
@@ -65,10 +65,10 @@ const AboutTheProject = () => {
           </div>
 
           <div className="space-y-6">
-            <h3 className="text-3xl font-semibold text-green-700">
+            <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
               Why It Matters:
             </h3>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
               Biodiversity is critical to the health of our ecosystems, and by
               preserving and sharing knowledge about local species, BioExplorer
               hopes to foster a greater understanding of the natural world and
@@ -79,9 +79,11 @@ const AboutTheProject = () => {
             </p>
           </div>
 
-          <div className="mt-10">
-            <h3 className="text-3xl font-semibold text-green-700">Features:</h3>
-            <ul className="list-disc list-inside text-lg text-gray-700">
+          <div className="mt-10 space-y-6">
+            <h3 className="text-3xl font-semibold text-green-700 bg-green-200 py-2 px-6 rounded-md shadow-lg inline-block">
+              Features:
+            </h3>
+            <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto">
               <li>
                 <strong>Search and Filter:</strong> Easily search and filter
                 species based on names, categories, or locations.
@@ -105,14 +107,6 @@ const AboutTheProject = () => {
               </li>
             </ul>
           </div>
-        </div>
-
-        <div className="mt-16 flex justify-center">
-          <img
-            src="https://example.com/nature-sign.jpg"
-            alt="Nature Signage"
-            className="w-full sm:w-1/2 rounded-lg shadow-lg"
-          />
         </div>
       </div>
     </div>
