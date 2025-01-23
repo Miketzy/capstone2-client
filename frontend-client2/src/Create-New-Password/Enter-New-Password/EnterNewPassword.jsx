@@ -42,7 +42,7 @@ function EnterNewPassword() {
       .then((response) => {
         if (response.data.success) {
           alert("Password reset successfully!");
-          navigate("/"); // Redirect to home or login page
+          navigate("/login"); // Redirect to home or login page
         } else {
           setErrorMessage(response.data.message); // Display message from the server
         }
