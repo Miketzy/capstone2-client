@@ -24,7 +24,7 @@ const FrontpageHome = () => {
 
       {/* Proceed Button */}
       <button
-        onClick={() => (window.location.href = "#about")} // Replace with your desired route
+        onClick={() => (window.location.href = "/login")} // Replace with your desired route
         className="px-6 py-3 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600 transition duration-300"
       >
         Proceed
