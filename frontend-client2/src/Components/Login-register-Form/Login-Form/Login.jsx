@@ -76,11 +76,12 @@ const Login = () => {
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
         {/* Explanation Section */}
         <div className="lg:w-1/2 text-white text-center lg:text-left mb-8 lg:mb-0">
-          <h3 className="text-3xl font-bold">Welcome to Our Application!</h3>
+          <h3 className="text-3xl font-bold">Welcome to Our Web System!</h3>
           <p className="mt-4 text-lg leading-relaxed">
-            This platform helps users manage and track species information in
-            Davao Oriental. Whether you're a contributor or an admin, it
-            simplifies data management and enhances collaboration.
+            This web system is designed to help users manage and track species
+            data in Davao Oriental. Whether you're a contributor adding new
+            species or an admin overseeing the platform, this tool simplifies
+            the process of data management and fosters better collaboration.
           </p>
         </div>
 
