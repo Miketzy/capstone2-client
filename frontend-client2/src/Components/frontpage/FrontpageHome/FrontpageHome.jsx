@@ -1,7 +1,7 @@
 import React from "react";
 import { Player } from "@lottiefiles/react-lottie-player"; // Lottie Player for animations
 
-const Home = () => {
+const FrontpageHome = () => {
   return (
     <div className="bg-green-100 min-h-screen flex flex-col justify-center items-center text-center">
       {/* Animation Section */}
@@ -33,4 +33,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default FrontpageHome;
