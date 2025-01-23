@@ -73,10 +73,20 @@ const Login = () => {
       className="min-h-screen bg-cover bg-center flex items-center"
       style={{ backgroundImage: "url('/picture/durso.jpg')" }}
     >
-      <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-center">
+      <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
+        {/* Explanation Section */}
+        <div className="lg:w-1/2 text-white text-center lg:text-left mb-8 lg:mb-0">
+          <h3 className="text-3xl font-bold">Welcome to Our Application!</h3>
+          <p className="mt-4 text-lg leading-relaxed">
+            This platform provides a seamless way to manage and track species
+            information in Davao Oriental. Whether you're a contributor or an
+            admin, our system bridges the gap between science and technology.
+          </p>
+        </div>
+
         {/* Login Form */}
-        <div className="bg-white p-6 rounded-lg shadow-lg w-full sm:w-3/4 md:w-2/3 lg:w-1/3">
-          <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">
+        <div className="bg-white p-10 rounded-lg shadow-lg w-full sm:w-3/4 md:w-2/3 lg:w-1/2">
+          <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
             Login
           </h2>
 
@@ -90,7 +100,7 @@ const Login = () => {
               <input
                 type="email"
                 id="email"
-                className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your email"
                 onChange={(e) =>
                   setValues({ ...values, email: e.target.value })
@@ -99,14 +109,14 @@ const Login = () => {
               />
             </div>
 
-            <div className="mb-4">
+            <div className="mb-6">
               <label htmlFor="password" className="block text-gray-700 mb-2">
                 Password
               </label>
               <input
                 type="password"
                 id="password"
-                className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your password"
                 onChange={(e) =>
                   setValues({ ...values, password: e.target.value })
@@ -124,7 +134,7 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
+              className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
             >
               Login
             </button>
@@ -138,18 +148,6 @@ const Login = () => {
             >
               Register
             </span>
-          </p>
-        </div>
-
-        {/* Explanation Section */}
-        <div className="lg:ml-10 mt-8 lg:mt-0 text-white text-center lg:text-left">
-          <h3 className="text-3xl font-bold">Welcome to Our Application!</h3>
-          <p className="mt-4 text-lg leading-relaxed">
-            This platform is designed to provide users with a seamless way to
-            manage and track species information within the Davao Oriental
-            region. Whether you're a contributor, admin, or simply exploring,
-            this application helps bridge the gap between science and
-            technology.
           </p>
         </div>
       </div>
