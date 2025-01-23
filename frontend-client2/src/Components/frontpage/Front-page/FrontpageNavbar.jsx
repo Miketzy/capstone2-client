@@ -5,24 +5,36 @@ const FrontpageNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-blue-600 text-white">
+    <nav className="bg-green-700 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="text-2xl font-bold">BioExplorer</div>
+          <div className="text-2xl font-bold tracking-wide">🌱 BioExplorer</div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">
-            <a href="#home" className="hover:text-gray-300">
+            <a
+              href="#home"
+              className="hover:text-green-300 transition duration-300"
+            >
               Home
             </a>
-            <a href="#about" className="hover:text-gray-300">
+            <a
+              href="#about"
+              className="hover:text-green-300 transition duration-300"
+            >
               About the Project
             </a>
-            <a href="#team" className="hover:text-gray-300">
+            <a
+              href="#team"
+              className="hover:text-green-300 transition duration-300"
+            >
               Team
             </a>
-            <a href="#developer" className="hover:text-gray-300">
+            <a
+              href="#developer"
+              className="hover:text-green-300 transition duration-300"
+            >
               Developer
             </a>
           </div>
@@ -41,28 +53,28 @@ const FrontpageNavbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-blue-700">
+        <div className="md:hidden bg-green-800">
           <a
             href="#home"
-            className="block px-4 py-2 hover:bg-blue-800 hover:text-gray-300"
+            className="block px-4 py-2 hover:bg-green-600 transition duration-300"
           >
             Home
           </a>
           <a
             href="#about"
-            className="block px-4 py-2 hover:bg-blue-800 hover:text-gray-300"
+            className="block px-4 py-2 hover:bg-green-600 transition duration-300"
           >
             About the Project
           </a>
           <a
             href="#team"
-            className="block px-4 py-2 hover:bg-blue-800 hover:text-gray-300"
+            className="block px-4 py-2 hover:bg-green-600 transition duration-300"
           >
             Team
           </a>
           <a
             href="#developer"
-            className="block px-4 py-2 hover:bg-blue-800 hover:text-gray-300"
+            className="block px-4 py-2 hover:bg-green-600 transition duration-300"
           >
             Developer
           </a>
