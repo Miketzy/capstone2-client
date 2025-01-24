@@ -347,34 +347,27 @@ app.post("/password-changes", verifyUser, async (req, res) => {
   }
 });
 
+// Feedback submission endpoint
 app.post("/submit-feedback", verifyUser, (req, res) => {
-  console.log("Request body:", req.body);
-  console.log("User data:", req.user);
-
   const { rating, message } = req.body;
-  const { firstname, lastname } = req.user;
+  const { firstname, lastname } = req.user; // Use user's name from token
 
   if (!rating || !message) {
-    console.error("Validation failed: Missing rating or message");
     return res.status(400).send("Rating and message are required.");
   }
 
+  // Validate message content
   if (!isFormalMessage(message)) {
-    console.error("Validation failed: Informal message");
     return res.status(400).send("Please submit a proper message.");
   }
 
+  // Insert feedback into the database
   const sql = `INSERT INTO feedback (rating, message, firstname, lastname) VALUES (?, ?, ?, ?)`;
   db.query(sql, [rating, message, firstname, lastname], (err, result) => {
-    if (err) {
-      console.error("Database error:", err);
-      return res.status(500).send("Database error");
-    }
-    console.log("Feedback submitted successfully:", result);
+    if (err) return res.status(500).send("Database error");
     res.status(200).send("Feedback submitted successfully");
   });
 });
-
 
 app.post("/logout", (req, res) => {
   // Clear the token cookie
