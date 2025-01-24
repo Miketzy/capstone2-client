@@ -26,9 +26,17 @@ const FrontpageHome = () => {
       {/* Proceed Button */}
       <button
         onClick={() => (window.location.href = "/login")} // Replace with your desired route
-        className="px-6 py-3 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600 transition duration-300"
+        className="px-6 py-3 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600 transition duration-300 mb-4"
       >
         Proceed
+      </button>
+
+      {/* Learn More Button */}
+      <button
+        onClick={() => (window.location.href = "/learn-more")} // Replace with your desired route
+        className="px-6 py-3 bg-transparent border-2 border-green-700 text-green-700 rounded-lg shadow-lg hover:bg-green-700 hover:text-white transition duration-300"
+      >
+        Learn More
       </button>
     </div>
   );
