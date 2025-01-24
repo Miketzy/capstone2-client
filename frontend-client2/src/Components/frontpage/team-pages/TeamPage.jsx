@@ -5,7 +5,7 @@ const TeamPage = () => {
     {
       name: "Joshu Lasap",
       position: "Project Leader",
-      photo: "/picture/id2.jpeg",
+      photo: "/picture/received_935938050837773.jpeg",
       socialLinks: {
         twitter: "https://twitter.com/jane_doe",
       },
