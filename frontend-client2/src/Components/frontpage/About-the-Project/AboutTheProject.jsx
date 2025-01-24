@@ -18,7 +18,6 @@ const AboutTheProject = () => {
         </p>
 
         <div className="mt-14 space-y-10">
-          {/* Project Goals */}
           <div className="space-y-6 bg-emerald-100 py-6 px-6 rounded-lg shadow-lg">
             <h3 className="text-3xl font-semibold text-emerald-700 bg-emerald-300 py-2 px-6 rounded-md shadow-lg inline-block">
               Project Goals:
@@ -80,51 +79,33 @@ const AboutTheProject = () => {
             </p>
           </div>
 
-          {/* Features Section with Overlapping Images */}
-          <div className="mt-10 space-y-10">
+          <div className="mt-10 space-y-6 bg-emerald-100 py-6 px-6 rounded-lg shadow-lg">
             <h3 className="text-3xl font-semibold text-emerald-700 bg-emerald-300 py-2 px-6 rounded-md shadow-lg inline-block">
               Features:
             </h3>
-
-            {/* Feature 1 */}
-            <div className="flex flex-col lg:flex-row lg:items-center space-y-6 lg:space-y-0 lg:space-x-8 relative">
-              <div className="relative lg:w-1/2">
-                <img
-                  src="/picture/Screenshot 2025-01-24 220604.png"
-                  alt="Search and Filter 1"
-                  className="w-full rounded-lg shadow-md"
-                />
-                <img
-                  src="/picture/Screenshot 2025-01-24 220617.png"
-                  alt="Search and Filter 2"
-                  className="absolute top-8 left-8 w-5/6 rounded-lg shadow-lg border-4 border-white"
-                />
-              </div>
-              <p className="text-lg text-gray-700 bg-emerald-100 py-4 px-6 rounded-lg shadow-lg">
+            <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto text-justify">
+              <li>
                 <strong>Search and Filter:</strong> Easily search and filter
                 species based on names, categories, or locations.
-              </p>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="flex flex-col lg:flex-row-reverse lg:items-center space-y-6 lg:space-y-0 lg:space-x-8 relative">
-              <div className="relative lg:w-1/2">
-                <img
-                  src="/path-to-image3.jpg"
-                  alt="User Contributions 1"
-                  className="w-full rounded-lg shadow-md"
-                />
-                <img
-                  src="/path-to-image4.jpg"
-                  alt="User Contributions 2"
-                  className="absolute top-8 left-8 w-5/6 rounded-lg shadow-lg border-4 border-white"
-                />
-              </div>
-              <p className="text-lg text-gray-700 bg-emerald-100 py-4 px-6 rounded-lg shadow-lg">
+              </li>
+              <li>
                 <strong>User Contributions:</strong> Submit and share new
                 species discoveries for review.
-              </p>
-            </div>
+              </li>
+              <li>
+                <strong>Admin Approval System:</strong> Ensures the accuracy and
+                reliability of the information added.
+              </li>
+              <li>
+                <strong>Real-Time Notifications:</strong> Contributors receive
+                notifications when their species submissions are approved or
+                rejected.
+              </li>
+              <li>
+                <strong>Map Visualization:</strong> View species locations on an
+                interactive map.
+              </li>
+            </ul>
           </div>
         </div>
       </div>
