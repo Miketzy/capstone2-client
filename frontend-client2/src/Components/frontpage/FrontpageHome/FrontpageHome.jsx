@@ -1,16 +1,16 @@
 import React from "react";
-import { Player } from "@lottiefiles/react-lottie-player"; // Lottie Player for animations
-
 const FrontpageHome = () => {
   return (
     <div className="bg-green-100 min-h-screen flex flex-col justify-center items-center text-center">
       {/* Animation Section */}
       <div className="w-3/4 md:w-1/2 lg:w-1/3 mb-6">
-        <Player
-          autoplay
-          loop
-          src="https://assets4.lottiefiles.com/packages/lf20_s1u7hjvj.json" // Replace with a species-related animation URL
-          style={{ height: "300px", width: "300px" }}
+        <img
+          src={
+            process.env.PUBLIC_URL +
+            "/picture/DALL·E 2025-01-24 14.09.37 - A visually stunning background representing biodiversity exploration and species documentation. The scene features a lush rainforest with diverse flor.webp"
+          }
+          alt="Biodiversity Exploration"
+          className="w-full h-auto"
         />
       </div>
 
