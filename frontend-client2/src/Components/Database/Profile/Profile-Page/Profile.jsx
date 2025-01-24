@@ -51,7 +51,7 @@ function Profile() {
       } catch (err) {
         console.error("Error fetching profile:", err);
         if (err.response && err.response.status === 401) {
-          navigate("/"); // Redirect to login if unauthorized
+          navigate("/login"); // Redirect to login if unauthorized
         }
       } finally {
         setLoading(false); // Stop loading regardless of success or failure
@@ -64,7 +64,6 @@ function Profile() {
   return (
     <div>
       <div className="flex justify-center items-center min-h-screen  py-4 pt-24 ">
-        {/* Adding pt-24 for padding-top equal to the typical navbar height (adjust as needed) */}
         <div className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-6 border border-gray-300">
           <div className="text-center mb-4">
             <h2 className="text-2xl font-semibold text-gray-700">My Profile</h2>
