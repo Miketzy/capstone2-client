@@ -63,7 +63,7 @@ function Profile() {
 
   return (
     <div>
-      <div className="flex justify-center items-center min-h-screen bg-gray-100 py-4 pt-24 ">
+      <div className="flex justify-center items-center min-h-screen  py-4 pt-24 ">
         {/* Adding pt-24 for padding-top equal to the typical navbar height (adjust as needed) */}
         <div className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-6 border border-gray-300">
           <div className="text-center mb-4">
