@@ -2,7 +2,7 @@ import React from "react";
 
 const FrontpageHome = () => {
   return (
-    <div className=" min-h-screen flex flex-col justify-center items-center text-center">
+    <div className="min-h-screen flex flex-col justify-center items-center text-center">
       {/* Animation Section */}
       <div className="w-3/4 md:w-1/2 lg:w-1/3 mb-6">
         <img
@@ -23,21 +23,24 @@ const FrontpageHome = () => {
         Discover and explore a diverse range of species like never before.
       </p>
 
-      {/* Proceed Button */}
-      <button
-        onClick={() => (window.location.href = "/login")} // Replace with your desired route
-        className="px-6 py-3 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600 transition duration-300 mb-4"
-      >
-        Proceed
-      </button>
+      {/* Buttons Section - Horizontally aligned */}
+      <div className="flex space-x-4">
+        {/* Proceed Button */}
+        <button
+          onClick={() => (window.location.href = "/login")} // Replace with your desired route
+          className="px-6 py-3 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600 transition duration-300"
+        >
+          Proceed
+        </button>
 
-      {/* Learn More Button */}
-      <button
-        onClick={() => (window.location.href = "/learn-more")} // Replace with your desired route
-        className="px-6 py-3 bg-transparent border-2 border-green-700 text-green-700 rounded-lg shadow-lg hover:bg-green-700 hover:text-white transition duration-300"
-      >
-        Learn More
-      </button>
+        {/* Learn More Button */}
+        <button
+          onClick={() => (window.location.href = "/learn-more")} // Replace with your desired route
+          className="px-6 py-3 bg-transparent border-2 border-green-700 text-green-700 rounded-lg shadow-lg hover:bg-green-700 hover:text-white transition duration-300"
+        >
+          Learn More
+        </button>
+      </div>
     </div>
   );
 };
