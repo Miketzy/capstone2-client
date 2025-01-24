@@ -30,7 +30,7 @@ function Feedback() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-gray-100 p-4"
+      className="min-h-screen flex items-center justify-center  p-4"
       style={{ paddingTop: "80px" }} // Add padding to account for navbar height
     >
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
