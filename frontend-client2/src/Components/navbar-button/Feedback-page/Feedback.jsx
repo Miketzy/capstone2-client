@@ -2,25 +2,17 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function Feedback() {
-  const [rating, setRating] = useState(0); // State for rating
-  const [message, setMessage] = useState(""); // State for feedback message
+  const [rating, setRating] = useState(0); // rating state is used to track the rating value
+  const [message, setMessage] = useState("");
 
-  // Handle rating click (set rating when clicked)
+  // Function to handle the rating click
   const handleRatingClick = (value) => {
-    setRating(value);
+    setRating(value); // Update the rating state when a star is clicked
   };
 
+  // Function to handle feedback form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Log values to check what's being sent
-    console.log("Rating:", rating);
-    console.log("Message:", message);
-
-    if (rating === 0 || message.trim() === "") {
-      alert("Please provide both a rating and a message.");
-      return;
-    }
 
     try {
       const response = await axios.post(
@@ -28,21 +20,21 @@ function Feedback() {
         { rating, message },
         { withCredentials: true }
       );
-      alert("Feedback submitted successfully!");
+      alert(response.data); // Alert success message from backend
     } catch (error) {
       if (error.response) {
+        console.log("Error details:", error.response.data); // Check the exact error response
         alert("Error: " + error.response.data);
       } else {
         alert("An error occurred while submitting feedback.");
       }
-      console.error("Error submitting feedback:", error);
     }
   };
 
   return (
     <div
       className="min-h-screen flex items-center justify-center p-4"
-      style={{ paddingTop: "80px" }} // Add padding to account for navbar height
+      style={{ paddingTop: "80px" }}
     >
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
         <h1 className="text-2xl font-semibold text-center mb-4">
@@ -60,7 +52,7 @@ function Feedback() {
                   className={`text-5xl ${
                     rating >= value ? "text-yellow-500" : "text-gray-300"
                   } hover:text-yellow-400 focus:outline-none`}
-                  onClick={() => handleRatingClick(value)} // Set rating on click
+                  onClick={() => handleRatingClick(value)}
                 >
                   ★
                 </button>
@@ -81,7 +73,7 @@ function Feedback() {
               placeholder="Enter your message"
               required
               value={message}
-              onChange={(e) => setMessage(e.target.value)} // Handle input change
+              onChange={(e) => setMessage(e.target.value)}
             ></textarea>
           </div>
 
