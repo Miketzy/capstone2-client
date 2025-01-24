@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutTheProject = () => {
   return (
-    <div className="bg-gradient-to-b from-green-50 to-white py-16 px-8 sm:px-16">
+    <div className="py-16 px-8 sm:px-16">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-5xl font-extrabold text-emerald-800 bg-emerald-200 py-3 px-8 rounded-md shadow-md inline-block">
           About the Project
