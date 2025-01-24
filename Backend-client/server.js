@@ -356,11 +356,6 @@ app.post("/submit-feedback", verifyUser, (req, res) => {
     return res.status(400).send("Rating and message are required.");
   }
 
-  // Validate message content
-  if (!isFormalMessage(message)) {
-    return res.status(400).send("Please submit a proper message.");
-  }
-
   // Insert feedback into the database
   const sql = `INSERT INTO feedback (rating, message, firstname, lastname) VALUES (?, ?, ?, ?)`;
   db.query(sql, [rating, message, firstname, lastname], (err, result) => {
@@ -368,6 +363,7 @@ app.post("/submit-feedback", verifyUser, (req, res) => {
     res.status(200).send("Feedback submitted successfully");
   });
 });
+
 
 app.post("/logout", (req, res) => {
   // Clear the token cookie
