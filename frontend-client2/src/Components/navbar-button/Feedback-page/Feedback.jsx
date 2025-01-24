@@ -2,26 +2,36 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function Feedback() {
-  const [rating, setRating] = useState(0);
-  const [message, setMessage] = useState("");
+  const [rating, setRating] = useState(0); // State for rating
+  const [message, setMessage] = useState(""); // State for feedback message
 
+  // Handle rating click (set rating when clicked)
   const handleRatingClick = (value) => {
     setRating(value);
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent form from reloading the page
+
+    // Make sure both rating and message are present
+    if (rating === 0 || message.trim() === "") {
+      alert("Please provide both a rating and a message.");
+      return;
+    }
 
     try {
+      // Send feedback data to the backend API
       const response = await axios.post(
-        "https://capstone2-client.onrender.com/submit-feedback", // Correct URL
+        "https://capstone2-client.onrender.com/submit-feedback", // Backend endpoint
         { rating, message },
-        { withCredentials: true } // Ensure the cookies (JWT) are sent
+        { withCredentials: true } // Ensure cookies (JWT) are sent
       );
-      alert(response.data); // Alert success message from backend
+      alert("Feedback submitted successfully!"); // Alert success
     } catch (error) {
+      // Error handling
       if (error.response) {
-        // Backend error response
+        // If there is a response from the backend with an error
         alert("Error: " + error.response.data);
       } else {
         // Other errors (e.g., network issues)
@@ -33,7 +43,7 @@ function Feedback() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center  p-4"
+      className="min-h-screen flex items-center justify-center p-4"
       style={{ paddingTop: "80px" }} // Add padding to account for navbar height
     >
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
@@ -52,7 +62,7 @@ function Feedback() {
                   className={`text-5xl ${
                     rating >= value ? "text-yellow-500" : "text-gray-300"
                   } hover:text-yellow-400 focus:outline-none`}
-                  onClick={() => handleRatingClick(value)}
+                  onClick={() => handleRatingClick(value)} // Set rating on click
                 >
                   ★
                 </button>
@@ -73,7 +83,7 @@ function Feedback() {
               placeholder="Enter your message"
               required
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              onChange={(e) => setMessage(e.target.value)} // Handle input change
             ></textarea>
           </div>
 
