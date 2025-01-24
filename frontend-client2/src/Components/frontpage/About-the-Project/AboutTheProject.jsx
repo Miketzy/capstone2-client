@@ -24,18 +24,18 @@ const AboutTheProject = () => {
             </h3>
             <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto text-justify">
               <li>
-                Raise Awareness: Educate the public on the importance of local
-                biodiversity and its conservation.
+                <strong>Raise Awareness:</strong> Educate the public on the
+                importance of local biodiversity and its conservation.
               </li>
               <li>
-                Explore Biodiversity: Provide users with a platform to explore
-                various species native to Davao Oriental through an easy-to-use
-                interface.
+                <strong>Explore Biodiversity:</strong> Provide users with a
+                platform to explore various species native to Davao Oriental
+                through an easy-to-use interface.
               </li>
               <li>
-                Contribute to Conservation: Enable users to contribute to the
-                database by submitting species they discover, with a review and
-                approval system in place.
+                <strong>Contribute to Conservation:</strong> Enable users to
+                contribute to the database by submitting species they discover,
+                with a review and approval system in place.
               </li>
             </ul>
           </div>
