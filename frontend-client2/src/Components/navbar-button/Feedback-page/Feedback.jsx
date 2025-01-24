@@ -10,31 +10,29 @@ function Feedback() {
     setRating(value);
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent form from reloading the page
+    e.preventDefault();
 
-    // Make sure both rating and message are present
+    // Log values to check what's being sent
+    console.log("Rating:", rating);
+    console.log("Message:", message);
+
     if (rating === 0 || message.trim() === "") {
       alert("Please provide both a rating and a message.");
       return;
     }
 
     try {
-      // Send feedback data to the backend API
       const response = await axios.post(
-        "https://capstone2-client.onrender.com/submit-feedback", // Backend endpoint
+        "https://capstone2-client.onrender.com/submit-feedback",
         { rating, message },
-        { withCredentials: true } // Ensure cookies (JWT) are sent
+        { withCredentials: true }
       );
-      alert("Feedback submitted successfully!"); // Alert success
+      alert("Feedback submitted successfully!");
     } catch (error) {
-      // Error handling
       if (error.response) {
-        // If there is a response from the backend with an error
         alert("Error: " + error.response.data);
       } else {
-        // Other errors (e.g., network issues)
         alert("An error occurred while submitting feedback.");
       }
       console.error("Error submitting feedback:", error);
