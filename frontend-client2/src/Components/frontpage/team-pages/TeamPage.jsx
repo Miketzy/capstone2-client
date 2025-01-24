@@ -21,7 +21,7 @@ const TeamPage = () => {
     },
     {
       name: "Mary Joy A. Antonio",
-      position: "User interface",
+      position: "User Interface",
       photo: "",
       socialLinks: {
         linkedin: "https://www.linkedin.com/in/emily-johnson",
@@ -48,35 +48,40 @@ const TeamPage = () => {
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="bg-emerald-100 p-6 rounded-lg shadow-lg"
+              className="bg-emerald-100 p-6 rounded-lg shadow-lg flex flex-col items-center"
             >
               <img
-                src={member.photo}
+                src={member.photo || "/placeholder-image.jpg"} // Use a placeholder if no photo is available
                 alt={member.name}
                 className="w-30 h-48  rounded-md mb-4"
               />
-              <h3 className="text-2xl font-semibold text-emerald-700">
+              <h3 className="text-2xl font-semibold text-emerald-700 text-center">
                 {member.name}
               </h3>
-              <p className="text-lg text-gray-700 italic">{member.position}</p>
-              <p className="text-gray-700 mt-4 text-justify">{member.bio}</p>
+              <p className="text-lg text-gray-700 italic text-center">
+                {member.position}
+              </p>
               <div className="mt-4 flex justify-center space-x-6">
-                <a
-                  href={member.socialLinks.linkedin}
-                  className="text-emerald-600 hover:text-emerald-800"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-linkedin-in text-2xl"></i>
-                </a>
-                <a
-                  href={member.socialLinks.twitter}
-                  className="text-emerald-600 hover:text-emerald-800"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-twitter text-2xl"></i>
-                </a>
+                {member.socialLinks.linkedin && (
+                  <a
+                    href={member.socialLinks.linkedin}
+                    className="text-emerald-600 hover:text-emerald-800"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-linkedin-in text-2xl"></i>
+                  </a>
+                )}
+                {member.socialLinks.twitter && (
+                  <a
+                    href={member.socialLinks.twitter}
+                    className="text-emerald-600 hover:text-emerald-800"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-twitter text-2xl"></i>
+                  </a>
+                )}
               </div>
             </div>
           ))}
