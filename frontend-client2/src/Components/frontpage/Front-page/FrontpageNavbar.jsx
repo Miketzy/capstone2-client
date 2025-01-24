@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
 import MenuIcon from "@mui/icons-material/Menu";
 
 const FrontpageNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("#home"); // Track active link
+  const location = useLocation(); // Get the current location
+
+  const [activeLink, setActiveLink] = useState(location.pathname); // Initialize with the current path
 
   const handleLinkClick = (link) => {
-    setActiveLink(link); // Update the active link
+    setActiveLink(link); // Update the active link immediately
+    setIsOpen(false); // Close mobile menu if open
   };
 
   return (
@@ -53,7 +56,7 @@ const FrontpageNavbar = () => {
             ].map((link) => (
               <Link
                 key={link.href}
-                to={link.href} // Use `to` instead of `href` for client-side routing
+                to={link.href} // Use `to` for routing
                 onClick={() => handleLinkClick(link.href)}
                 className={`relative hover:text-green-300 transition duration-300 ${
                   activeLink === link.href ? "text-green-300" : ""
@@ -95,7 +98,7 @@ const FrontpageNavbar = () => {
           ].map((link) => (
             <Link
               key={link.href}
-              to={link.href} // Use `to` instead of `href` for client-side routing
+              to={link.href} // Use `to` for routing
               onClick={() => handleLinkClick(link.href)}
               className={`block px-4 py-2 hover:bg-green-600 transition duration-300 ${
                 activeLink === link.href ? "bg-green-600" : ""
