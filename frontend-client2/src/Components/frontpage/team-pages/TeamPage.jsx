@@ -53,7 +53,7 @@ const TeamPage = () => {
               <img
                 src={member.photo}
                 alt={member.name}
-                className="w-full h-48 object-cover rounded-md mb-4"
+                className="w-full h-48  rounded-md mb-4"
               />
               <h3 className="text-2xl font-semibold text-emerald-700">
                 {member.name}
