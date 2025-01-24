@@ -6,14 +6,14 @@ const TeamPage = () => {
       name: "Joshu Lasap",
       position: "Project Leader",
       socialLinks: {
-        linkedin: "https://www.linkedin.com/in/jane-doe",
+        linkedin: "/picture/received_935938050837773.jpeg",
         twitter: "https://twitter.com/jane_doe",
       },
     },
     {
       name: "Michael John G. Margate",
       position: "Developer",
-      photo: "path/to/john-photo.jpg",
+      photo: "/picture/ID.png",
       socialLinks: {
         linkedin: "https://www.linkedin.com/in/john-smith",
         twitter: "https://twitter.com/john_smith",
@@ -22,7 +22,7 @@ const TeamPage = () => {
     {
       name: "Mary Joy A. Antonio",
       position: "User interface",
-      photo: "path/to/emily-photo.jpg",
+      photo: "",
       socialLinks: {
         linkedin: "https://www.linkedin.com/in/emily-johnson",
         twitter: "https://twitter.com/emily_johnson",
