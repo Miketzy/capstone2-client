@@ -101,14 +101,11 @@ function Navbar({ toggleSidebar }) {
 
   return (
     <div className="navbar bg-blue-900 text-white py-1 ml-10px">
-      <div className="mx-auto flex justify-between items-center p-1">
-        {/* Sidebar Toggle Icon for mobile */}
+      <div className=" mx-auto flex justify-between items-center p-1">
         <div className="md:hidden cursor-pointer" onClick={toggleSidebar}>
           <MenuIcon />
         </div>
-
-        {/* Left Side Navigation */}
-        <div className="flex space-x-6">
+        <div className="code flex space-x-6">
           <ul className="flex space-x-6">
             <li
               className={activeTab === "/Home" ? "active" : ""}
@@ -116,18 +113,33 @@ function Navbar({ toggleSidebar }) {
             >
               <span>HOME</span>
             </li>
+          </ul>
+        </div>
+
+        <div className="code">
+          <ul>
             <li
               className={activeTab === "/About-us" ? "active" : ""}
               onClick={() => handleNavigation("/About-us")}
             >
               <span>ABOUT US</span>
             </li>
+          </ul>
+        </div>
+
+        <div className="code">
+          <ul>
             <li
               className={activeTab === "/Features" ? "active" : ""}
               onClick={() => handleNavigation("/Features")}
             >
               <span>FEATURES</span>
             </li>
+          </ul>
+        </div>
+
+        <div className="code">
+          <ul>
             <li
               className={activeTab === "/Feedback" ? "active" : ""}
               onClick={() => handleNavigation("/Feedback")}
@@ -137,27 +149,24 @@ function Navbar({ toggleSidebar }) {
           </ul>
         </div>
 
-        {/* Right Side Profile */}
         <div
-          className="profileimg-button flex items-center space-x-3 cursor-pointer justify-end"
+          className="profileimg-button flex items-center space-x-3 cursor-pointer justify-start" // Added justify-start to align the content to the left
           onClick={handleClick}
         >
           <div className="img-container relative">
             <div className="img-profile relative">
-              <img
-                src={user.image}
-                alt=""
-                className="w-16 h-16 rounded-full" // Optional: Add width, height, and rounded styling
-              />
+              <img src={user.image} alt="" className="w-16 h-16 rounded-full" />{" "}
+              {/* Optional: Add width, height, and rounded styling */}
             </div>
             <div className="profile-info">
-              <h3 className="fname text-lg font-semibold">{`${user.firstname} ${user.lastname}`}</h3>
-              <p className="email text-sm text-gray-500">{user.email}</p>
+              <h3 className="fname text-lg font-semibold">{`${user.firstname} ${user.lastname}`}</h3>{" "}
+              {/* Styled name */}
+              <p className="email text-sm text-gray-500 ">{user.email}</p>{" "}
+              {/* Styled email */}
             </div>
           </div>
         </div>
 
-        {/* Profile Menu */}
         <Menu
           anchorEl={anchorEl}
           id="account-menu"
