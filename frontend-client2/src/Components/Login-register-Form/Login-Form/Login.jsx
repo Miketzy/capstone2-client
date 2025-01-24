@@ -72,7 +72,7 @@ const Login = () => {
     <div
       className="min-h-screen bg-cover bg-center flex items-center"
       style={{
-        backgroundImage: "url('/picture/maxresdefault.jpg')",
+        backgroundImage: "url('/picture/wmremove-transformed.jpeg')",
       }}
     >
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
