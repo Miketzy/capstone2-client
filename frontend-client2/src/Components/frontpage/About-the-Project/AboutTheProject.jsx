@@ -115,31 +115,113 @@ const AboutTheProject = () => {
                 </ul>
               </div>
             </div>
+          </div>
 
-            {/* Features Section 2 */}
+          <div className="mt-14 space-y-10">
+            {/* Features Section 1 */}
             <div className="space-y-6 bg-emerald-100 py-6 px-6 rounded-lg shadow-lg relative">
-              <div className="flex flex-col lg:flex-row-reverse items-center lg:space-x-8">
+              <h3 className="text-3xl font-semibold text-emerald-700 bg-emerald-300 py-2 px-6 rounded-md shadow-lg inline-block">
+                Features:
+              </h3>
+              <div className="flex flex-col lg:flex-row items-center lg:space-x-8">
                 <div className="relative w-full lg:w-1/2">
                   <img
-                    src="/images/feature3.jpg"
-                    alt="Feature 3"
+                    src="/images/feature1.jpg"
+                    alt="Feature 1"
                     className="w-full rounded-lg shadow-lg relative z-10 mb-6 lg:mb-0"
                   />
                   <img
-                    src="/images/feature4.jpg"
-                    alt="Feature 4"
+                    src="/images/feature2.jpg"
+                    alt="Feature 2"
                     className="absolute top-24 left-6 w-full rounded-lg shadow-md z-0"
                   />
                 </div>
                 <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-lg text-justify">
                   <li>
-                    <strong>Real-Time Notifications:</strong> Contributors
-                    receive notifications when their species submissions are
-                    approved or rejected.
+                    <strong>Search and Filter:</strong> Easily search and filter
+                    species based on names, categories, or locations.
                   </li>
                   <li>
-                    <strong>Map Visualization:</strong> View species locations
-                    on an interactive map.
+                    <strong>User Contributions:</strong> Submit and share new
+                    species discoveries for review.
+                  </li>
+                  <li>
+                    <strong>Admin Approval System:</strong> Ensures the accuracy
+                    and reliability of the information added.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-14 space-y-10">
+            {/* Features Section 1 */}
+            <div className="space-y-6 bg-emerald-100 py-6 px-6 rounded-lg shadow-lg relative">
+              <h3 className="text-3xl font-semibold text-emerald-700 bg-emerald-300 py-2 px-6 rounded-md shadow-lg inline-block">
+                Features:
+              </h3>
+              <div className="flex flex-col lg:flex-row items-center lg:space-x-8">
+                <div className="relative w-full lg:w-1/2">
+                  <img
+                    src="/images/feature1.jpg"
+                    alt="Feature 1"
+                    className="w-full rounded-lg shadow-lg relative z-10 mb-6 lg:mb-0"
+                  />
+                  <img
+                    src="/images/feature2.jpg"
+                    alt="Feature 2"
+                    className="absolute top-24 left-6 w-full rounded-lg shadow-md z-0"
+                  />
+                </div>
+                <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-lg text-justify">
+                  <li>
+                    <strong>Search and Filter:</strong> Easily search and filter
+                    species based on names, categories, or locations.
+                  </li>
+                  <li>
+                    <strong>User Contributions:</strong> Submit and share new
+                    species discoveries for review.
+                  </li>
+                  <li>
+                    <strong>Admin Approval System:</strong> Ensures the accuracy
+                    and reliability of the information added.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-14 space-y-10">
+            {/* Features Section 1 */}
+            <div className="space-y-6 bg-emerald-100 py-6 px-6 rounded-lg shadow-lg relative">
+              <h3 className="text-3xl font-semibold text-emerald-700 bg-emerald-300 py-2 px-6 rounded-md shadow-lg inline-block">
+                Features:
+              </h3>
+              <div className="flex flex-col lg:flex-row items-center lg:space-x-8">
+                <div className="relative w-full lg:w-1/2">
+                  <img
+                    src="/picture/Screenshot 2025-01-24 220604.png"
+                    alt="Feature 1"
+                    className="w-full rounded-lg shadow-lg relative z-10 mb-6 lg:mb-0"
+                  />
+                  <img
+                    src="/picture/Screenshot 2025-01-24 220617.png"
+                    alt="Feature 2"
+                    className="absolute top-24 left-6 w-full rounded-lg shadow-md z-0"
+                  />
+                </div>
+                <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-lg text-justify">
+                  <li>
+                    <strong>Search and Filter:</strong> Easily search and filter
+                    species based on names, categories, or locations.
+                  </li>
+                  <li>
+                    <strong>User Contributions:</strong> Submit and share new
+                    species discoveries for review.
+                  </li>
+                  <li>
+                    <strong>Admin Approval System:</strong> Ensures the accuracy
+                    and reliability of the information added.
                   </li>
                 </ul>
               </div>
