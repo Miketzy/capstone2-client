@@ -97,7 +97,7 @@ const AboutTheProject = () => {
                 <img
                   src="/picture/Screenshot 2025-01-24 220617.png"
                   alt="Search and Filter 2"
-                  className="absolute top-8 left-8 w-5/6 rounded-lg shadow-lg border-4 border-white"
+                  className="absolute top-20 left-8 w-5/6 rounded-lg shadow-lg border-4 border-white"
                 />
               </div>
               <p className="text-lg text-gray-700 bg-emerald-100 py-4 px-6 rounded-lg shadow-lg">
