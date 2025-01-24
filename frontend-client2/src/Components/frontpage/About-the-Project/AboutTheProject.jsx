@@ -89,12 +89,12 @@ const AboutTheProject = () => {
               <div className="flex flex-col lg:flex-row items-center lg:space-x-8">
                 <div className="relative w-full lg:w-1/2">
                   <img
-                    src="/images/feature1.jpg"
+                    src="/picture/Screenshot 2025-01-24 220604.png"
                     alt="Feature 1"
                     className="w-full rounded-lg shadow-lg relative z-10 mb-6 lg:mb-0"
                   />
                   <img
-                    src="/images/feature2.jpg"
+                    src="//picture/Screenshot 2025-01-24 220617.png"
                     alt="Feature 2"
                     className="absolute top-24 left-6 w-full rounded-lg shadow-md z-0"
                   />
@@ -126,12 +126,12 @@ const AboutTheProject = () => {
               <div className="flex flex-col lg:flex-row items-center lg:space-x-8">
                 <div className="relative w-full lg:w-1/2">
                   <img
-                    src="/images/feature1.jpg"
+                    src="/picture/Screenshot 2025-01-24 220604.png"
                     alt="Feature 1"
                     className="w-full rounded-lg shadow-lg relative z-10 mb-6 lg:mb-0"
                   />
                   <img
-                    src="/images/feature2.jpg"
+                    src="//picture/Screenshot 2025-01-24 220617.png"
                     alt="Feature 2"
                     className="absolute top-24 left-6 w-full rounded-lg shadow-md z-0"
                   />
@@ -163,12 +163,12 @@ const AboutTheProject = () => {
               <div className="flex flex-col lg:flex-row items-center lg:space-x-8">
                 <div className="relative w-full lg:w-1/2">
                   <img
-                    src="/images/feature1.jpg"
+                    src="/picture/Screenshot 2025-01-24 220604.png"
                     alt="Feature 1"
                     className="w-full rounded-lg shadow-lg relative z-10 mb-6 lg:mb-0"
                   />
                   <img
-                    src="/images/feature2.jpg"
+                    src="//picture/Screenshot 2025-01-24 220617.png"
                     alt="Feature 2"
                     className="absolute top-24 left-6 w-full rounded-lg shadow-md z-0"
                   />
