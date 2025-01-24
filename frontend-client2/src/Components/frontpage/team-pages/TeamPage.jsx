@@ -5,8 +5,8 @@ const TeamPage = () => {
     {
       name: "Joshu Lasap",
       position: "Project Leader",
+      photo: "/picture/id2.jpeg",
       socialLinks: {
-        linkedin: "/picture/received_935938050837773.jpeg",
         twitter: "https://twitter.com/jane_doe",
       },
     },
@@ -53,7 +53,7 @@ const TeamPage = () => {
               <img
                 src={member.photo}
                 alt={member.name}
-                className="w-full h-48  rounded-md mb-4"
+                className="w-30 h-48  rounded-md mb-4"
               />
               <h3 className="text-2xl font-semibold text-emerald-700">
                 {member.name}
