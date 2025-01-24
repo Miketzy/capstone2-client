@@ -11,17 +11,20 @@ function Feedback() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await axios.post(
-        "https://capstone2-client.onrender.com/submit-feedback", // Pointing to your backend
+        "https://capstone2-client.onrender.com/submit-feedback", // Correct URL
         { rating, message },
-        { withCredentials: true } // Send cookies for token verification
+        { withCredentials: true } // Ensure the cookies (JWT) are sent
       );
-      alert(response.data);
+      alert(response.data); // Alert success message from backend
     } catch (error) {
       if (error.response) {
-        alert(error.response.data); // Show backend error message
+        // Backend error response
+        alert("Error: " + error.response.data);
       } else {
+        // Other errors (e.g., network issues)
         alert("An error occurred while submitting feedback.");
       }
       console.error("Error submitting feedback:", error);
