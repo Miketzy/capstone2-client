@@ -71,7 +71,10 @@ const Login = () => {
   return (
     <div
       className="min-h-screen bg-cover bg-center flex items-center"
-      style={{ backgroundImage: "url('/picture/durso.jpg')" }}
+      style={{
+        backgroundImage:
+          "url('/picture/DALL·E 2025-01-24 14.09.37 - A visually stunning background representing biodiversity exploration and species documentation. The scene features a lush rainforest with diverse flor.webp')",
+      }}
     >
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
         {/* Explanation Section */}
