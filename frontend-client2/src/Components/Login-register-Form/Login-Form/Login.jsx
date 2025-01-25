@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaLeaf } from "react-icons/fa"; // Importing an icon related to nature
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -9,11 +8,10 @@ const Login = () => {
     password: "",
   });
 
-  const [error, setError] = useState(""); // State for error message
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  // Ensure credentials are sent with requests
   axios.defaults.withCredentials = true;
 
   const handleSubmit = async (e) => {
@@ -31,21 +29,16 @@ const Login = () => {
       if (response.data) {
         alert("Login successful!");
 
-        // Store the token in local storage
         localStorage.setItem("token", response.data.token);
 
-        // Redirect to home dashboard
-        console.log("User successfully logged in.");
         navigate("/Home");
       } else {
-        console.log("No data in response:", response);
         alert("Login failed. Please check your credentials.");
       }
     } catch (error) {
-      console.error("Login error:", error);
       const errorMessage =
         error.response?.data?.Message || "An error occurred during login.";
-      setError(errorMessage); // Set the error message in state
+      setError(errorMessage);
     }
   };
 
@@ -79,9 +72,13 @@ const Login = () => {
       }}
     >
       <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
-        {/* Nature Icon */}
+        {/* Updated Logo */}
         <div className="text-center mb-6">
-          <FaLeaf className="text-green-600 text-5xl mx-auto mb-2" />
+          <img
+            src="/picture/472546830_1138798994617879_5773074804155834205_n-removebg-preview.png"
+            alt="BioExplorer Logo"
+            className="w-20 h-20 mx-auto mb-2"
+          />
           <h1 className="text-3xl font-bold text-green-700">BioExplorer</h1>
           <p className="text-sm text-green-600 mt-2">
             Explore and protect biodiversity in Davao Oriental.
