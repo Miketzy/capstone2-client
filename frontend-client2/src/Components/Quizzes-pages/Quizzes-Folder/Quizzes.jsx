@@ -8,7 +8,7 @@ const Quizzes = () => {
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
-  const [correctAnswers, setCorrectAnswers] = useState([]); // Store correct answers
+  const [answerStatus, setAnswerStatus] = useState(""); // To store answer status (correct/incorrect)
 
   useEffect(() => {
     fetchQuestions();
@@ -21,7 +21,6 @@ const Quizzes = () => {
       );
       setQuestions(response.data);
       setUserAnswers(Array(response.data.length).fill(null)); // Initialize answers array
-      setCorrectAnswers(response.data.map((q) => q.correctAnswer)); // Save correct answers
     } catch (error) {
       console.error("Error fetching questions:", error);
     }
@@ -32,9 +31,14 @@ const Quizzes = () => {
     updatedAnswers[currentQuestion] = option;
     setUserAnswers(updatedAnswers);
 
-    // If answer is correct, increment score
+    // Check if the selected answer is correct and update score
     if (option === questions[currentQuestion].correctAnswer) {
       setScore((prevScore) => prevScore + 1);
+      setAnswerStatus("Correct");
+    } else {
+      setAnswerStatus(
+        `Incorrect. The correct answer is: ${questions[currentQuestion].correctAnswer}`
+      );
     }
 
     const nextQuestion = currentQuestion + 1;
@@ -50,7 +54,7 @@ const Quizzes = () => {
       const token = localStorage.getItem("token");
       await axios.post(
         "https://capstone2-client.onrender.com/api/save-score",
-        { score: finalScore }, // Send the exact score
+        { score: finalScore },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -67,12 +71,13 @@ const Quizzes = () => {
     if (showScore) {
       saveScore(score); // Save the score exactly as it is when quiz ends
     }
-  }, [showScore, score]); // This ensures the final score is passed correctly
+  }, [showScore, score]);
 
   const handleBack = () => {
     const prevQuestion = currentQuestion - 1;
     if (prevQuestion >= 0) {
       setCurrentQuestion(prevQuestion);
+      setAnswerStatus(""); // Reset answer status when going back
     }
   };
 
@@ -80,6 +85,7 @@ const Quizzes = () => {
     setScore(0);
     setShowScore(false);
     setCurrentQuestion(0);
+    setAnswerStatus(""); // Reset answer status when restarting
     fetchQuestions(); // Re-fetch questions when restarting the quiz
   };
 
@@ -90,20 +96,6 @@ const Quizzes = () => {
           <div className="score-section">
             You scored {score} out of {questions.length}
             <br />
-            {questions.map((question, index) => (
-              <div key={index} className="answer-summary">
-                <div>
-                  <strong>Question:</strong> {question.question}
-                </div>
-                <div>
-                  <strong>Your Answer:</strong> {userAnswers[index]}
-                </div>
-                <div>
-                  <strong>Correct Answer:</strong> {correctAnswers[index]}
-                </div>
-                <hr />
-              </div>
-            ))}
             <button onClick={handleRestart}>Restart Quiz</button>
           </div>
         ) : (
@@ -150,6 +142,9 @@ const Quizzes = () => {
                   {questions[currentQuestion].optionD}
                 </button>
               </div>
+              {answerStatus && (
+                <div className="answer-status">{answerStatus}</div>
+              )}
               <br />
               {currentQuestion > 0 && (
                 <button className="quizB" onClick={handleBack}>
