@@ -33,24 +33,25 @@ function EnterNewPassword() {
       return;
     }
 
+    // Send password reset request to backend
     axios
-  .post("https://capstone2-client.onrender.com/reset-password", {
-    email,
-    password: newPassword,
-  })
-  .then((response) => {
-    if (response.data.success) {
-      alert("Password reset successfully!");
-      navigate("/login"); // Redirect to login page
-    } else {
-      setErrorMessage(response.data.message); // Display message from the server
-    }
-  })
-  .catch((error) => {
-    console.error("Error resetting password:", error.response || error);
-    setErrorMessage("An error occurred while resetting the password.");
-  });
-
+      .post("https://capstone2-client.onrender.com/reset-password", {
+        email,
+        password: newPassword,
+      })
+      .then((response) => {
+        if (response.data.success) {
+          alert("Password reset successfully!");
+          navigate("/login"); // Redirect to home or login page
+        } else {
+          setErrorMessage(response.data.message); // Display message from the server
+        }
+      })
+      .catch((error) => {
+        console.error("Error resetting password:", error);
+        setErrorMessage("An error occurred while resetting the password.");
+      });
+  };
 
   return (
     <div
