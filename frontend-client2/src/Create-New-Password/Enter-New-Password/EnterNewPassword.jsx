@@ -42,7 +42,7 @@ function EnterNewPassword() {
       .then((response) => {
         if (response.data.success) {
           alert("Password reset successfully!");
-          navigate("/login"); // Redirect to home or login page
+          navigate("/login"); // Redirect to login page
         } else {
           setErrorMessage(response.data.message); // Display message from the server
         }
@@ -56,10 +56,10 @@ function EnterNewPassword() {
   return (
     <div
       className="min-h-screen flex justify-center items-center bg-cover bg-center"
-      style={{ backgroundImage: "url('/picture/durso.jpg')" }}
+      style={{ backgroundImage: "url('/picture/wmremove-transformed.jpeg')" }} // Change background to BioExplorer theme
     >
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full bg-opacity-90 backdrop-blur-md">
+        <h2 className="text-3xl font-bold text-center text-green-800 mb-6">
           Create New Password
         </h2>
 
@@ -82,7 +82,7 @@ function EnterNewPassword() {
             placeholder="Enter your new password"
             value={newPassword}
             onChange={handleNewPasswordChange}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-2"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 mt-2"
           />
         </div>
 
@@ -99,13 +99,13 @@ function EnterNewPassword() {
             placeholder="Confirm your new password"
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-2"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 mt-2"
           />
         </div>
 
         <button
           onClick={handleResetPassword}
-          className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full py-3 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
         >
           Reset Password
         </button>
