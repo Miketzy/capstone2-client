@@ -4,14 +4,14 @@ const FrontpageHome = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center text-center">
       {/* Animation Section */}
-      <div className="w-3/4 md:w-1/2 lg:w-1/3 mb-6">
+      <div className="w-3/4 md:w-1/2 lg:w-1/3 mb-6 mx-auto">
         <img
           src={
             process.env.PUBLIC_URL +
             "/picture/472546830_1138798994617879_5773074804155834205_n-removebg-preview.png"
           }
           alt="Biodiversity Exploration"
-          className="w-full h-auto"
+          className="w-40 h-auto mx-auto"
         />
       </div>
 
