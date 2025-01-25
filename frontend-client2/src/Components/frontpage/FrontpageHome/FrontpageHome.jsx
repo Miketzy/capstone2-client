@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const FrontpageHome = () => {
+  useEffect(() => {
+    // Remove scroll by disabling body overflow
+    document.body.style.overflow = "hidden";
+
+    // Cleanup on component unmount
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center text-center">
       {/* Animation Section */}
@@ -27,7 +37,7 @@ const FrontpageHome = () => {
       <div className="flex space-x-4">
         {/* Proceed Button */}
         <button
-          onClick={() => (window.location.href = "/login")} // Replace with your desired route
+          onClick={() => (window.location.href = "/login")}
           className="px-6 py-3 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600 transition duration-300"
         >
           Proceed
@@ -35,7 +45,7 @@ const FrontpageHome = () => {
 
         {/* Learn More Button */}
         <button
-          onClick={() => (window.location.href = "/about-the-project")} // Replace with your desired route
+          onClick={() => (window.location.href = "/about-the-project")}
           className="px-6 py-3 bg-transparent border-2 border-green-700 text-green-700 rounded-lg shadow-lg hover:bg-green-700 hover:text-white transition duration-300"
         >
           Learn More
