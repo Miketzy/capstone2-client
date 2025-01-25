@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "./front.css";
 
 const FrontpageHome = () => {
   useEffect(() => {
@@ -21,7 +22,7 @@ const FrontpageHome = () => {
             "/picture/472546830_1138798994617879_5773074804155834205_n-removebg-preview.png"
           }
           alt="Biodiversity Exploration"
-          className="w-40 h-auto mx-auto"
+          className="w-40 h-auto mx-auto animate-bounce" // Add animation class here
         />
       </div>
 
