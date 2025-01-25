@@ -121,10 +121,7 @@ const Quizzes = () => {
                       <strong>Correct Answer: </strong>
                       {question.correctAnswer}
                     </p>
-                    <p>
-                      <strong>Explanation: </strong>
-                      {question.explanation}
-                    </p>
+
                     <hr />
                   </div>
                 ))}
