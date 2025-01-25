@@ -80,7 +80,7 @@ const Login = () => {
             className="w-20 h-20 mx-auto mb-2"
           />
           <h1 className="text-3xl font-bold text-green-700">BioExplorer</h1>
-          <p className="text-sm text-green-600 mt-2">
+          <p className="text-sm text-green-600 mt-2 text-center">
             Explore and protect biodiversity in Davao Oriental.
           </p>
         </div>
