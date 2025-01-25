@@ -40,7 +40,6 @@ const FrontpageNavbar = () => {
               { href: "/", label: "Home" },
               { href: "/about-the-project", label: "About the Project" },
               { href: "/team", label: "Team" },
-              { href: "#developer", label: "Developer" },
             ].map((link) => (
               <Link
                 key={link.href}
@@ -82,7 +81,6 @@ const FrontpageNavbar = () => {
             { href: "/", label: "Home" },
             { href: "/about-the-project", label: "About the Project" },
             { href: "/team", label: "Team" },
-            { href: "#developer", label: "Developer" },
           ].map((link) => (
             <Link
               key={link.href}
