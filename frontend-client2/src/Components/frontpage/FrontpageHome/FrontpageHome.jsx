@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./FrontpageHome.css"; // Import the CSS file for animations
+import "./front.css"; // Import the CSS file for animations
 
 const FrontpageHome = () => {
   useEffect(() => {
