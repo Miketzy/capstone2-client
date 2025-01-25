@@ -514,8 +514,10 @@ app.post("/verify-otp", (req, res) => {
 app.post("/reset-password", (req, res) => {
   const { email, password } = req.body;
 
+  // Query the database for the user
   db.query("SELECT * FROM users WHERE email = ?", [email], (err, result) => {
     if (err) {
+      console.error(err); // Log error for debugging
       return res.status(500).send("Server error");
     }
 
@@ -523,14 +525,17 @@ app.post("/reset-password", (req, res) => {
       // User found, proceed to hash and update the password
       bcrypt.hash(password, 10, (hashErr, hashedPassword) => {
         if (hashErr) {
+          console.error(hashErr); // Log error for debugging
           return res.status(500).send("Error hashing password");
         }
 
+        // Update the user's password in the correct table
         db.query(
-          "UPDATE user1 SET password = ? WHERE email = ?",
+          "UPDATE users SET password = ? WHERE email = ?",
           [hashedPassword, email],
           (updateErr) => {
             if (updateErr) {
+              console.error(updateErr); // Log error for debugging
               return res.status(500).send("Error updating password");
             }
 
