@@ -56,7 +56,7 @@ function EnterNewPassword() {
   return (
     <div
       className="min-h-screen flex justify-center items-center bg-cover bg-center"
-      style={{ backgroundImage: "url('/picture/durso.jpg')" }}
+      style={{ backgroundImage: "url('/picture/wmremove-transformed.jpeg')" }}
     >
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full bg-opacity-90 backdrop-blur-md">
         <h2 className="text-3xl font-bold text-center text-green-800 mb-6">
