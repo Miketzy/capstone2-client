@@ -1,140 +1,117 @@
-/* General styles */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #e8f5e9; /* Light green background */
-  color: #333;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Container for the entire quiz */
+/* Quizzes.css */
 .wrapperquiz {
-  padding: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin-top: -20px;
-}
-
-/* The quiz container with a nature-inspired background */
-.quiz-container {
-  background-color: #ffffff; /* White background for the quiz container */
-  border-radius: 15px;
+  max-width: 700px;
+  margin: 40px auto;
   padding: 20px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  width: 80%;
-  max-width: 600px;
+  background: #F0F4F8; /* Light, soft background color */
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  margin-top: -60px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* For question section */
+.quiz-container {
+  width: 100%;
+  max-width: 700px;
+  background-color: #fff; /* White background for quiz container */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  box-sizing: border-box;
+  border: 2px solid #A7D2A9; /* Soft green border to represent nature */
+}
+
 .question-section {
-  font-size: 18px;
-  margin-bottom: 20px;
+  text-align: center;
+  padding: 10px;
 }
 
 .question-count {
-  font-size: 16px;
-  color: #388e3c; /* Dark green */
+  font-size: 18px;
   margin-bottom: 10px;
+  color: #2D6A4F; /* Deep green for a natural feel */
 }
 
 .question-text {
-  font-size: 20px;
+  font-size: 26px;
   font-weight: bold;
-  color: #2c6b3e; /* Darker green */
+  margin-bottom: 30px;
+  color: #2C6E49; /* Dark green for a grounded look */
 }
 
-/* Answer section styling */
-.answer-section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.optionB {
-  background-color: #81c784; /* Light green */
+/* Answer buttons */
+.answer-section button {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  background-color: #4CAF50; /* Fresh green button color */
+  color: white;
   border: none;
-  padding: 15px;
-  font-size: 16px;
   border-radius: 8px;
+  font-size: 18px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.optionB:hover {
-  background-color: #66bb6a; /* Slightly darker green on hover */
+.answer-section button:hover {
+  background-color: #388E3C; /* Darker green on hover */
 }
 
-
-
-/* Buttons for navigating through the quiz */
+/* General buttons (like Restart, Back) */
 .quizB {
-  background-color: #4caf50; /* Green button */
+  padding: 12px 25px;
+  margin-top: 30px;
+  background-color: #2D6A4F; /* Earthy green for action buttons */
+  color: #F1F1F1; /* Light text color */
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  color: #fff;
-  margin-top: 20px;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
 }
 
 .quizB:hover {
-  background-color: #388e3c; /* Darker green on hover */
+  background-color: #1D4B32; /* Slightly darker green */
 }
 
-/* Section to display the score after quiz completion */
+/* Disabled button */
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Add margin between buttons */
+button + button {
+  margin-left: 10px;
+}
+
 .score-section {
-  font-size: 18px;
-  color: #388e3c;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #2D6A4F; /* Deep green for score section */
 }
 
-/* Correct answers section */
 .correct-answers-section {
-  margin-top: 20px;
-  background-color: #f1f8e9; /* Very light green background */
-  padding: 20px;
-  border-radius: 8px;
+  margin-top: 30px;
 }
 
 .correct-answers-section h2 {
-  color: #388e3c;
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 28px;
+  color: #388E3C; /* Natural green for correct answers section */
 }
 
-.correct-answers-section .question-answer {
+.question-answer {
   margin-bottom: 15px;
-  border-bottom: 1px solid #388e3c;
-  padding-bottom: 10px;
 }
 
-.correct-answers-section .question-answer p {
-  font-size: 16px;
-  color: #333;
+.question-answer p {
+  margin: 5px 0;
+  font-size: 18px;
 }
 
-.correct-answers-section .question-answer strong {
-  color: #388e3c;
-}
-
-hr {
-  border: 1px solid #388e3c;
-  margin-top: 20px;
-}
-
-/* General responsive design */
-@media (max-width: 768px) {
-  .quiz-container {
-    width: 100%;
-    padding: 15px;
-  }
-
-  .answer-section {
-    gap: 5px;
-  }
+.question-answer hr {
+  margin-top: 15px;
+  border: 1px solid #A7D2A9; /* Light green border for separation */
 }
