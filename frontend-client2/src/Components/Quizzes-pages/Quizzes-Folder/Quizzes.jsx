@@ -9,6 +9,7 @@ const Quizzes = () => {
   const [showScore, setShowScore] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
   const [answerStatus, setAnswerStatus] = useState(""); // To store answer status (correct/incorrect)
+  const [correctAnswer, setCorrectAnswer] = useState(""); // To store the correct answer when the user answers incorrectly
 
   useEffect(() => {
     fetchQuestions();
@@ -35,10 +36,10 @@ const Quizzes = () => {
     if (option === questions[currentQuestion].correctAnswer) {
       setScore((prevScore) => prevScore + 1);
       setAnswerStatus("Correct");
+      setCorrectAnswer(""); // Clear the correct answer if it's correct
     } else {
-      setAnswerStatus(
-        `Incorrect. The correct answer is: ${questions[currentQuestion].correctAnswer}`
-      );
+      setAnswerStatus("Incorrect");
+      setCorrectAnswer(questions[currentQuestion].correctAnswer); // Store the correct answer
     }
 
     const nextQuestion = currentQuestion + 1;
@@ -78,6 +79,7 @@ const Quizzes = () => {
     if (prevQuestion >= 0) {
       setCurrentQuestion(prevQuestion);
       setAnswerStatus(""); // Reset answer status when going back
+      setCorrectAnswer(""); // Clear correct answer if going back
     }
   };
 
@@ -86,74 +88,95 @@ const Quizzes = () => {
     setShowScore(false);
     setCurrentQuestion(0);
     setAnswerStatus(""); // Reset answer status when restarting
+    setCorrectAnswer(""); // Reset correct answer when restarting
     fetchQuestions(); // Re-fetch questions when restarting the quiz
   };
 
   return (
     <div className="wrapperquiz">
       <div className="quiz-container">
-        {showScore ? (
-          <div className="score-section">
-            You scored {score} out of {questions.length}
-            <br />
-            <button onClick={handleRestart}>Restart Quiz</button>
-          </div>
-        ) : (
-          questions.length > 0 && (
-            <div className="question-section">
-              <div className="question-count">
-                <span>Question {currentQuestion + 1}</span>/{questions.length}
+        <div className="quiz-content">
+          <div className="question-section">
+            {showScore ? (
+              <div className="score-section">
+                You scored {score} out of {questions.length}
+                <br />
+                <button onClick={handleRestart}>Restart Quiz</button>
               </div>
-              <div className="question-text">
-                {questions[currentQuestion].question}
-              </div>
+            ) : (
+              questions.length > 0 && (
+                <>
+                  <div className="question-count">
+                    <span>Question {currentQuestion + 1}</span>/
+                    {questions.length}
+                  </div>
+                  <div className="question-text">
+                    {questions[currentQuestion].question}
+                  </div>
 
-              <div className="answer-section">
-                <button
-                  className="optionB"
-                  onClick={() =>
-                    handleAnswerClick(questions[currentQuestion].optionA)
-                  }
-                >
-                  {questions[currentQuestion].optionA}
-                </button>
-                <button
-                  className="optionB"
-                  onClick={() =>
-                    handleAnswerClick(questions[currentQuestion].optionB)
-                  }
-                >
-                  {questions[currentQuestion].optionB}
-                </button>
-                <button
-                  className="optionB"
-                  onClick={() =>
-                    handleAnswerClick(questions[currentQuestion].optionC)
-                  }
-                >
-                  {questions[currentQuestion].optionC}
-                </button>
-                <button
-                  className="optionB"
-                  onClick={() =>
-                    handleAnswerClick(questions[currentQuestion].optionD)
-                  }
-                >
-                  {questions[currentQuestion].optionD}
-                </button>
+                  <div className="answer-section">
+                    <button
+                      className="optionB"
+                      onClick={() =>
+                        handleAnswerClick(questions[currentQuestion].optionA)
+                      }
+                    >
+                      {questions[currentQuestion].optionA}
+                    </button>
+                    <button
+                      className="optionB"
+                      onClick={() =>
+                        handleAnswerClick(questions[currentQuestion].optionB)
+                      }
+                    >
+                      {questions[currentQuestion].optionB}
+                    </button>
+                    <button
+                      className="optionB"
+                      onClick={() =>
+                        handleAnswerClick(questions[currentQuestion].optionC)
+                      }
+                    >
+                      {questions[currentQuestion].optionC}
+                    </button>
+                    <button
+                      className="optionB"
+                      onClick={() =>
+                        handleAnswerClick(questions[currentQuestion].optionD)
+                      }
+                    >
+                      {questions[currentQuestion].optionD}
+                    </button>
+                  </div>
+                  {currentQuestion > 0 && (
+                    <button className="quizB" onClick={handleBack}>
+                      Back
+                    </button>
+                  )}
+                </>
+              )
+            )}
+          </div>
+
+          <div className="answer-box">
+            <h3>Answer Status:</h3>
+            {answerStatus && (
+              <div
+                className={`status-box ${
+                  answerStatus === "Correct" ? "correct" : "incorrect"
+                }`}
+              >
+                {answerStatus}
+                {answerStatus === "Incorrect" && (
+                  <div>
+                    <strong>Correct Answer: </strong>
+                    {correctAnswer}
+                  </div>
+                )}
               </div>
-              {answerStatus && (
-                <div className="answer-status">{answerStatus}</div>
-              )}
-              <br />
-              {currentQuestion > 0 && (
-                <button className="quizB" onClick={handleBack}>
-                  Back
-                </button>
-              )}
-            </div>
-          )
-        )}
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
