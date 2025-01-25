@@ -19,19 +19,18 @@ const Registration = () => {
 
   const handleChange = (target) => {
     setFormData({ ...formData, [target.name]: target.value });
-    setError(""); // Clear error on input change
+    setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation for password match
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
-    setLoading(true); // Start loading
+    setLoading(true);
     try {
       const response = await axios.post(
         "https://capstone2-client.onrender.com/api/register",
@@ -48,7 +47,7 @@ const Registration = () => {
 
       console.log(response.data);
       alert("Registration successful!");
-      navigate("/login"); // Navigate to login after successful registration
+      navigate("/login");
 
       setFormData({
         firstname: "",
@@ -64,7 +63,7 @@ const Registration = () => {
       console.error("Registration failed:", error);
       alert("Registration failed. Please try again.");
     } finally {
-      setLoading(false); // End loading
+      setLoading(false);
     }
   };
 
@@ -90,17 +89,22 @@ const Registration = () => {
   };
 
   return (
-    <div className="clientRegistratio" style={loginContainerStyle}>
-      <div className="registration-wrapper w-full max-w-4xl mx-auto p-6 bg-white bg-opacity-70 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center mb-6">Registration</h2>
-        <form onSubmit={handleSubmit} className="registration-form space-y-6">
-          <div className="registation-name flex space-x-4">
-            <div className="registration-Firstname w-1/2">
+    <div className="clientRegistration" style={loginContainerStyle}>
+      <div className="registration-wrapper w-full max-w-3xl mx-auto p-8 bg-white bg-opacity-90 rounded-2xl shadow-lg">
+        <h2 className="text-3xl font-bold text-center text-green-700 mb-6">
+          Register to BioExplorer
+        </h2>
+        <p className="text-center text-green-600 mb-4">
+          Join us in exploring and protecting biodiversity!
+        </p>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="flex space-x-4">
+            <div className="w-1/2">
               <label
                 htmlFor="firstname"
-                className="block text-sm font-semibold"
+                className="block text-sm font-semibold text-green-800"
               >
-                Firstname
+                First Name
               </label>
               <input
                 type="text"
@@ -108,14 +112,14 @@ const Registration = () => {
                 placeholder="First Name"
                 value={formData.firstname}
                 onChange={(e) => handleChange(e.target)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
             </div>
-            <div className="registration-Middlename w-1/2">
+            <div className="w-1/2">
               <label
                 htmlFor="middlename"
-                className="block text-sm font-semibold"
+                className="block text-sm font-semibold text-green-800"
               >
                 Middle Name
               </label>
@@ -125,14 +129,17 @@ const Registration = () => {
                 placeholder="Middle Name"
                 value={formData.middlename}
                 onChange={(e) => handleChange(e.target)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
           </div>
 
-          <div className="registration-lastname flex space-x-4">
-            <div className="lname w-1/2">
-              <label htmlFor="lastname" className="block text-sm font-semibold">
+          <div className="flex space-x-4">
+            <div className="w-1/2">
+              <label
+                htmlFor="lastname"
+                className="block text-sm font-semibold text-green-800"
+              >
                 Last Name
               </label>
               <input
@@ -141,12 +148,15 @@ const Registration = () => {
                 placeholder="Last Name"
                 value={formData.lastname}
                 onChange={(e) => handleChange(e.target)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
             </div>
-            <div className="registration-email w-1/2">
-              <label htmlFor="email" className="block text-sm font-semibold">
+            <div className="w-1/2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-semibold text-green-800"
+              >
                 Email
               </label>
               <input
@@ -155,15 +165,18 @@ const Registration = () => {
                 placeholder="Email Address"
                 value={formData.email}
                 onChange={(e) => handleChange(e.target)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
             </div>
           </div>
 
-          <div className="gender-address flex space-x-4">
-            <div className="genderfith w-1/2">
-              <label htmlFor="gender" className="block text-sm font-semibold">
+          <div className="flex space-x-4">
+            <div className="w-1/2">
+              <label
+                htmlFor="gender"
+                className="block text-sm font-semibold text-green-800"
+              >
                 Gender
               </label>
               <select
@@ -171,7 +184,7 @@ const Registration = () => {
                 name="gender"
                 value={formData.gender || ""}
                 onChange={(e) => handleChange(e.target)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               >
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
@@ -179,8 +192,11 @@ const Registration = () => {
                 <option value="Other">Other</option>
               </select>
             </div>
-            <div className="addressfith w-1/2">
-              <label htmlFor="address" className="block text-sm font-semibold">
+            <div className="w-1/2">
+              <label
+                htmlFor="address"
+                className="block text-sm font-semibold text-green-800"
+              >
                 Address
               </label>
               <input
@@ -189,15 +205,18 @@ const Registration = () => {
                 placeholder="Address"
                 value={formData.address}
                 onChange={(e) => handleChange(e.target)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
             </div>
           </div>
 
-          <div className="registration-password flex space-x-4">
-            <div className="pass w-1/2">
-              <label htmlFor="pass" className="block text-sm font-semibold">
+          <div className="flex space-x-4">
+            <div className="w-1/2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-semibold text-green-800"
+              >
                 Password
               </label>
               <input
@@ -206,13 +225,15 @@ const Registration = () => {
                 placeholder="Password"
                 value={formData.password}
                 onChange={(e) => handleChange(e.target)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
             </div>
-
-            <div className="cpass w-1/2">
-              <label htmlFor="Cpass" className="block text-sm font-semibold">
+            <div className="w-1/2">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-semibold text-green-800"
+              >
                 Confirm Password
               </label>
               <input
@@ -221,7 +242,7 @@ const Registration = () => {
                 placeholder="Confirm Password"
                 value={formData.confirmPassword}
                 onChange={(e) => handleChange(e.target)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
             </div>
@@ -229,24 +250,22 @@ const Registration = () => {
 
           <button
             type="submit"
-            className="w-[100vh] max-w-xs py-2 mt-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mx-auto block"
+            className="w-full py-2 mt-4 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
           >
-            Register
+            {loading ? "Registering..." : "Register"}
           </button>
 
-          <p className="regtolog text-center mt-4">
-            Already have an Account?{" "}
+          <p className="text-center mt-4 text-green-700">
+            Already have an account?{" "}
             <span
-              className="reglog text-blue-500 cursor-pointer"
+              className="text-green-800 font-bold cursor-pointer hover:underline"
               onClick={GoToLogin}
             >
               Login
             </span>
           </p>
         </form>
-        {error && (
-          <p className="error text-red-500 text-center mt-2">{error}</p>
-        )}
+        {error && <p className="text-red-500 text-center mt-4">{error}</p>}
       </div>
     </div>
   );
