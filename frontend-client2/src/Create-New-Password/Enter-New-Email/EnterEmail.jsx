@@ -59,7 +59,7 @@ function EnterEmail() {
   return (
     <div
       className="min-h-screen bg-cover bg-center flex justify-center items-center"
-      style={{ backgroundImage: "url('/images/forest.jpg')" }} // Changed background to match bio explorer theme
+      style={{ backgroundImage: "url('/images/wmremove-transformed.jpeg')" }} // Changed background to match bio explorer theme
     >
       <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-4/5 md:w-3/4 lg:w-2/3 xl:w-1/3 bg-opacity-90">
         <h2 className="text-3xl font-semibold text-center text-green-800 mb-6">
