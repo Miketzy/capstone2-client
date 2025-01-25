@@ -78,7 +78,7 @@ const Registration = () => {
   };
 
   const loginContainerStyle = {
-    backgroundImage: `url('/picture/durso.jpg')`,
+    backgroundImage: `url('/picture/472546830_1138798994617879_5773074804155834205_n-removebg-preview.png')`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
