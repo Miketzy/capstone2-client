@@ -37,7 +37,7 @@
     content: "";
     height: 2px;
     width: 100%;
-    background: skyblue;
+    background: #86efac;
     display: block;
     margin-top: 5px;
     opacity: 0;
@@ -54,11 +54,11 @@
   
   .code ul li:hover,
   .code ul li:focus {
-    color: skyblue;
+    color: #86efac;
   }
   
   .code ul li.active {
-    color: white;
+    color: #86efac;
   }
   
   .code ul li.active::after {
