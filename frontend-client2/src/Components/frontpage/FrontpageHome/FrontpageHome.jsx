@@ -13,7 +13,7 @@ const FrontpageHome = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center text-center bg-gray-50">
+    <div className="min-h-screen flex flex-col justify-center items-center text-center">
       {/* Animated Logo Section */}
       <div className="w-3/4 md:w-1/2 lg:w-1/3 mb-6 mx-auto">
         <img
