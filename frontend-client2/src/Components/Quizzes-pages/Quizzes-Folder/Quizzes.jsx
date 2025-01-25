@@ -8,6 +8,7 @@ const Quizzes = () => {
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
+  const [correctAnswers, setCorrectAnswers] = useState([]); // Store correct answers
 
   useEffect(() => {
     fetchQuestions();
@@ -20,6 +21,7 @@ const Quizzes = () => {
       );
       setQuestions(response.data);
       setUserAnswers(Array(response.data.length).fill(null)); // Initialize answers array
+      setCorrectAnswers(response.data.map((q) => q.correctAnswer)); // Save correct answers
     } catch (error) {
       console.error("Error fetching questions:", error);
     }
@@ -88,6 +90,20 @@ const Quizzes = () => {
           <div className="score-section">
             You scored {score} out of {questions.length}
             <br />
+            {questions.map((question, index) => (
+              <div key={index} className="answer-summary">
+                <div>
+                  <strong>Question:</strong> {question.question}
+                </div>
+                <div>
+                  <strong>Your Answer:</strong> {userAnswers[index]}
+                </div>
+                <div>
+                  <strong>Correct Answer:</strong> {correctAnswers[index]}
+                </div>
+                <hr />
+              </div>
+            ))}
             <button onClick={handleRestart}>Restart Quiz</button>
           </div>
         ) : (
