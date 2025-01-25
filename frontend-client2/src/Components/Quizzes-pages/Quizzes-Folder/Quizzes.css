@@ -67,12 +67,7 @@ body {
   background-color: #66bb6a; /* Slightly darker green on hover */
 }
 
-/* Highlight the correct answer */
-.highlight-correct {
-  background-color: #ffeb3b; /* Earthy yellow */
-  font-weight: bold;
-  color: #2c6b3e; /* Dark green for text */
-}
+
 
 /* Buttons for navigating through the quiz */
 .quizB {
