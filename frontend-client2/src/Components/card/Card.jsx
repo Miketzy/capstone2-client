@@ -6,15 +6,15 @@ function Card() {
   return (
     <div className="card">
       {/* Header Section */}
-      <header className="text-center p-6 bg-blue-400 rounded-lg shadow-md mb-6 mt-20">
-        <h1 className="text-5xl font-bold text-green-800">
+      <header className="text-center p-8 bg-green-700 rounded-lg shadow-lg mb-6 mt-20">
+        <h1 className="text-5xl font-bold text-white">
           Welcome to BioExplorer
         </h1>
-        <p className="mt-2 text-gray-700">
-          Explore the world of biodiversity through our interactive map,
-          detailed database, engaging quizzes, and insightful analytics. This
-          platform is designed to make learning about species and their habitats
-          easy and enjoyable. Start your journey now!
+        <p className="mt-2 text-gray-200">
+          Explore the fascinating world of biodiversity, discover species, their
+          habitats, and ecosystems. Dive into our interactive map, comprehensive
+          database, engaging quizzes, and insightful analytics. Begin your
+          journey to understanding the species that share our planet!
         </p>
       </header>
 
