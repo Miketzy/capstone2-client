@@ -17,29 +17,17 @@ const FrontpageNavbar = () => {
     <nav className="sticky top-0 z-50 bg-green-700 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Custom Logo */}
+          {/* Updated Logo */}
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="text-green-200"
-              >
-                <circle cx="12" cy="12" r="10" className="text-green-300" />
-                <path
-                  d="M15.5 15.5l4 4m-8.5-9a3.5 3.5 0 117 0 3.5 3.5 0 01-7 0z"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-                <path
-                  d="M10 10c-2.5 2.5-4 6-4 6s3.5-1.5 6-4"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-              </svg>
+            <div className="w-10 h-10">
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/picture/472546830_1138798994617879_5773074804155834205_n-removebg-preview.png"
+                }
+                alt="BioExplorer Logo"
+                className="w-full h-auto"
+              />
             </div>
             <span className="text-2xl font-bold tracking-wide">
               BioExplorer
