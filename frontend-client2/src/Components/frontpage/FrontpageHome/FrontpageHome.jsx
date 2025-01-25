@@ -8,7 +8,7 @@ const FrontpageHome = () => {
         <img
           src={
             process.env.PUBLIC_URL +
-            "/picture/DALL·E 2025-01-24 14.09.37 - A visually stunning background representing biodiversity exploration and species documentation. The scene features a lush rainforest with diverse flor.webp"
+            "/picture/472546830_1138798994617879_5773074804155834205_n-removebg-preview.png"
           }
           alt="Biodiversity Exploration"
           className="w-full h-auto"
