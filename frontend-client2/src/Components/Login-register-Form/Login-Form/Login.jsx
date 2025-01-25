@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -63,10 +62,6 @@ const Login = () => {
     }
   };
 
-  const goBack = () => {
-    navigate(-1); // Navigate back to the previous page
-  };
-
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-green-50"
@@ -77,15 +72,6 @@ const Login = () => {
       }}
     >
       <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
-        {/* Back Button */}
-        <button
-          onClick={() => (window.location.href = "/")}
-          className="absolute top-6 left-6 p-2 bg-green-600 rounded-full text-white hover:bg-green-700 transition duration-300 flex items-center justify-center"
-          style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}
-        >
-          <KeyboardReturnIcon fontSize="large" />
-        </button>
-
         {/* Updated Logo */}
         <div className="text-center mb-6">
           <img
