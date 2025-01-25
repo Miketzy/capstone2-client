@@ -62,6 +62,10 @@ const Login = () => {
     }
   };
 
+  const goBack = () => {
+    navigate(-1); // Navigate back to the previous page
+  };
+
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-green-50"
@@ -72,6 +76,14 @@ const Login = () => {
       }}
     >
       <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
+        {/* Back Button */}
+        <button
+          onClick={goBack}
+          className="absolute top-6 left-6 text-green-700 text-2xl"
+        >
+          &#8592; {/* Left arrow symbol */}
+        </button>
+
         {/* Updated Logo */}
         <div className="text-center mb-6">
           <img
