@@ -40,7 +40,7 @@ const FrontpageHome = () => {
           onClick={() => (window.location.href = "/login")}
           className="px-6 py-3 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600 transition duration-300"
         >
-          Proceed
+          Login
         </button>
 
         {/* Learn More Button */}
