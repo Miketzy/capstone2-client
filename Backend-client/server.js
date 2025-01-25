@@ -514,15 +514,20 @@ app.post("/verify-otp", (req, res) => {
 app.post("/reset-password", (req, res) => {
   const { email, password } = req.body;
 
-  db.query("SELECT * FROM users WHERE email = ?", [email], (err, result) => {
+  console.log("Received request to reset password for:", email); // Log the incoming email
+
+  db.query("SELECT * FROM user1 WHERE email = ?", [email], (err, result) => {
     if (err) {
+      console.error("Error querying database:", err); // Log database query error
       return res.status(500).send("Server error");
     }
 
     if (result.length > 0) {
-      // User found, proceed to hash and update the password
+      console.log("User found, proceeding to hash password.");
+
       bcrypt.hash(password, 10, (hashErr, hashedPassword) => {
         if (hashErr) {
+          console.error("Error hashing password:", hashErr); // Log hashing error
           return res.status(500).send("Error hashing password");
         }
 
@@ -531,9 +536,11 @@ app.post("/reset-password", (req, res) => {
           [hashedPassword, email],
           (updateErr) => {
             if (updateErr) {
+              console.error("Error updating password:", updateErr); // Log update error
               return res.status(500).send("Error updating password");
             }
 
+            console.log("Password reset successfully.");
             res.json({
               success: true,
               message: "Password reset successfully!",
@@ -542,10 +549,12 @@ app.post("/reset-password", (req, res) => {
         );
       });
     } else {
+      console.log("User not found.");
       res.status(404).json({ success: false, message: "Email not registered" });
     }
   });
 });
+
 
 // Serve static images
 app.use(
