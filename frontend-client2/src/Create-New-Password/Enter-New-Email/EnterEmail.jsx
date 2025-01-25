@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Mail } from "lucide-react"; // Icon library
 
 function EnterEmail() {
   const [email, setEmail] = useState("");
@@ -58,46 +59,59 @@ function EnterEmail() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center flex justify-center items-center"
-      style={{ backgroundImage: "url('/picture/durso.jpg')" }}
+      className="min-h-screen flex justify-center items-center"
+      style={{
+        backgroundImage: "url('/picture/wmremove-transformed.jpeg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-4/5 md:w-3/4 lg:w-2/3 xl:w-1/3 bg-opacity-80">
-        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
-          Email Request
+      <div className="bg-white p-8 rounded-2xl shadow-lg w-full sm:w-4/5 md:w-3/4 lg:w-2/3 xl:w-1/3 bg-opacity-90">
+        <div className="flex justify-center mb-4">
+          <Mail className="text-green-600 w-12 h-12" />
+        </div>
+        <h2 className="text-3xl font-bold text-center text-green-700 mb-6">
+          Request OTP Code
         </h2>
-
+        <p className="text-gray-700 text-center mb-4">
+          Enter your email below to receive a one-time password for
+          verification.
+        </p>
         <div className="mb-4">
-          <p className="text-gray-700 text-center mb-4">
-            We will be sending you an OTP code to your email
-          </p>
           <input
             id="otp-email"
             type="email"
             placeholder="Enter your email"
             value={email}
             onChange={handleEmailChange}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           />
         </div>
 
         <button
-          className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
+          className="w-full py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none"
           onClick={handleSendOTP}
           disabled={loading}
         >
           {loading ? "Sending..." : "Send OTP"}
         </button>
 
-        <p className="text-center text-sm mt-4 text-blue-500 cursor-pointer">
+        <p className="text-center text-sm mt-4 text-gray-600">
           Go back to{" "}
-          <span className="underline" onClick={GoToLogin}>
+          <span
+            className="underline text-green-600 cursor-pointer hover:text-green-700"
+            onClick={GoToLogin}
+          >
             Login
           </span>
         </p>
 
         {message && (
-          <p className="text-red-500 text-center mt-4" aria-live="polite">
+          <p
+            className="text-red-500 text-center mt-4 font-medium"
+            aria-live="polite"
+          >
             {message}
           </p>
         )}
