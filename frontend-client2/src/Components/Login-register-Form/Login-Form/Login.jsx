@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FaLeaf } from "react-icons/fa"; // Importing an icon related to nature
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -70,88 +71,90 @@ const Login = () => {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center flex items-center"
+      className="min-h-screen flex items-center justify-center bg-green-50"
       style={{
-        backgroundImage: "url('/picture/wmremove-transformed.jpeg')",
+        backgroundImage: "url('/picture/nature-bg.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
-      <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
-        {/* Explanation Section */}
-        <div className="lg:w-1/2 text-white text-center lg:text-left mb-8 lg:mb-0">
-          <h3 className="text-3xl font-bold">Welcome to Our Web System!</h3>
-          <p className="mt-4 text-lg leading-relaxed">
-            This web system is designed to help users manage and track species
-            data in Davao Oriental. Whether you're a contributor adding new
-            species or an admin overseeing the platform, this tool simplifies
-            the process of data management and fosters better collaboration.
+      <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
+        {/* Nature Icon */}
+        <div className="text-center mb-6">
+          <FaLeaf className="text-green-600 text-5xl mx-auto mb-2" />
+          <h1 className="text-3xl font-bold text-green-700">BioExplorer</h1>
+          <p className="text-sm text-green-600 mt-2">
+            Explore and protect biodiversity in Davao Oriental.
           </p>
         </div>
+
+        {/* Error Message */}
+        {error && (
+          <p className="text-red-500 text-center text-sm mb-4">{error}</p>
+        )}
 
         {/* Login Form */}
-        <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-3/4 md:w-2/3 lg:w-1/3 lg:ml-16">
-          {" "}
-          {/* Added lg:ml-16 to move it right */}
-          <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
-            Login
-          </h2>
-          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-700 mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter your email"
-                onChange={(e) =>
-                  setValues({ ...values, email: e.target.value })
-                }
-                required
-              />
-            </div>
-
-            <div className="mb-6">
-              <label htmlFor="password" className="block text-gray-700 mb-2">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter your password"
-                onChange={(e) =>
-                  setValues({ ...values, password: e.target.value })
-                }
-                required
-              />
-            </div>
-
-            <p
-              className="text-blue-500 text-sm text-center cursor-pointer mb-4"
-              onClick={GoToForgotPassword}
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label
+              htmlFor="email"
+              className="block text-green-700 font-medium mb-2"
             >
-              Forgot Password
-            </p>
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="w-full p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+              placeholder="Enter your email"
+              onChange={(e) => setValues({ ...values, email: e.target.value })}
+              required
+            />
+          </div>
 
-            <button
-              type="submit"
-              className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
+          <div className="mb-6">
+            <label
+              htmlFor="password"
+              className="block text-green-700 font-medium mb-2"
             >
-              Login
-            </button>
-          </form>
-          <p className="text-center text-sm mt-4">
-            Don't have an account?{" "}
-            <span
-              className="text-blue-500 cursor-pointer"
-              onClick={GoToRegister}
-            >
-              Register
-            </span>
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="w-full p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+              placeholder="Enter your password"
+              onChange={(e) =>
+                setValues({ ...values, password: e.target.value })
+              }
+              required
+            />
+          </div>
+
+          <p
+            className="text-sm text-green-600 cursor-pointer mb-4 text-right hover:underline"
+            onClick={GoToForgotPassword}
+          >
+            Forgot Password?
           </p>
-        </div>
+
+          <button
+            type="submit"
+            className="w-full bg-green-600 text-white py-3 rounded-lg shadow-lg hover:bg-green-700 transition duration-300"
+          >
+            Login
+          </button>
+        </form>
+
+        <p className="text-center text-sm mt-4 text-green-700">
+          Don't have an account?{" "}
+          <span
+            className="text-green-600 font-semibold cursor-pointer hover:underline"
+            onClick={GoToRegister}
+          >
+            Register
+          </span>
+        </p>
       </div>
     </div>
   );
