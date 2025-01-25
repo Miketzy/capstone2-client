@@ -8,6 +8,7 @@ const Quizzes = () => {
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
+  const [showCorrectAnswers, setShowCorrectAnswers] = useState(false); // State to toggle showing correct answers
 
   useEffect(() => {
     fetchQuestions();
@@ -77,8 +78,13 @@ const Quizzes = () => {
   const handleRestart = () => {
     setScore(0);
     setShowScore(false);
+    setShowCorrectAnswers(false); // Reset the correct answers view
     setCurrentQuestion(0);
     fetchQuestions(); // Re-fetch questions when restarting the quiz
+  };
+
+  const handleShowCorrectAnswers = () => {
+    setShowCorrectAnswers(true); // Show correct answers and explanations
   };
 
   return (
@@ -89,6 +95,36 @@ const Quizzes = () => {
             You scored {score} out of {questions.length}
             <br />
             <button onClick={handleRestart}>Restart Quiz</button>
+            <br />
+            <button onClick={handleShowCorrectAnswers}>
+              See Correct Answers
+            </button>
+            {showCorrectAnswers && (
+              <div className="correct-answers-section">
+                <h2>Correct Answers</h2>
+                {questions.map((question, index) => (
+                  <div key={index} className="question-answer">
+                    <p>
+                      <strong>Question: </strong>
+                      {question.question}
+                    </p>
+                    <p>
+                      <strong>Your Answer: </strong>
+                      {userAnswers[index]}
+                    </p>
+                    <p>
+                      <strong>Correct Answer: </strong>
+                      {question.correctAnswer}
+                    </p>
+                    <p>
+                      <strong>Explanation: </strong>
+                      {question.explanation}
+                    </p>
+                    <hr />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         ) : (
           questions.length > 0 && (

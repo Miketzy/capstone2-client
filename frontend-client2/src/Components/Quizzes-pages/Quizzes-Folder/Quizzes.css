@@ -92,4 +92,25 @@ button + button {
   color: #006D77; /* Dark teal */
 }
 
+.correct-answers-section {
+  margin-top: 20px;
+}
+
+.correct-answers-section h2 {
+  font-size: 24px;
+}
+
+.question-answer {
+  margin-bottom: 10px;
+}
+
+.question-answer p {
+  margin: 5px 0;
+}
+
+.question-answer hr {
+  margin-top: 10px;
+}
+
+
 
