@@ -59,7 +59,7 @@ function EnterNewPassword() {
       style={{ backgroundImage: "url('/picture/durso.jpg')" }}
     >
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h2 className="text-2xl font-bold text-center text-green-800 mb-6">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Create New Password
         </h2>
 
@@ -105,7 +105,7 @@ function EnterNewPassword() {
 
         <button
           onClick={handleResetPassword}
-          className="w-full py-3 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           Reset Password
         </button>
