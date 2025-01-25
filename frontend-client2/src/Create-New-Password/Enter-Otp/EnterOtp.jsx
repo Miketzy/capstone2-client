@@ -80,21 +80,21 @@ function EnterOtp() {
     <div
       className="min-h-screen flex justify-center items-center p-4"
       style={{
-        backgroundImage: "url('/picture/durso.jpg')",
+        backgroundImage: "url('/picture/wmremove-transformed.jpeg')", // Updated background image for BioExplorer theme
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md bg-opacity-80">
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">
-          Email Verification
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md bg-opacity-90">
+        <h1 className="text-3xl font-semibold text-center text-green-700 mb-6">
+          BioExplorer - Email Verification
         </h1>
         {email && (
-          <p className="text-center text-gray-600 mb-4">
+          <p className="text-center text-gray-700 mb-6">
             OTP has been sent to: <span className="font-semibold">{email}</span>
           </p>
         )}
-        <div className="flex justify-center space-x-2 mb-4">
+        <div className="flex justify-center space-x-3 mb-6">
           {otp.map((value, index) => (
             <input
               key={index}
@@ -104,26 +104,26 @@ function EnterOtp() {
               onChange={(e) => handleChange(e, index)}
               onKeyDown={(e) => handleBackspace(e, index)}
               maxLength="1"
-              className="w-12 h-12 text-center text-xl border-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              className="w-14 h-14 text-center text-xl border-2 border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               inputMode="numeric"
             />
           ))}
         </div>
         <button
           onClick={handleVerifyOTP}
-          className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
+          className="w-full py-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 mb-6"
         >
-          Verify Account
+          Verify OTP
         </button>
-        <div className="text-center text-gray-600">
+        <div className="text-center text-gray-700">
           <p>
             {canResend
-              ? "You can resend the OTP."
+              ? "You can now resend the OTP."
               : `Resend OTP in ${timer} seconds`}
           </p>
           {canResend && (
             <p
-              className="text-blue-500 cursor-pointer hover:underline"
+              className="text-green-500 cursor-pointer hover:underline"
               onClick={handleResendOTP}
             >
               Resend OTP
