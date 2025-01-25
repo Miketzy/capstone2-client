@@ -73,8 +73,7 @@ const Login = () => {
     <div
       className="min-h-screen flex items-center justify-center bg-green-50"
       style={{
-        backgroundImage:
-          "url('/picture/472546830_1138798994617879_5773074804155834205_n-removebg-preview.png')",
+        backgroundImage: "url('/picture/wmremove-transformed.jpeg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
