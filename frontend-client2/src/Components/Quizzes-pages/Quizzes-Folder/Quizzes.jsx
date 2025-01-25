@@ -87,6 +87,11 @@ const Quizzes = () => {
     setShowCorrectAnswers(true); // Show correct answers and explanations
   };
 
+  // Function to highlight the correct answer
+  const getAnswerClass = (answer, correctAnswer) => {
+    return answer === correctAnswer ? "highlight-correct" : "";
+  };
+
   return (
     <div className="wrapperquiz">
       <div className="quiz-container">
@@ -138,7 +143,10 @@ const Quizzes = () => {
 
               <div className="answer-section">
                 <button
-                  className="optionB"
+                  className={`optionB ${getAnswerClass(
+                    questions[currentQuestion].optionA,
+                    questions[currentQuestion].correctAnswer
+                  )}`}
                   onClick={() =>
                     handleAnswerClick(questions[currentQuestion].optionA)
                   }
@@ -146,7 +154,10 @@ const Quizzes = () => {
                   {questions[currentQuestion].optionA}
                 </button>
                 <button
-                  className="optionB"
+                  className={`optionB ${getAnswerClass(
+                    questions[currentQuestion].optionB,
+                    questions[currentQuestion].correctAnswer
+                  )}`}
                   onClick={() =>
                     handleAnswerClick(questions[currentQuestion].optionB)
                   }
@@ -154,7 +165,10 @@ const Quizzes = () => {
                   {questions[currentQuestion].optionB}
                 </button>
                 <button
-                  className="optionB"
+                  className={`optionB ${getAnswerClass(
+                    questions[currentQuestion].optionC,
+                    questions[currentQuestion].correctAnswer
+                  )}`}
                   onClick={() =>
                     handleAnswerClick(questions[currentQuestion].optionC)
                   }
@@ -162,7 +176,10 @@ const Quizzes = () => {
                   {questions[currentQuestion].optionC}
                 </button>
                 <button
-                  className="optionB"
+                  className={`optionB ${getAnswerClass(
+                    questions[currentQuestion].optionD,
+                    questions[currentQuestion].correctAnswer
+                  )}`}
                   onClick={() =>
                     handleAnswerClick(questions[currentQuestion].optionD)
                   }

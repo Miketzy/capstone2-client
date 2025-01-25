@@ -111,6 +111,9 @@ button + button {
 .question-answer hr {
   margin-top: 10px;
 }
-
+.highlight-correct {
+  background-color: yellow; /* Highlight color */
+  font-weight: bold;
+}
 
 
