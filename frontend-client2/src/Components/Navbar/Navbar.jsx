@@ -11,7 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 function Navbar({ toggleSidebar }) {
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current location
+  const location = useLocation();
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState({
     firstname: "",
@@ -21,7 +21,6 @@ function Navbar({ toggleSidebar }) {
     image: "/picture/Unknown_Member.jpg",
   });
 
-  // State for active tab based on the current location
   const [activeTab, setActiveTab] = useState(location.pathname);
 
   const open = Boolean(anchorEl);
@@ -55,21 +54,20 @@ function Navbar({ toggleSidebar }) {
   };
 
   useEffect(() => {
-    fetchUserData(); // Fetch user data on component mount
+    fetchUserData();
   }, []);
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  // Use effect to update active tab when location changes
   useEffect(() => {
     setActiveTab(location.pathname);
   }, [location]);
 
   const handleNavigation = (path) => {
     navigate(path);
-    setActiveTab(path); // Update active tab immediately after navigation
+    setActiveTab(path);
   };
 
   const handleMyprofile = () => {
@@ -77,35 +75,29 @@ function Navbar({ toggleSidebar }) {
   };
 
   const handleLogout = async () => {
-    // Show confirmation dialog
     const confirmLogout = window.confirm("Are you sure you want to log out?");
 
     if (confirmLogout) {
       try {
-        // Call the logout endpoint
         await axios.post("https://capstone2-client.onrender.com/logout");
-
-        // Optionally, clear the token from localStorage (if stored)
         localStorage.removeItem("token");
-
-        // Redirect to the login page
-        navigate("/login"); // Make sure you import and use 'navigate' from 'react-router-dom'
+        navigate("/login");
       } catch (error) {
         console.error("Error during logout", error);
       }
     } else {
-      // If user clicks "No", do nothing and stay on the current page
       return;
     }
   };
 
   return (
-    <div className="navbar bg-blue-900 text-white py-1 ml-10px">
-      <div className=" mx-auto flex justify-between items-center p-1">
+    <div className="navbar bg-green-800 text-white py-2 ml-10px shadow-lg rounded-b-md">
+      <div className="mx-auto flex justify-between items-center p-3">
         <div className="md:hidden cursor-pointer" onClick={toggleSidebar}>
           <MenuIcon />
         </div>
-        <div className="code flex space-x-6">
+
+        <div className="menu-items flex space-x-6">
           <ul className="flex space-x-6">
             <li
               className={activeTab === "/Home" ? "active" : ""}
@@ -113,33 +105,18 @@ function Navbar({ toggleSidebar }) {
             >
               <span>HOME</span>
             </li>
-          </ul>
-        </div>
-
-        <div className="code">
-          <ul>
             <li
               className={activeTab === "/About-us" ? "active" : ""}
               onClick={() => handleNavigation("/About-us")}
             >
               <span>ABOUT US</span>
             </li>
-          </ul>
-        </div>
-
-        <div className="code">
-          <ul>
             <li
               className={activeTab === "/Features" ? "active" : ""}
               onClick={() => handleNavigation("/Features")}
             >
               <span>FEATURES</span>
             </li>
-          </ul>
-        </div>
-
-        <div className="code">
-          <ul>
             <li
               className={activeTab === "/Feedback" ? "active" : ""}
               onClick={() => handleNavigation("/Feedback")}
@@ -150,19 +127,16 @@ function Navbar({ toggleSidebar }) {
         </div>
 
         <div
-          className="profileimg-button flex items-center space-x-3 cursor-pointer justify-start" // Added justify-start to align the content to the left
+          className="profileimg-button flex items-center space-x-3 cursor-pointer justify-start"
           onClick={handleClick}
         >
           <div className="img-container relative">
-            <div className="img-profile relative">
-              <img src={user.image} alt="" className="w-16 h-16 rounded-full" />{" "}
-              {/* Optional: Add width, height, and rounded styling */}
+            <div className="img-profile border-2 border-green-300 rounded-full overflow-hidden">
+              <img src={user.image} alt="profile" className="w-16 h-16" />
             </div>
-            <div className="profile-info">
-              <h3 className="fname text-lg font-semibold">{`${user.firstname} ${user.lastname}`}</h3>{" "}
-              {/* Styled name */}
-              <p className="email text-sm text-gray-500 ">{user.email}</p>{" "}
-              {/* Styled email */}
+            <div className="profile-info mt-2">
+              <h3 className="fname text-lg font-semibold">{`${user.firstname} ${user.lastname}`}</h3>
+              <p className="email text-sm text-gray-300">{user.email}</p>
             </div>
           </div>
         </div>
@@ -179,13 +153,13 @@ function Navbar({ toggleSidebar }) {
         >
           <MenuItem onClick={handleMyprofile}>
             <ListItemIcon>
-              <IoPerson className="ioPerson" />
+              <IoPerson className="text-green-700" />
             </ListItemIcon>
             My Profile
           </MenuItem>
           <MenuItem onClick={handleLogout}>
             <ListItemIcon>
-              <IoLogOut className="ioLogout" />
+              <IoLogOut className="text-red-700" />
             </ListItemIcon>
             Logout
           </MenuItem>
