@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import "./front.css";
+import "./FrontpageHome.css"; // Import the CSS file for animations
 
 const FrontpageHome = () => {
   useEffect(() => {
-    // Remove scroll by disabling body overflow
+    // Disable body scroll
     document.body.style.overflow = "hidden";
 
     // Cleanup on component unmount
@@ -13,8 +13,8 @@ const FrontpageHome = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center text-center">
-      {/* Animation Section */}
+    <div className="min-h-screen flex flex-col justify-center items-center text-center bg-gray-50">
+      {/* Animated Logo Section */}
       <div className="w-3/4 md:w-1/2 lg:w-1/3 mb-6 mx-auto">
         <img
           src={
@@ -22,7 +22,7 @@ const FrontpageHome = () => {
             "/picture/472546830_1138798994617879_5773074804155834205_n-removebg-preview.png"
           }
           alt="Biodiversity Exploration"
-          className="w-40 h-auto mx-auto animate-bounce" // Add animation class here
+          className="w-40 h-auto mx-auto zoom-animation" // Apply the CSS animation class
         />
       </div>
 
@@ -34,9 +34,9 @@ const FrontpageHome = () => {
         Discover and explore a diverse range of species like never before.
       </p>
 
-      {/* Buttons Section - Horizontally aligned */}
+      {/* Buttons Section */}
       <div className="flex space-x-4">
-        {/* Proceed Button */}
+        {/* Login Button */}
         <button
           onClick={() => (window.location.href = "/login")}
           className="px-6 py-3 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600 transition duration-300"

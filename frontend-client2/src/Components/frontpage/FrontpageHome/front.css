@@ -1,15 +1,15 @@
-@keyframes fadeInAndScale {
-    0% {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    50% {
-      opacity: 0.5;
-      transform: scale(1.05);
-    }
-    100% {
-      opacity: 1;
+/* Zoom Animation */
+@keyframes zoom {
+    0%, 100% {
       transform: scale(1);
     }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+  
+  /* Apply Animation */
+  .zoom-animation {
+    animation: zoom 2s infinite ease-in-out;
   }
   
