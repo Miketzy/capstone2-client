@@ -1,7 +1,7 @@
 /* General Styles */
 .navbar {
     width: 100%;
-    background: #013392;
+    background: #16a34a;
     border-bottom: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: fixed; /* Fixes the navbar to the top */
