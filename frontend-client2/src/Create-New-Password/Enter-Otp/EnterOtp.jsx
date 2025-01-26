@@ -46,7 +46,7 @@ function EnterOtp() {
     setTimer(60);
     setCanResend(false);
     axios
-      .post("http://localhost:8080/send-otp", { email })
+      .post("https://capstone2-client.onrender.com/send-otp", { email })
       .then(() => {
         alert("OTP has been resent to your email.");
       })
