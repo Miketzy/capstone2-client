@@ -123,3 +123,19 @@ button + button {
 .bio-button:hover {
   background-color: #45a049;
 }
+
+.bio-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.bio-button:hover {
+  background-color: #45a049;
+}
