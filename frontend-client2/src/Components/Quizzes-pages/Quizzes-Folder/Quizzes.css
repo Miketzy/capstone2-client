@@ -115,3 +115,11 @@ button + button {
   margin-top: 15px;
   border: 1px solid #A7D2A9; /* Light green border for separation */
 }
+
+.see-answers-button {
+  background-color: #2b8a3e;
+}
+
+.bio-button:hover {
+  background-color: #45a049;
+}
