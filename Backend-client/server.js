@@ -367,7 +367,7 @@ app.post("/submit-feedback", verifyUser, (req, res) => {
 
 app.post("/logout", (req, res) => {
   // Clear the token cookie
-  res.clearCookie("token", { httpOnly: true, secure: false, sameSite: "lax" });
+  res.clearCookie("token", { httpOnly: true, secure: true, sameSite: "None" });
 
   // Optionally, send a success message
   res.json({ message: "Logout successful" });
@@ -375,7 +375,7 @@ app.post("/logout", (req, res) => {
 
 app.post("/gotoregister", (req, res) => {
   // Clear the token cookie
-  res.clearCookie("token", { httpOnly: true, secure: false, sameSite: "lax" });
+  res.clearCookie("token", { httpOnly: true, secure: true, sameSite: "None" });
 
   // Optionally, send a success message
   res.json({ message: "Logout successful" });
@@ -383,7 +383,7 @@ app.post("/gotoregister", (req, res) => {
 
 app.post("/gotologin", (req, res) => {
   // Clear the token cookie
-  res.clearCookie("token", { httpOnly: true, secure: false, sameSite: "lax" });
+  res.clearCookie("token", { httpOnly: true, secure: true, sameSite: "None" });
 
   // Optionally, send a success message
   res.json({ message: "Logout successful" });
