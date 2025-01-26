@@ -8,7 +8,7 @@ const Quizzes = () => {
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
-  const [showCorrectAnswers, setShowCorrectAnswers] = useState(false); // State to toggle showing correct answers
+  const [showCorrectAnswers, setShowCorrectAnswers] = useState(false);
 
   useEffect(() => {
     fetchQuestions();
@@ -20,7 +20,7 @@ const Quizzes = () => {
         "https://capstone2-client.onrender.com/api/random-questions"
       );
       setQuestions(response.data);
-      setUserAnswers(Array(response.data.length).fill(null)); // Initialize answers array
+      setUserAnswers(Array(response.data.length).fill(null));
     } catch (error) {
       console.error("Error fetching questions:", error);
     }
@@ -31,7 +31,6 @@ const Quizzes = () => {
     updatedAnswers[currentQuestion] = option;
     setUserAnswers(updatedAnswers);
 
-    // If answer is correct, increment score
     if (option === questions[currentQuestion].correctAnswer) {
       setScore((prevScore) => prevScore + 1);
     }
@@ -49,7 +48,7 @@ const Quizzes = () => {
       const token = localStorage.getItem("token");
       await axios.post(
         "https://capstone2-client.onrender.com/api/save-score",
-        { score: finalScore }, // Send the exact score
+        { score: finalScore },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -64,9 +63,9 @@ const Quizzes = () => {
 
   useEffect(() => {
     if (showScore) {
-      saveScore(score); // Save the score exactly as it is when quiz ends
+      saveScore(score);
     }
-  }, [showScore, score]); // This ensures the final score is passed correctly
+  }, [showScore, score]);
 
   const handleBack = () => {
     const prevQuestion = currentQuestion - 1;
@@ -78,16 +77,15 @@ const Quizzes = () => {
   const handleRestart = () => {
     setScore(0);
     setShowScore(false);
-    setShowCorrectAnswers(false); // Reset the correct answers view
+    setShowCorrectAnswers(false);
     setCurrentQuestion(0);
-    fetchQuestions(); // Re-fetch questions when restarting the quiz
+    fetchQuestions();
   };
 
   const handleShowCorrectAnswers = () => {
-    setShowCorrectAnswers(true); // Show correct answers and explanations
+    setShowCorrectAnswers(true);
   };
 
-  // Function to highlight the correct answer
   const getAnswerClass = (answer, correctAnswer) => {
     return answer === correctAnswer ? "highlight-correct" : "";
   };
@@ -97,31 +95,33 @@ const Quizzes = () => {
       <div className="quiz-container">
         {showScore ? (
           <div className="score-section">
-            You scored {score} out of {questions.length}
-            <br />
-            <button onClick={handleRestart}>Restart Quiz</button>
-            <br />
-            <button onClick={handleShowCorrectAnswers}>
+            <h2 className="score-title">
+              You scored {score} out of {questions.length}
+            </h2>
+            <button className="bio-button" onClick={handleRestart}>
+              Restart Quiz
+            </button>
+            <button
+              className="bio-button see-answers-button"
+              onClick={handleShowCorrectAnswers}
+            >
               See Correct Answers
             </button>
             {showCorrectAnswers && (
               <div className="correct-answers-section">
-                <h2>Correct Answers</h2>
+                <h3>Correct Answers</h3>
                 {questions.map((question, index) => (
                   <div key={index} className="question-answer">
                     <p>
-                      <strong>Question: </strong>
-                      {question.question}
+                      <strong>Question:</strong> {question.question}
                     </p>
                     <p>
-                      <strong>Your Answer: </strong>
-                      {userAnswers[index]}
+                      <strong>Your Answer:</strong>{" "}
+                      {userAnswers[index] || "No answer"}
                     </p>
                     <p>
-                      <strong>Correct Answer: </strong>
-                      {question.correctAnswer}
+                      <strong>Correct Answer:</strong> {question.correctAnswer}
                     </p>
-
                     <hr />
                   </div>
                 ))}
@@ -139,50 +139,20 @@ const Quizzes = () => {
               </div>
 
               <div className="answer-section">
-                <button
-                  className={`optionB ${getAnswerClass(
-                    questions[currentQuestion].optionA,
-                    questions[currentQuestion].correctAnswer
-                  )}`}
-                  onClick={() =>
-                    handleAnswerClick(questions[currentQuestion].optionA)
-                  }
-                >
-                  {questions[currentQuestion].optionA}
-                </button>
-                <button
-                  className={`optionB ${getAnswerClass(
-                    questions[currentQuestion].optionB,
-                    questions[currentQuestion].correctAnswer
-                  )}`}
-                  onClick={() =>
-                    handleAnswerClick(questions[currentQuestion].optionB)
-                  }
-                >
-                  {questions[currentQuestion].optionB}
-                </button>
-                <button
-                  className={`optionB ${getAnswerClass(
-                    questions[currentQuestion].optionC,
-                    questions[currentQuestion].correctAnswer
-                  )}`}
-                  onClick={() =>
-                    handleAnswerClick(questions[currentQuestion].optionC)
-                  }
-                >
-                  {questions[currentQuestion].optionC}
-                </button>
-                <button
-                  className={`optionB ${getAnswerClass(
-                    questions[currentQuestion].optionD,
-                    questions[currentQuestion].correctAnswer
-                  )}`}
-                  onClick={() =>
-                    handleAnswerClick(questions[currentQuestion].optionD)
-                  }
-                >
-                  {questions[currentQuestion].optionD}
-                </button>
+                {["optionA", "optionB", "optionC", "optionD"].map((key) => (
+                  <button
+                    key={key}
+                    className={`optionB ${getAnswerClass(
+                      questions[currentQuestion][key],
+                      questions[currentQuestion].correctAnswer
+                    )}`}
+                    onClick={() =>
+                      handleAnswerClick(questions[currentQuestion][key])
+                    }
+                  >
+                    {questions[currentQuestion][key]}
+                  </button>
+                ))}
               </div>
               <br />
               {currentQuestion > 0 && (
