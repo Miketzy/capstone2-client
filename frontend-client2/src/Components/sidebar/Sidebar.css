@@ -56,6 +56,7 @@
   .sidebar {
     width: 40vh; /* Adjust the width for tablets */
     margin-top: 65px;
+    display: block;
   }
 
   .code-side ul li {
