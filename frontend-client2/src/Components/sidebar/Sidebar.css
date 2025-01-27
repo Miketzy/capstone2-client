@@ -82,7 +82,7 @@ li {
 @media (max-width: 480px){
   .sidebar {
     width: 40vh; /* Adjust the width for tablets */
-    margin-top: 55px;
+    margin-top: 65px;
   }
 
   .code-side ul li {
