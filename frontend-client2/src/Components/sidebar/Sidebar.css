@@ -15,7 +15,7 @@
 }
 
 .sidebar.visible {
-  left: 0; /* When sidebar is visible, slide in from the left */
+  transform: translateX(0);
 }
 
 .side-container {
