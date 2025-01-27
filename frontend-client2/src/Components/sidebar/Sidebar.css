@@ -1,6 +1,7 @@
 /* General Sidebar Styling */
 .sidebar {
-  background: #013392; /* Updated to match navbar color */
+  background: linear-gradient(to bottom, #4caf50, #2e7d32);
+  color: white;
   height: 100vh;
   width: 50vh;
   position: fixed;
