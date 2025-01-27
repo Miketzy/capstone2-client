@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { FaHome, FaInfoCircle, FaLeaf, FaComments } from "react-icons/fa";
 
 function Sidebar({ isSidebarVisible }) {
   const navigate = useNavigate();
@@ -58,34 +59,36 @@ function Sidebar({ isSidebarVisible }) {
   return (
     <div className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
       <div className="side-container">
-        <div className="code-side">
-          <ul>
-            <li
-              className={activeTab === "/Home" ? "active" : ""}
-              onClick={() => handleNavigation("/Home")}
-            >
-              <span>HOME</span>
-            </li>
-            <li
-              className={activeTab === "/About-us" ? "active" : ""}
-              onClick={() => handleNavigation("/About-us")}
-            >
-              <span>ABOUT US</span>
-            </li>
-            <li
-              className={activeTab === "/Features" ? "active" : ""}
-              onClick={() => handleNavigation("/Features")}
-            >
-              <span>FEATURES</span>
-            </li>
-            <li
-              className={activeTab === "/Feedback" ? "active" : ""}
-              onClick={() => handleNavigation("/Feedback")}
-            >
-              <span>FEEDBACK</span>
-            </li>
-          </ul>
-        </div>
+        <ul>
+          <li
+            className={activeTab === "/Home" ? "active" : ""}
+            onClick={() => handleNavigation("/Home")}
+          >
+            <FaHome className="icon" />
+            <span>Home</span>
+          </li>
+          <li
+            className={activeTab === "/About-us" ? "active" : ""}
+            onClick={() => handleNavigation("/About-us")}
+          >
+            <FaInfoCircle className="icon" />
+            <span>About Us</span>
+          </li>
+          <li
+            className={activeTab === "/Features" ? "active" : ""}
+            onClick={() => handleNavigation("/Features")}
+          >
+            <FaLeaf className="icon" />
+            <span>Features</span>
+          </li>
+          <li
+            className={activeTab === "/Feedback" ? "active" : ""}
+            onClick={() => handleNavigation("/Feedback")}
+          >
+            <FaComments className="icon" />
+            <span>Feedback</span>
+          </li>
+        </ul>
       </div>
     </div>
   );
