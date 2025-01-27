@@ -10,7 +10,7 @@
   margin-top: 55px;
   z-index: 2000;
   padding-top: 20px;
-  display: flex;
+  display: none;
   flex-direction: column;
   transition: left 0.3s ease-in-out; /* Smooth transition for sidebar visibility */
   margin-top: 65px;
