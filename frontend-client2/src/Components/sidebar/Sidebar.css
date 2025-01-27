@@ -1,6 +1,6 @@
 /* General Sidebar Styling */
 .sidebar {
-  background: linear-gradient(135deg, #38b2ac, #2a9d8f); /* Nature-inspired gradient */
+  background: #013392; /* Updated to match navbar color */
   height: 100vh;
   width: 50vh;
   position: fixed;
@@ -11,18 +11,15 @@
   padding-top: 20px;
   display: flex;
   flex-direction: column;
-  transition: left 0.3s ease-in-out;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  transition: left 0.3s ease-in-out; /* Smooth transition for sidebar visibility */
 }
 
 .sidebar.visible {
-  left: 0;
+  left: 0; /* When sidebar is visible, slide in from the left */
 }
 
-/* Container for sidebar content */
 .side-container {
-  font-family: 'Poppins', sans-serif;
-  color: #faf9f5;
+  font-family: 'Arial', sans-serif;
 }
 
 /* Reset list styles */
@@ -32,69 +29,78 @@ li {
   margin: 0;
 }
 
-/* Navigation items */
+/* Styling for the navigation items */
 .code-side ul {
   padding: 0;
   margin: 0;
 }
 
 .code-side ul li {
-  display: flex;
-  align-items: center;
-  margin: 15px 20px;
-  padding: 12px 15px;
-  border-radius: 8px;
+  margin: 20px 15px;
   cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+  position: relative;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.05); /* Subtle background */
 }
 
-.code-side ul li:hover {
-  background: #83c5be;
-  color: #1a1a1a;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transform: translateY(-2px);
-}
-
-.code-side ul li.active {
-  background: #2a9d8f;
-  color: #faf9f5;
-  transform: scale(1.05);
-  border-left: 5px solid #edf6f9;
-}
-
+/* Default state for links */
 .code-side ul li span {
-  font-weight: 500;
   color: #faf9f5;
-  margin-left: 10px; /* Space for icons */
+  font-weight: 500;
   transition: color 0.3s ease;
 }
 
+/* Hover effect */
+.code-side ul li:hover {
+  background: #83C5BE; /* Lighter shade for hover */
+  color: #1a1a1a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+}
+
+/* Active link styling */
+.code-side ul li.active {
+  background: #2A9D8F; /* Slightly different shade */
+  color: #faf9f5;
+  transform: scale(1.05);
+  border-left: 5px solid #EDF6F9;
+}
+
+/* Style the text of the active link */
 .code-side ul li.active span {
+  color: #faf9f5;
   font-weight: bold;
 }
 
-/* Add icons next to the text */
-.code-side ul li::before {
-  content: url('path-to-icon.svg'); /* Replace with appropriate icons */
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-  opacity: 0.8;
+/* Add smooth transitions */
+.code-side ul li,
+.code-side ul li span {
+  transition: all 0.3s ease;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px){
   .sidebar {
-    width: 40vh;
+    width: 40vh; /* Adjust the width for tablets */
+    margin-top: 55px;
   }
 
   .code-side ul li {
-    margin: 10px 15px;
-    padding: 10px 12px;
+    margin: 15px 10px;
+    padding: 12px; /* Smaller padding for tablets */
   }
 
   .code-side ul li span {
-    font-size: 14px;
+    font-size: 16px; /* Adjust font size for tablets */
+  }
+
+  .code-side ul li:hover {
+    background: #83C5BE; /* Hover color for tablets */
+  }
+
+  .code-side ul li.active {
+    background: #38B2AC;
+    border-left: 5px solid #EDF6F9;
   }
 }
+
