@@ -2,18 +2,18 @@
 .sidebar {
   background: linear-gradient(to bottom, #4caf50, #2e7d32);
   color: white;
+  width: 250px;
   height: 100vh;
-  width: 50vh;
   position: fixed;
   top: 0;
   left: -50vh; /* Initially hidden off-screen */
   margin-top: 55px;
   z-index: 2000;
   padding-top: 20px;
-  display: none;
+  display: flex;
   flex-direction: column;
   transition: left 0.3s ease-in-out; /* Smooth transition for sidebar visibility */
-  margin-top: 65px;
+
 }
 
 .sidebar.visible {
@@ -55,8 +55,7 @@
 @media (max-width: 480px){
   .sidebar {
     width: 40vh; /* Adjust the width for tablets */
-    margin-top: 65px;
-    display: block;
+    margin-top: 55px;
   }
 
   .code-side ul li {
