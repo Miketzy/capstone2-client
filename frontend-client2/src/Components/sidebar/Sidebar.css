@@ -18,83 +18,61 @@
   transform: translateX(0);
 }
 
-.side-container {
-  font-family: 'Arial', sans-serif;
+.profile-section {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Reset list styles */
-li {
+.profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 2px solid white;
+}
+
+.profile-info h3 {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.profile-info p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.side-container {
+  padding: 20px;
+}
+
+.side-container ul {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
-/* Styling for the navigation items */
-.code-side ul {
-  padding: 0;
-  margin: 0;
-}
-
-.code-side ul li {
-  margin: 20px 15px;
+.side-container li {
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  padding: 15px;
-  border-radius: 10px;
-  position: relative;
-  transition: all 0.3s ease;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-/* Default state for links */
-.code-side ul li span {
-  color: #faf9f5;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-/* Hover effect */
-.code-side ul li:hover {
+.side-container li:hover,
+.side-container li.active {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Active link styling */
-.code-side ul li.active {
-  background-color: rgba(255, 255, 255, 0.2);
+.side-container li .icon {
+  margin-right: 10px;
+  font-size: 20px;
 }
 
-/* Style the text of the active link */
-.code-side ul li.active span {
-  color: #faf9f5;
-  font-weight: bold;
-}
-
-/* Add smooth transitions */
-.code-side ul li,
-.code-side ul li span {
-  transition: all 0.3s ease;
-}
-
-@media (max-width: 480px){
-  .sidebar {
-    width: 40vh; /* Adjust the width for tablets */
-    margin-top: 55px;
-  }
-
-  .code-side ul li {
-    margin: 15px 10px;
-    padding: 12px; /* Smaller padding for tablets */
-  }
-
-  .code-side ul li span {
-    font-size: 16px; /* Adjust font size for tablets */
-  }
-
-  .code-side ul li:hover {
-    background: #83C5BE; /* Hover color for tablets */
-  }
-
-  .code-side ul li.active {
-    background: #38B2AC;
-    border-left: 5px solid #EDF6F9;
-  }
+.side-container li span {
+  font-size: 16px;
 }
 
