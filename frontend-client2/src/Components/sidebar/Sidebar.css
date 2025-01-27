@@ -20,66 +20,37 @@
 }
 
 .side-container {
-  font-family: 'Arial', sans-serif;
+  padding: 20px;
 }
 
-/* Reset list styles */
-li {
+.side-container ul {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
-/* Styling for the navigation items */
-.code-side ul {
-  padding: 0;
-  margin: 0;
-}
-
-.code-side ul li {
-  margin: 20px 15px;
+.side-container li {
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  padding: 15px;
-  border-radius: 10px;
-  position: relative;
-  transition: all 0.3s ease;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-/* Default state for links */
-.code-side ul li span {
-  color: #faf9f5;
-  font-weight: 500;
-  transition: color 0.3s ease;
+.side-container li:hover,
+.side-container li.active {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Hover effect */
-.code-side ul li:hover {
-  background: #83C5BE; /* Lighter shade for hover */
-  color: #1a1a1a;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  transform: translateY(-3px);
+.side-container li .icon {
+  margin-right: 10px;
+  font-size: 20px;
 }
 
-/* Active link styling */
-.code-side ul li.active {
-  background: #2A9D8F; /* Slightly different shade */
-  color: #faf9f5;
-  transform: scale(1.05);
-  border-left: 5px solid #EDF6F9;
+.side-container li span {
+  font-size: 16px;
 }
-
-/* Style the text of the active link */
-.code-side ul li.active span {
-  color: #faf9f5;
-  font-weight: bold;
-}
-
-/* Add smooth transitions */
-.code-side ul li,
-.code-side ul li span {
-  transition: all 0.3s ease;
-}
-
 @media (max-width: 480px){
   .sidebar {
     width: 40vh; /* Adjust the width for tablets */
