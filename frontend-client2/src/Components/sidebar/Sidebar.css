@@ -1,74 +1,100 @@
+/* General Sidebar Styling */
 .sidebar {
-  width: 250px;
+  background: linear-gradient(135deg, #38b2ac, #2a9d8f); /* Nature-inspired gradient */
   height: 100vh;
-  background: linear-gradient(to bottom, #4caf50, #2e7d32);
-  color: white;
+  width: 50vh;
+  position: fixed;
+  top: 0;
+  left: -50vh; /* Initially hidden off-screen */
+  margin-top: 55px;
+  z-index: 2000;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
-  position: fixed;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease-in-out;
-  transform: translateX(-100%);
+  transition: left 0.3s ease-in-out;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
 }
 
 .sidebar.visible {
-  transform: translateX(0);
+  left: 0;
 }
 
-.profile-section {
-  padding: 20px;
-  text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.profile-image {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
-  border: 2px solid white;
-}
-
-.profile-info h3 {
-  font-size: 18px;
-  margin: 5px 0;
-}
-
-.profile-info p {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
-}
-
+/* Container for sidebar content */
 .side-container {
-  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: #faf9f5;
 }
 
-.side-container ul {
+/* Reset list styles */
+li {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.side-container li {
-  padding: 15px 10px;
-  margin-bottom: 10px;
+/* Navigation items */
+.code-side ul {
+  padding: 0;
+  margin: 0;
+}
+
+.code-side ul li {
   display: flex;
   align-items: center;
+  margin: 15px 20px;
+  padding: 12px 15px;
+  border-radius: 8px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05); /* Subtle background */
 }
 
-.side-container li:hover,
-.side-container li.active {
-  background-color: rgba(255, 255, 255, 0.2);
+.code-side ul li:hover {
+  background: #83c5be;
+  color: #1a1a1a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
-.side-container li .icon {
+.code-side ul li.active {
+  background: #2a9d8f;
+  color: #faf9f5;
+  transform: scale(1.05);
+  border-left: 5px solid #edf6f9;
+}
+
+.code-side ul li span {
+  font-weight: 500;
+  color: #faf9f5;
+  margin-left: 10px; /* Space for icons */
+  transition: color 0.3s ease;
+}
+
+.code-side ul li.active span {
+  font-weight: bold;
+}
+
+/* Add icons next to the text */
+.code-side ul li::before {
+  content: url('path-to-icon.svg'); /* Replace with appropriate icons */
+  display: inline-block;
+  width: 24px;
+  height: 24px;
   margin-right: 10px;
-  font-size: 20px;
+  opacity: 0.8;
 }
 
-.side-container li span {
-  font-size: 16px;
+@media (max-width: 480px) {
+  .sidebar {
+    width: 40vh;
+  }
+
+  .code-side ul li {
+    margin: 10px 15px;
+    padding: 10px 12px;
+  }
+
+  .code-side ul li span {
+    font-size: 14px;
+  }
 }
