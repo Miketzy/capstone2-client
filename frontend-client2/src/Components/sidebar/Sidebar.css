@@ -1,5 +1,6 @@
 /* General Sidebar Styling */
 .sidebar {
+  color: white;
   background: linear-gradient(to bottom, #4caf50, #2e7d32);
   height: 100vh;
   width: 50vh;
