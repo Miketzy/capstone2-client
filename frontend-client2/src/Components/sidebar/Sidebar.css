@@ -1,9 +1,8 @@
 /* General Sidebar Styling */
 .sidebar {
   background: linear-gradient(to bottom, #4caf50, #2e7d32);
-  color: white;
-  width: 250px;
   height: 100vh;
+  width: 50vh;
   position: fixed;
   top: 0;
   left: -50vh; /* Initially hidden off-screen */
@@ -13,7 +12,6 @@
   display: flex;
   flex-direction: column;
   transition: left 0.3s ease-in-out; /* Smooth transition for sidebar visibility */
-
 }
 
 .sidebar.visible {
@@ -21,41 +19,70 @@
 }
 
 .side-container {
-  padding: 20px;
+  font-family: 'Arial', sans-serif;
 }
 
-.side-container ul {
+/* Reset list styles */
+li {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.side-container li {
-  padding: 15px 10px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
+/* Styling for the navigation items */
+.code-side ul {
+  padding: 0;
+  margin: 0;
+}
+
+.code-side ul li {
+  margin: 20px 15px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  padding: 15px;
+  border-radius: 10px;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
-.side-container li:hover,
-.side-container li.active {
-  background-color: rgba(255, 255, 255, 0.2);
+/* Default state for links */
+.code-side ul li span {
+  color: #faf9f5;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
-.side-container li .icon {
-  margin-right: 10px;
-  font-size: 20px;
+/* Hover effect */
+.code-side ul li:hover {
+  background: #83C5BE; /* Lighter shade for hover */
+  color: #1a1a1a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
 }
 
-.side-container li span {
-  font-size: 16px;
+/* Active link styling */
+.code-side ul li.active {
+  background: #2A9D8F; /* Slightly different shade */
+  color: #faf9f5;
+  transform: scale(1.05);
+  border-left: 5px solid #EDF6F9;
 }
+
+/* Style the text of the active link */
+.code-side ul li.active span {
+  color: #faf9f5;
+  font-weight: bold;
+}
+
+/* Add smooth transitions */
+.code-side ul li,
+.code-side ul li span {
+  transition: all 0.3s ease;
+}
+
 @media (max-width: 480px){
   .sidebar {
     width: 40vh; /* Adjust the width for tablets */
-    margin-top: 65px;
+    margin-top: 55px;
   }
 
   .code-side ul li {
