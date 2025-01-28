@@ -236,7 +236,7 @@ const Registration = () => {
                 placeholder="Password"
                 value={formData.password}
                 onChange={(e) => handleChange(e.target)}
-                 className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
               <span
@@ -259,14 +259,14 @@ const Registration = () => {
                 placeholder="Confirm Password"
                 value={formData.confirmPassword}
                 onChange={(e) => handleChange(e.target)}
-                 className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
               <span
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                 onClick={() => togglePasswordVisibility("confirmPassword")}
               >
-                {showConfirmPassword ? "👁️" : "👁️‍🗨️"} {showPassword ? }
+                {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
               </span>
             </div>
           </div>
