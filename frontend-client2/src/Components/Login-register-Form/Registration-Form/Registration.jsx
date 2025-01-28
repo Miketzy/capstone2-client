@@ -239,13 +239,12 @@ const Registration = () => {
                 className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className="px-3 text-green-700"
+              <span
+                className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                onClick={() => togglePasswordVisibility("password")}
               >
-                {showPassword ? <Visibility /> : <VisibilityOff />}
-              </button>
+                {showPassword ? "👁️" : "👁️‍🗨️"}
+              </span>
             </div>
             <div className="w-1/2">
               <label
@@ -263,13 +262,12 @@ const Registration = () => {
                 className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className="px-3 text-green-700"
+              <span
+                className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                onClick={() => togglePasswordVisibility("confirmPassword")}
               >
-                {showPassword ? <Visibility /> : <VisibilityOff />}
-              </button>
+                {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
+              </span>
             </div>
           </div>
 
