@@ -20,8 +20,12 @@ const Registration = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const togglePasswordVisibility = (field) => {
+    if (field === "password") {
+      setShowPassword(!showPassword);
+    } else if (field === "confirmPassword") {
+      setShowConfirmPassword(!showConfirmPassword);
+    }
   };
 
   const handleChange = (target) => {
@@ -232,16 +236,15 @@ const Registration = () => {
                 placeholder="Password"
                 value={formData.password}
                 onChange={(e) => handleChange(e.target)}
-                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                 className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
-              <button
+              <span
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-                type="button"
-                onClick={togglePasswordVisibility}
+                onClick={() => togglePasswordVisibility("password")}
               >
-                {showPassword ? <Visibility /> : <VisibilityOff />}
-              </button>
+                {showPassword ? "👁️" : "👁️‍🗨️"}
+              </span>
             </div>
             <div className="w-1/2">
               <label
@@ -256,16 +259,15 @@ const Registration = () => {
                 placeholder="Confirm Password"
                 value={formData.confirmPassword}
                 onChange={(e) => handleChange(e.target)}
-                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                 className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
-              <button
+              <span
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-                type="button"
-                onClick={togglePasswordVisibility}
+                onClick={() => togglePasswordVisibility("confirmPassword")}
               >
-                {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
-              </button>
+                {showConfirmPassword ? "👁️" : "👁️‍🗨️"} {showPassword ? }
+              </span>
             </div>
           </div>
 
