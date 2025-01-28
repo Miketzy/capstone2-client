@@ -1,23 +1,27 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const toggleVisibility = (setter) => setter((prev) => !prev);
 
   const handlePasswordChange = async (e) => {
-    e.preventDefault(); // Prevent the form from refreshing the page
+    e.preventDefault();
 
-    // Check if the new passwords match
     if (newPassword !== confirmPassword) {
       window.alert("New passwords do not match");
       setError("New passwords do not match");
       return;
     }
 
-    // Retrieve the JWT token from localStorage
     const token = localStorage.getItem("token");
     if (!token) {
       window.alert("No authentication token found. Please log in.");
@@ -26,7 +30,6 @@ function ChangePassword() {
     }
 
     try {
-      // Send a POST request to the backend API to change the password
       const response = await axios.post(
         "https://capstone2-client.onrender.com/password-changes",
         {
@@ -36,22 +39,18 @@ function ChangePassword() {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Pass JWT token for authorization
+            Authorization: `Bearer ${token}`,
           },
-          withCredentials: true, // Ensure cookies or credentials are passed
+          withCredentials: true,
         }
       );
 
-      // Display an alert to notify the user of successful password change
       window.alert("Password has been changed successfully");
-
-      // Clear the form fields
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
-      setError(""); // Clear any previous errors
+      setError("");
     } catch (err) {
-      // Handle errors from the server or API request
       const errorMessage = err.response?.data?.error || "An error occurred";
       window.alert(errorMessage);
       setError(errorMessage);
@@ -59,53 +58,82 @@ function ChangePassword() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen  p-4 pt-16 lg:pt-[20vh]">
+    <div className="flex items-center justify-center min-h-screen p-4 pt-16 lg:pt-[20vh]">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full z-10 border border-gray-300">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
           Change Password
         </h2>
         <form onSubmit={handlePasswordChange} className="space-y-4">
+          {/* Current Password */}
           <div>
             <label className="block text-gray-700 font-medium mb-2">
               Current Password:
             </label>
-            <input
-              type="password"
-              name="currentPassword"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              placeholder="Enter your current password."
-              required
-              className="w-full p-3 border h-[40px] border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+            <div className="relative">
+              <input
+                type={showCurrentPassword ? "text" : "password"}
+                name="currentPassword"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                placeholder="Enter your current password."
+                required
+                className="w-full p-3 border h-[40px] border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <div
+                onClick={() => toggleVisibility(setShowCurrentPassword)}
+                className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
+              >
+                {showCurrentPassword ? <VisibilityOff /> : <Visibility />}
+              </div>
+            </div>
           </div>
+
+          {/* New Password */}
           <div>
             <label className="block text-gray-700 font-medium mb-2">
               New Password:
             </label>
-            <input
-              type="password"
-              name="newPassword"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              placeholder="Enter your new password"
-              required
-              className="w-full h-[40px] p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+            <div className="relative">
+              <input
+                type={showNewPassword ? "text" : "password"}
+                name="newPassword"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Enter your new password"
+                required
+                className="w-full p-3 border h-[40px] border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <div
+                onClick={() => toggleVisibility(setShowNewPassword)}
+                className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
+              >
+                {showNewPassword ? <VisibilityOff /> : <Visibility />}
+              </div>
+            </div>
           </div>
+
+          {/* Confirm New Password */}
           <div>
             <label className="block text-gray-700 font-medium mb-2">
               Confirm New Password:
             </label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Confirm your password"
-              required
-              className="w-full h-[40px] p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm your password"
+                required
+                className="w-full p-3 border h-[40px] border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <div
+                onClick={() => toggleVisibility(setShowConfirmPassword)}
+                className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
+              >
+                {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+              </div>
+            </div>
           </div>
 
           {error && <p className="text-red-500 text-center">{error}</p>}
