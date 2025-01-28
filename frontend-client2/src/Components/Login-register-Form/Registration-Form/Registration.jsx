@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Registration = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstname: "",
@@ -19,14 +16,6 @@ const Registration = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  const togglePasswordVisibility = (field) => {
-    if (field === "password") {
-      setShowPassword(!showPassword);
-    } else if (field === "confirmPassword") {
-      setShowConfirmPassword(!showConfirmPassword);
-    }
-  };
 
   const handleChange = (target) => {
     setFormData({ ...formData, [target.name]: target.value });
@@ -231,7 +220,7 @@ const Registration = () => {
                 Password
               </label>
               <input
-                type={showPassword ? "text" : "password"}
+                type="password"
                 name="password"
                 placeholder="Password"
                 value={formData.password}
@@ -239,12 +228,6 @@ const Registration = () => {
                 className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
-              <span
-                className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-                onClick={() => togglePasswordVisibility("password")}
-              >
-                {showPassword ? "👁️" : "👁️‍🗨️"}
-              </span>
             </div>
             <div className="w-1/2">
               <label
@@ -254,7 +237,7 @@ const Registration = () => {
                 Confirm Password
               </label>
               <input
-                type={showConfirmPassword ? "text" : "password"}
+                type="password"
                 name="confirmPassword"
                 placeholder="Confirm Password"
                 value={formData.confirmPassword}
@@ -262,12 +245,6 @@ const Registration = () => {
                 className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
-              <span
-                className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-                onClick={() => togglePasswordVisibility("confirmPassword")}
-              >
-                {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
-              </span>
             </div>
           </div>
 
