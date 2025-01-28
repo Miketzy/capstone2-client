@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -9,6 +10,7 @@ const Login = () => {
     password: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false); // For toggling password visibility
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -119,7 +121,7 @@ const Login = () => {
             />
           </div>
 
-          <div className="mb-6">
+          <div className="mb-6 relative">
             <label
               htmlFor="password"
               className="block text-green-700 font-medium mb-2"
@@ -127,15 +129,26 @@ const Login = () => {
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
-              className="w-full p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+              className="w-full p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 pr-10"
               placeholder="Enter your password"
               onChange={(e) =>
                 setValues({ ...values, password: e.target.value })
               }
               required
             />
+            {/* Eye Icon */}
+            <div
+              className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? (
+                <AiOutlineEyeInvisible className="text-green-600 text-xl" />
+              ) : (
+                <AiOutlineEye className="text-green-600 text-xl" />
+              )}
+            </div>
           </div>
 
           <p
