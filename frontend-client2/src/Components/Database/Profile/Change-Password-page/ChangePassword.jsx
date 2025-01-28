@@ -83,7 +83,7 @@ function ChangePassword() {
                 onClick={() => toggleVisibility(setShowCurrentPassword)}
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
               >
-                {showCurrentPassword ? <VisibilityOff /> : <Visibility />}
+                {showCurrentPassword ? <Visibility /> : <VisibilityOff />}
               </div>
             </div>
           </div>
@@ -107,7 +107,7 @@ function ChangePassword() {
                 onClick={() => toggleVisibility(setShowNewPassword)}
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
               >
-                {showNewPassword ? <VisibilityOff /> : <Visibility />}
+                {showNewPassword ? <Visibility /> : <VisibilityOff />}
               </div>
             </div>
           </div>
@@ -131,7 +131,7 @@ function ChangePassword() {
                 onClick={() => toggleVisibility(setShowConfirmPassword)}
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
               >
-                {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
               </div>
             </div>
           </div>
