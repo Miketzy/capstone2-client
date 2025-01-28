@@ -140,7 +140,7 @@ const Login = () => {
                 onClick={togglePasswordVisibility}
                 className="px-3 text-green-700"
               >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
+                {showPassword ? <Visibility /> : <VisibilityOff />}
               </button>
             </div>
           </div>
