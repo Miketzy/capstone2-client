@@ -236,7 +236,7 @@ const Registration = () => {
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                 onClick={() => togglePasswordVisibility("password")}
               >
-                {showPassword ? <Visibility /> : <VisibilityOff />}
+                {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
               </span>
             </div>
             <div className="w-1/2">
@@ -259,7 +259,7 @@ const Registration = () => {
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                 onClick={() => togglePasswordVisibility("confirmPassword")}
               >
-                {showPassword ? <Visibility /> : <VisibilityOff />}
+                {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
               </span>
             </div>
           </div>
