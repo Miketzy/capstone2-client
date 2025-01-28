@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Registration = () => {
@@ -20,6 +19,14 @@ const Registration = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const togglePasswordVisibility = (field) => {
+    if (field === "password") {
+      setShowPassword(!showPassword);
+    } else if (field === "confirmPassword") {
+      setShowConfirmPassword(!showConfirmPassword);
+    }
+  };
 
   const handleChange = (target) => {
     setFormData({ ...formData, [target.name]: target.value });
