@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 function EnterNewPassword() {
   const location = useLocation();
@@ -8,6 +9,8 @@ function EnterNewPassword() {
   const email = location.state?.email;
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleNewPasswordChange = (e) => {
@@ -19,10 +22,8 @@ function EnterNewPassword() {
   };
 
   const handleResetPassword = () => {
-    // Reset error message
     setErrorMessage("");
 
-    // Validate input
     if (!newPassword || !confirmPassword) {
       setErrorMessage("Please fill in all fields.");
       return;
@@ -33,7 +34,6 @@ function EnterNewPassword() {
       return;
     }
 
-    // Send password reset request to backend
     axios
       .post("https://capstone2-client.onrender.com/reset-password", {
         email,
@@ -42,9 +42,9 @@ function EnterNewPassword() {
       .then((response) => {
         if (response.data.success) {
           alert("Password reset successfully!");
-          navigate("/login"); // Redirect to home or login page
+          navigate("/login");
         } else {
-          setErrorMessage(response.data.message); // Display message from the server
+          setErrorMessage(response.data.message);
         }
       })
       .catch((error) => {
@@ -69,7 +69,7 @@ function EnterNewPassword() {
           </div>
         )}
 
-        <div className="mb-4">
+        <div className="mb-4 relative">
           <label
             htmlFor="new-password"
             className="block text-sm font-semibold text-gray-700"
@@ -78,15 +78,25 @@ function EnterNewPassword() {
           </label>
           <input
             id="new-password"
-            type="password"
+            type={showNewPassword ? "text" : "password"}
             placeholder="Enter your new password"
             value={newPassword}
             onChange={handleNewPasswordChange}
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-2"
           />
+          <div
+            className="absolute top-[50%] right-4 transform -translate-y-[50%] cursor-pointer"
+            onClick={() => setShowNewPassword(!showNewPassword)}
+          >
+            {showNewPassword ? (
+              <Visibility className="text-gray-500" />
+            ) : (
+              <VisibilityOff className="text-gray-500" />
+            )}
+          </div>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 relative">
           <label
             htmlFor="confirm-password"
             className="block text-sm font-semibold text-gray-700"
@@ -95,12 +105,22 @@ function EnterNewPassword() {
           </label>
           <input
             id="confirm-password"
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             placeholder="Confirm your new password"
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-2"
           />
+          <div
+            className="absolute top-[50%] right-4 transform -translate-y-[50%] cursor-pointer"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
+            {showConfirmPassword ? (
+              <Visibility className="text-gray-500" />
+            ) : (
+              <VisibilityOff className="text-gray-500" />
+            )}
+          </div>
         </div>
 
         <button
