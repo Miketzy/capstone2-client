@@ -2,20 +2,22 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Login = () => {
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
-
-  const [showPassword, setShowPassword] = useState(false); // For toggling password visibility
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
   axios.defaults.withCredentials = true;
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,9 +33,7 @@ const Login = () => {
 
       if (response.data) {
         alert("Login successful!");
-
         localStorage.setItem("token", response.data.token);
-
         navigate("/Home");
       } else {
         alert("Login failed. Please check your credentials.");
@@ -75,7 +75,6 @@ const Login = () => {
       }}
     >
       <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
-        {/* Back Button */}
         <button
           onClick={() => (window.location.href = "/")}
           className="absolute top-6 left-6 sm:top-4 sm:left-4 md:top-6 md:left-6 p-2 bg-green-600 rounded-full text-white hover:bg-green-700 transition duration-300 flex items-center justify-center"
@@ -84,7 +83,6 @@ const Login = () => {
           <KeyboardReturnIcon fontSize="large" />
         </button>
 
-        {/* Updated Logo */}
         <div className="text-center mb-6">
           <img
             src="/picture/472546830_1138798994617879_5773074804155834205_n-removebg-preview.png"
@@ -97,12 +95,10 @@ const Login = () => {
           </p>
         </div>
 
-        {/* Error Message */}
         {error && (
           <p className="text-red-500 text-center text-sm mb-4">{error}</p>
         )}
 
-        {/* Login Form */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
@@ -128,26 +124,24 @@ const Login = () => {
             >
               Password
             </label>
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              className="w-full p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 pr-10"
-              placeholder="Enter your password"
-              onChange={(e) =>
-                setValues({ ...values, password: e.target.value })
-              }
-              required
-            />
-            {/* Eye Icon */}
-            <div
-              className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-              onClick={() => setShowPassword((prev) => !prev)}
-            >
-              {showPassword ? (
-                <AiOutlineEyeInvisible className="text-green-600 text-xl" />
-              ) : (
-                <AiOutlineEye className="text-green-600 text-xl" />
-              )}
+            <div className="flex items-center border border-green-300 rounded-lg">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                className="w-full p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+                placeholder="Enter your password"
+                onChange={(e) =>
+                  setValues({ ...values, password: e.target.value })
+                }
+                required
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="px-3 text-green-700"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </button>
             </div>
           </div>
 
