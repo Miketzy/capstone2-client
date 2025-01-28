@@ -76,23 +76,25 @@ function EnterNewPassword() {
           >
             New Password
           </label>
-          <input
-            id="new-password"
-            type={showNewPassword ? "text" : "password"}
-            placeholder="Enter your new password"
-            value={newPassword}
-            onChange={handleNewPasswordChange}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-2"
-          />
-          <div
-            className="absolute top-[50%] right-4 transform -translate-y-[50%] cursor-pointer"
-            onClick={() => setShowNewPassword(!showNewPassword)}
-          >
-            {showNewPassword ? (
-              <Visibility className="text-gray-500" />
-            ) : (
-              <VisibilityOff className="text-gray-500" />
-            )}
+          <div className="relative flex items-center">
+            <input
+              id="new-password"
+              type={showNewPassword ? "text" : "password"}
+              placeholder="Enter your new password"
+              value={newPassword}
+              onChange={handleNewPasswordChange}
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-2 pr-10"
+            />
+            <div
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+              onClick={() => setShowNewPassword(!showNewPassword)}
+            >
+              {showNewPassword ? (
+                <Visibility className="text-gray-500" />
+              ) : (
+                <VisibilityOff className="text-gray-500" />
+              )}
+            </div>
           </div>
         </div>
 
@@ -103,23 +105,25 @@ function EnterNewPassword() {
           >
             Confirm Password
           </label>
-          <input
-            id="confirm-password"
-            type={showConfirmPassword ? "text" : "password"}
-            placeholder="Confirm your new password"
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-2"
-          />
-          <div
-            className="absolute top-[50%] right-4 transform -translate-y-[50%] cursor-pointer"
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-          >
-            {showConfirmPassword ? (
-              <Visibility className="text-gray-500" />
-            ) : (
-              <VisibilityOff className="text-gray-500" />
-            )}
+          <div className="relative flex items-center">
+            <input
+              id="confirm-password"
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm your new password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-2 pr-10"
+            />
+            <div
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            >
+              {showConfirmPassword ? (
+                <Visibility className="text-gray-500" />
+              ) : (
+                <VisibilityOff className="text-gray-500" />
+              )}
+            </div>
           </div>
         </div>
 
