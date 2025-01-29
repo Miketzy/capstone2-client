@@ -22,7 +22,7 @@ const TeamPage = () => {
     {
       name: "Mary Joy A. Antonio",
       position: "Graphics Design",
-      photo: "",
+      photo: "/picture/b824901a-7edd-4b9b-8dc3-b680792a5206.jpeg",
       socialLinks: {
         linkedin: "https://www.linkedin.com/in/emily-johnson",
         twitter: "https://twitter.com/emily_johnson",
