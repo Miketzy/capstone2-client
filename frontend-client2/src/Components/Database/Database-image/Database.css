@@ -42,8 +42,8 @@
 
 .close-icon {
     position: absolute;
-    top: 5px;
-    right: 30px;
+    top: 15px;
+    right: 40px;
     font-size: 2rem;
     color: black;
     cursor: pointer;
