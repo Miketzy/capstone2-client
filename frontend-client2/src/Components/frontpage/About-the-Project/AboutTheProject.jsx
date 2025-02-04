@@ -8,13 +8,11 @@ const AboutTheProject = () => {
           About the Project
         </h2>
         <p className="mt-6 text-xl text-gray-800 max-w-3xl mx-auto text-justify bg-green-50 py-6 px-4 rounded-lg shadow-md">
-          BioExplorer is an innovative platform developed to showcase and
-          explore the diverse species found in Davao Oriental. It provides a
-          comprehensive database of species, offering detailed information about
-          their characteristics, habitats, and conservation status. The project
-          is designed to bring awareness to the rich biodiversity of the region
-          and encourage collaboration between citizens, researchers, and
-          environmentalists in preserving and protecting local species.
+          BioExplorer is an innovative species categorization and exploration
+          system designed to document and analyze biodiversity from ridges to
+          reefs. It serves as a centralized platform for researchers, educators,
+          and nature enthusiasts to access and contribute species data, making
+          biodiversity research more interactive and insightful.
         </p>
 
         <div className="mt-14 space-y-10">
@@ -24,18 +22,19 @@ const AboutTheProject = () => {
             </h3>
             <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto text-justify">
               <li>
-                <strong>Raise Awareness:</strong> Educate the public on the
-                importance of local biodiversity and its conservation.
+                To create a structured and user-friendly species database.
               </li>
               <li>
-                <strong>Explore Biodiversity:</strong> Provide users with a
-                platform to explore various species native to Davao Oriental
-                through an easy-to-use interface.
+                To promote biodiversity awareness and conservation through
+                digital tools
+              </li>
+              <li>To provide a mapping system for species distribution</li>
+              <li>
+                To engage users through interactive quizzes and analytics.
               </li>
               <li>
-                <strong>Contribute to Conservation:</strong> Enable users to
-                contribute to the database by submitting species they discover,
-                with a review and approval system in place.
+                To support contributors in adding and managing species data
+                efficiently.
               </li>
             </ul>
           </div>
@@ -45,21 +44,14 @@ const AboutTheProject = () => {
               How It Works:
             </h3>
             <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto text-justify">
-              <li>
-                <strong>Species Database:</strong> Users can search for species
-                based on their common name, scientific name, or classification.
-                Each species entry provides detailed information, including
-                images, habitat, and conservation status.
-              </li>
-              <li>
-                <strong>Contribute and Approve:</strong> Contributors can add
-                new species, which are then reviewed and approved by admins
-                before being added to the main database.
-              </li>
-              <li>
-                <strong>Interactive Map:</strong> The platform includes a map
-                feature, allowing users to see the geographical distribution of
-                species in Davao Oriental.
+              <li className="list-none">
+                BioExplorer allows users to explore species information through
+                an interactive database categorized from ridges to reefs.
+                Contributors can add and verify species data, while an admin
+                panel ensures quality control. The system includes a mapping
+                tool to visualize species distribution and a quiz feature for
+                learning reinforcement. Analytics provide insights into species
+                trends and user engagement
               </li>
             </ul>
           </div>
@@ -69,13 +61,12 @@ const AboutTheProject = () => {
               Why It Matters:
             </h3>
             <p className="text-lg text-gray-700 max-w-2xl mx-auto text-justify">
-              Biodiversity is critical to the health of our ecosystems, and by
-              preserving and sharing knowledge about local species, BioExplorer
-              hopes to foster a greater understanding of the natural world and
-              inspire action towards environmental protection. This project
-              brings together people from different backgrounds, creating a
-              collaborative effort to document and protect the species of Davao
-              Oriental.
+              Biodiversity is crucial for ecosystem balance, but species data is
+              often scattered and inaccessible. BioExplorer centralizes this
+              information, making it easier for researchers and enthusiasts to
+              study and contribute to conservation efforts. By bridging
+              technology and environmental awareness, BioExplorer supports
+              sustainable biodiversity management.
             </p>
           </div>
 
@@ -85,25 +76,28 @@ const AboutTheProject = () => {
             </h3>
             <ul className="list-disc list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto text-justify">
               <li>
-                <strong>Search and Filter:</strong> Easily search and filter
-                species based on names, categories, or locations.
+                <strong>Species Database:</strong> Browse categorized species
+                information from ridges to reefs.
               </li>
               <li>
-                <strong>User Contributions:</strong> Submit and share new
-                species discoveries for review.
+                <strong>Mapping System:</strong> Visualize species locations on
+                an interactive map.
               </li>
               <li>
-                <strong>Admin Approval System:</strong> Ensures the accuracy and
-                reliability of the information added.
+                <strong>Quizzes:</strong> Test your biodiversity knowledge
+                through engaging quizzes.
               </li>
               <li>
-                <strong>Real-Time Notifications:</strong> Contributors receive
-                notifications when their species submissions are approved or
-                rejected.
+                <strong>Analytics Dashboard:</strong> Gain insights into species
+                data and user interactions
               </li>
               <li>
-                <strong>Map Visualization:</strong> View species locations on an
-                interactive map.
+                <strong>Contributor Panel:</strong> Allow verified users to
+                submit and manage species information
+              </li>
+              <li>
+                <strong>Admin Controls:</strong> Oversee data quality, user
+                contributions, and system settings.
               </li>
             </ul>
           </div>
