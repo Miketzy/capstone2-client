@@ -19,12 +19,22 @@ import EnterNewPassword from './Create-New-Password/Enter-New-Password/EnterNewP
 import QuizzesIntroDashboard from './Home/Quizzes-Dashboard/Quizzes-Intro-Dashboard/QuizzesIntroDashboard';
 import QuizzesDashboard from './Home/Quizzes-Dashboard/Quizzes-Folder-Dashboard/QuizzesDashboard';
 import GrapClient from './Home/AnalyticsHome/GrapClient';
-import FrontpageNavbar from './Components/frontpage/Front-page/FrontpageNavbar';
 import FrontPagesHome from './FrontpageHomepage/FrontpageHome/FrontPagesHome';
 import AboutPages from './FrontpageHomepage/FrontAboutPages/AboutPages';
 import TeamHome from './FrontpageHomepage/TeamHomePage/TeamHome';
+import { useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch("https://capstone2-client.onrender.com/keep-alive")
+      .then(res => console.log("keeping backend awake..."))
+      .catch(err => console.error("Failed to ping backend:", err));
+    }, 5 * 60 * 1000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
   return (
   <BrowserRouter>
     <Routes>
