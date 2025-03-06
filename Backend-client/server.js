@@ -47,6 +47,13 @@ const db = mysql.createConnection({
   port: 3306, // Default MySQL port
 });
 
+setInterval(() => {
+  db.query("SELECT 1",(err, results) => {
+    if (err) console.error("Database Keep-Alve error:", err);
+    else console.log("Database is alive");
+});
+}, 5 * 60 * 1000); 
+
 console.log(process.env.DB_HOST);
 console.log(process.env.DB_USERNAME);
 console.log(process.env.DB_PASSWORD);
@@ -772,6 +779,16 @@ app.get("/api/conservation-status-count", (req, res) => {
     res.json(results);
   });
 });
+
+app.get("/keep-alive", (req, res) =>{
+  db.query("Select 1", (err) => {
+    if(err) {
+      console.error("Database keep-alive error:", err);
+      return res.status(500).send("Database connection error");
+    }
+    res.send("Backend and database are alive");
+  })
+})
 
 // Start the server on port 8081
 app.listen(8081, () => {
