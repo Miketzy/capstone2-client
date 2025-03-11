@@ -41,9 +41,9 @@ app.use(
 
 const db = mysql.createConnection({
   host: "sql12.freesqldatabase.com", // The server address
-  user: "sql12766057", // Your username
-  password: "1gWc471jEL", // Your password
-  database: "sql12766057", // Your database name
+  user: "sql12766991", // Your username
+  password: "wldg7XLjAi", // Your password
+  database: "sql12766991", // Your database name
   port: 3306, // Default MySQL port
 });
 
