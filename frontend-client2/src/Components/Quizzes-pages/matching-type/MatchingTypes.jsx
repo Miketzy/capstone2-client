@@ -33,6 +33,14 @@ function MatchingTypes() {
     fetchMatchingQuestions();
   }, []);
 
+  useEffect(() => {
+    // Get the stored score from localStorage (if any) when the component loads
+    const storedScore = localStorage.getItem("user_score");
+    if (storedScore) {
+      setScore(Number(storedScore));
+    }
+  }, []);
+
   const handleStart = () => {
     const shuffled = [...matchingData.map((item) => item.item_b)].sort(
       () => Math.random() - 0.5
@@ -86,6 +94,9 @@ function MatchingTypes() {
       });
 
       console.log("Score submitted successfully!");
+
+      // Store the score in localStorage for the current user
+      localStorage.setItem("user_score", correct);
     } catch (error) {
       console.error("Error submitting score:", error);
     }
