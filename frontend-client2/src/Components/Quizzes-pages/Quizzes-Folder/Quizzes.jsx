@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import API_URL from "../../Config";
+import API_URL from "../../../Config";
 
 function Quizzes() {
   const [questions, setQuestions] = useState([]);
