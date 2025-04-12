@@ -721,6 +721,7 @@ app.get('/api/multiple-choice', async (req, res) => {
 
 // POST: Save quiz score for logged-in user
 app.post('/api/submit-score', (req, res) => {
+  console.log("Received score submission:", req.body);
   const { userId, score } = req.body;  // Get the user ID and score from the frontend
 
   if (!userId || score === undefined) {
