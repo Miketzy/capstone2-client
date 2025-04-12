@@ -96,7 +96,7 @@ function Quizzes() {
     currentQuestionGroupIndex * questionsPerPage >=
     questions.length - questionsPerPage;
 
-  const allAnswered = questions.every((q) => userAnswers[q.id]);
+  const allAnswered = questions.every((q) => userAnswers.hasOwnProperty(q.id));
 
   if (showScore && !showAllAnswers) {
     return (
