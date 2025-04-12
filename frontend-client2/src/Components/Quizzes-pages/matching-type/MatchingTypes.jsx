@@ -143,7 +143,7 @@ function MatchingTypes() {
               {currentQuestions.map((item) => (
                 <div key={item.id} className="mb-3">
                   <div className="p-3 bg-green-100 rounded-lg">
-                    {item.item_a}
+                    {item.column_a}
                   </div>
                 </div>
               ))}
