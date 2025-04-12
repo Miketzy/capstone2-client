@@ -65,11 +65,15 @@ function MatchingTypes() {
     const lastname = localStorage.getItem("lastname");
 
     try {
-      await axios.post(`${API_URL}/api/matching-submit-score`, {
-        firstname,
-        lastname,
-        score: correct,
-      });
+      // Send the score to the backend, including user's first and last name
+      const response = await axios.post(
+        `${API_URL}/api/matching-submit-score`,
+        {
+          firstname,
+          lastname,
+          score: correct,
+        }
+      );
 
       console.log("Score submitted successfully!");
     } catch (error) {
