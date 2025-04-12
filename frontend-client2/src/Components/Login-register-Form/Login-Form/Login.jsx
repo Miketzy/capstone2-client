@@ -31,7 +31,7 @@ const Login = () => {
       if (response.data) {
         alert("Login successful!");
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("userId", response.data.userId);
+        localStorage.setItem("id", response.data.id);
         localStorage.setItem("firstname", response.data.firstname);
         localStorage.setItem("lastname", response.data.lastname);
 
