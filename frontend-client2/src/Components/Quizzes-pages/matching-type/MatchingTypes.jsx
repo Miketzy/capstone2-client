@@ -22,15 +22,25 @@ function MatchingTypes() {
   const lastname = localStorage.getItem("lastname") || "";
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/api/matching_type_question`)
-      .then((res) => setQuestions(res.data))
-      .catch((err) => console.error("Failed to fetch questions", err));
+    const fetchMatchingQuestions = async () => {
+      try {
+        const response = await axios.get(
+          `${API_URL}/api/matching_type_question`
+        );
+        setMatchingData(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching matching questions:", error);
+        setLoading(false);
+      }
+    };
 
-    // Get last score from localStorage if exists
-    const savedScore = localStorage.getItem("lastQuizScore");
-    if (savedScore !== null) {
-      setLastScore(savedScore);
+    fetchMatchingQuestions();
+
+    // Load previous score if available
+    const savedScore = localStorage.getItem("lastScore");
+    if (savedScore) {
+      setLastScore(parseInt(savedScore));
     }
   }, []);
 
