@@ -17,32 +17,30 @@ function MatchingTypes() {
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
 
-  // Get user info from localStorage
   const firstname = localStorage.getItem("firstname") || "Guest";
   const lastname = localStorage.getItem("lastname") || "";
 
   useEffect(() => {
-    const fetchMatchingQuestions = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${API_URL}/api/matching_type_question`
-        );
-        setMatchingData(response.data);
-        setLoading(false);
+        const [questionRes, scoreRes] = await Promise.all([
+          axios.get(`${API_URL}/api/matching_type_question`),
+          axios.get(`${API_URL}/api/matching-last-score`, {
+            params: { firstname, lastname },
+          }),
+        ]);
+
+        setMatchingData(questionRes.data);
+        setLastScore(scoreRes.data?.score || 0);
       } catch (error) {
-        console.error("Error fetching matching questions:", error);
+        console.error("Error loading data:", error);
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchMatchingQuestions();
-
-    // Load previous score if available
-    const savedScore = localStorage.getItem("lastScore");
-    if (savedScore) {
-      setLastScore(parseInt(savedScore));
-    }
-  }, []);
+    fetchData();
+  }, [firstname, lastname]);
 
   const handleStart = () => {
     const shuffled = [...matchingData.map((item) => item.item_b)].sort(
@@ -71,21 +69,14 @@ function MatchingTypes() {
     setScore(correct);
     setShowResult(true);
 
-    // Compare new score with last score
-    const previousScore = localStorage.getItem("lastScore");
-
-    if (!previousScore || correct > parseInt(previousScore)) {
-      localStorage.setItem("lastScore", correct);
-      setLastScore(correct); // Update the state so UI also changes
-    }
-
     try {
       await axios.post(`${API_URL}/api/matching-submit-score`, {
         firstname,
         lastname,
         score: correct,
       });
-      console.log("Score submitted successfully!");
+
+      setLastScore(correct); // update UI
     } catch (error) {
       console.error("Error submitting score:", error);
     }
@@ -176,7 +167,6 @@ function MatchingTypes() {
             Match the Species
           </h2>
           <div className="grid grid-cols-2 gap-6">
-            {/* Column A */}
             <div>
               <h3 className="font-semibold text-green-600 mb-2">
                 Column A (Common Name)
@@ -190,7 +180,6 @@ function MatchingTypes() {
               ))}
             </div>
 
-            {/* Column B */}
             <div>
               <h3 className="font-semibold text-green-600 mb-2">
                 Column B (Scientific Name)
@@ -214,7 +203,6 @@ function MatchingTypes() {
             </div>
           </div>
 
-          {/* Pagination / Submit */}
           <div className="flex justify-between mt-6">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
@@ -240,11 +228,7 @@ function MatchingTypes() {
                 onClick={() =>
                   setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))
                 }
-                className={`px-4 py-2 rounded-lg ${
-                  currentPage === totalPages - 1
-                    ? "bg-gray-300 cursor-not-allowed"
-                    : "bg-green-600 text-white hover:bg-green-700"
-                }`}
+                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
               >
                 Next
               </button>
