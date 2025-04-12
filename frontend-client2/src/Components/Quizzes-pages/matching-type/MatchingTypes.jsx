@@ -70,7 +70,7 @@ function MatchingTypes() {
     }
 
     axios
-      .post(`${API_URL}/api/matching_type_questions`, {
+      .post(`${API_URL}/api/matching-submit-score`, {
         firstname,
         lastname,
         score: finalScore,
