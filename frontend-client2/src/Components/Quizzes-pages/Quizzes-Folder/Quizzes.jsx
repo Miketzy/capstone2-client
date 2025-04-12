@@ -37,24 +37,29 @@ function Quizzes() {
 
   const handleSubmit = () => {
     let finalScore = 0;
+
+    // Calculate the score
     questions.forEach((q) => {
       if (userAnswers[q.id] === q.correctAnswer) {
         finalScore++;
       }
     });
 
-    // Fetch user ID (id from localStorage)
-    const userId = localStorage.getItem("id");
-    if (!userId) {
-      console.error("User ID is missing");
-      return;
+    // Retrieve firstname and lastname from localStorage
+    const firstname = localStorage.getItem("firstname");
+    const lastname = localStorage.getItem("lastname");
+
+    if (!firstname || !lastname) {
+      console.error("User details (firstname/lastname) are missing");
+      return; // Exit if the firstname or lastname is not available
     }
 
-    // Submit the score to the backend
+    // Submit the score to the backend using firstname and lastname instead of userId
     axios
       .post(`${API_URL}/api/submit-score`, {
-        id: userId, // Change from userId to id
-        score: finalScore,
+        firstname: firstname, // Use firstname
+        lastname: lastname, // Use lastname
+        score: finalScore, // The calculated score
       })
       .then((response) => {
         console.log("Score submitted:", response.data);

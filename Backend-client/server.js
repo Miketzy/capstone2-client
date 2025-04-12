@@ -232,7 +232,8 @@ app.post("/login", (req, res) => {
 app.post("/api/register", async (req, res) => {
   const { firstname, middlename, lastname, email, password, address, gender } =
     req.body;
-
+    localStorage.setItem('firstname', firstname);  // Store firstname
+    localStorage.setItem('lastname', lastname);  // Store lastname
   // Basic validation
   if (
     !firstname ||
@@ -722,15 +723,18 @@ app.get('/api/multiple-choice', async (req, res) => {
 // POST: Save quiz score for logged-in user
 app.post('/api/submit-score', (req, res) => {
   console.log("Received score submission:", req.body);
-  const { id, score } = req.body;  // Use 'id' instead of 'userId'
+  
+  const { firstname, lastname, score } = req.body;  // Receive firstname, lastname, and score
 
-  if (!id || score === undefined) {
-    return res.status(400).json({ error: 'Missing required fields' });
+  // Check for missing fields (firstname, lastname, or score)
+  if (!firstname || !lastname || score === undefined) {
+    return res.status(400).json({ error: 'Missing required fields (firstname, lastname, or score)' });
   }
 
-  const getUserQuery = 'SELECT firstname, lastname FROM users WHERE id = $1';
+  // Query to find user by firstname and lastname (if you want to use these instead of ID)
+  const getUserQuery = 'SELECT id FROM users WHERE firstname = $1 AND lastname = $2';
 
-  pool.query(getUserQuery, [id], (err, result) => {
+  pool.query(getUserQuery, [firstname, lastname], (err, result) => {
     if (err) {
       console.error('Error retrieving user details:', err);
       return res.status(500).json({ error: 'Error retrieving user details' });
@@ -740,11 +744,11 @@ app.post('/api/submit-score', (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const { firstname, lastname } = result.rows[0];
+    const userId = result.rows[0].id;  // Get the user's ID from the database
 
-    const insertQuery = 'INSERT INTO quizzes (firstname, lastname, score) VALUES ($1, $2, $3)';
+    const insertQuery = 'INSERT INTO quizzes (id, firstname, lastname, score) VALUES ($1, $2, $3, $4)';
     
-    pool.query(insertQuery, [firstname, lastname, score], (err) => {
+    pool.query(insertQuery, [userId, firstname, lastname, score], (err) => {
       if (err) {
         console.error('Error saving score:', err);
         return res.status(500).json({ error: 'Failed to save score' });
