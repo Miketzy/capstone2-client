@@ -199,7 +199,13 @@ function Quizzes() {
             <p className="text-gray-600">
               Welcome,{" "}
               <span className="font-semibold">
-                {firstname} {lastname}
+                {localStorage.getItem("firstname") &&
+                localStorage.getItem("lastname")
+                  ? `${localStorage.getItem(
+                      "firstname"
+                    )} ${localStorage.getItem("lastname")}`
+                  : "User"}{" "}
+                {/* Fallback if no name found */}
               </span>
               !
             </p>
