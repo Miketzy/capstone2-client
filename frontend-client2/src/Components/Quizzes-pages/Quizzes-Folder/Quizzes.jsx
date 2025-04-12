@@ -38,28 +38,28 @@ function Quizzes() {
   const handleSubmit = () => {
     let finalScore = 0;
 
+    // Calculate the score
     questions.forEach((q) => {
-      if (
-        userAnswers.hasOwnProperty(q.id) &&
-        userAnswers[q.id] === q.correctanswer
-      ) {
+      if (userAnswers[q.id] === q.correctAnswer) {
         finalScore++;
       }
     });
 
+    // Retrieve firstname and lastname from localStorage
     const firstname = localStorage.getItem("firstname");
     const lastname = localStorage.getItem("lastname");
 
     if (!firstname || !lastname) {
       console.error("User details (firstname/lastname) are missing");
-      return;
+      return; // Exit if the firstname or lastname is not available
     }
 
+    // Submit the score to the backend using firstname and lastname instead of userId
     axios
       .post(`${API_URL}/api/submit-score`, {
-        firstname,
-        lastname,
-        score: finalScore,
+        firstname: firstname, // Use firstname
+        lastname: lastname, // Use lastname
+        score: finalScore, // The calculated score
       })
       .then((response) => {
         console.log("Score submitted:", response.data);
@@ -95,8 +95,6 @@ function Quizzes() {
   const isLastGroup =
     currentQuestionGroupIndex * questionsPerPage >=
     questions.length - questionsPerPage;
-
-  const allAnswered = questions.every((q) => userAnswers.hasOwnProperty(q.id));
 
   if (showScore && !showAllAnswers) {
     return (
@@ -232,12 +230,7 @@ function Quizzes() {
               {isLastGroup ? (
                 <button
                   onClick={handleSubmit}
-                  className={`py-2 px-6 rounded-lg ${
-                    allAnswered
-                      ? "bg-green-600 text-white"
-                      : "bg-gray-400 text-white cursor-not-allowed"
-                  }`}
-                  disabled={!allAnswered}
+                  className="bg-green-600 text-white py-2 px-6 rounded-lg"
                 >
                   Submit
                 </button>
