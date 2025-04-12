@@ -50,14 +50,15 @@ function Quizzes() {
     // Send the score to the backend here
     const userId = 1; // This should be the actual logged-in user's ID
     axios
-    .post(`${API_URL}/api/submit-score`, { userId, score: finalScore })
-    .then((res) => {
-      console.log("Score submitted successfully:", res.data);
-    })
-    .catch((err) => {
-      console.error("Error submitting score:", err);
-    });
-    
+      .post(`${API_URL}/api/submit-score`, { userId, score: finalScore })
+      .then((res) => {
+        console.log("Score submitted successfully:", res.data);
+      })
+      .catch((err) => {
+        console.error("Error submitting score:", err);
+      });
+  };
+
   const handleRestart = () => {
     setQuizStarted(false);
     setSubmitted(false);
