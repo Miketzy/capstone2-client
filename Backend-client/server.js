@@ -742,6 +742,16 @@ app.post('/api/submit-score', (req, res) => {
   });
 });
 
+// API route to get questions
+app.get("/api/matching_type_question", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM matching_questions"); // Adjust your query as needed
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching data from database:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 
 // Start the server on port 8081

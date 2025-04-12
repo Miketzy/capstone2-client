@@ -1,60 +1,6 @@
-import React, { useState } from "react";
-
-const matchingData = [
-  { id: 1, question: "Philippine Eagle", answer: "Pithecophaga jefferyi" },
-  { id: 2, question: "Tarsier", answer: "Carlito syrichta" },
-  { id: 3, question: "Waling-Waling", answer: "Vanda sanderiana" },
-  { id: 4, question: "Rafflesia", answer: "Rafflesia schadenbergiana" },
-  { id: 5, question: "Tamaraw", answer: "Bubalus mindorensis" },
-  { id: 6, question: "Philippine Crocodile", answer: "Crocodylus mindorensis" },
-  {
-    id: 7,
-    question: "Mindanao Bleeding-heart",
-    answer: "Gallicolumba crinigera",
-  },
-  {
-    id: 8,
-    question: "Palawan Peacock-pheasant",
-    answer: "Polyplectron napoleonis",
-  },
-  { id: 9, question: "Golden-crowned Flying Fox", answer: "Acerodon jubatus" },
-  { id: 10, question: "Philippine Deer", answer: "Rusa marianna" },
-  {
-    id: 11,
-    question: "Philippine Sailfin Lizard",
-    answer: "Hydrosaurus pustulatus",
-  },
-  { id: 12, question: "Dugong", answer: "Dugong dugon" },
-  { id: 13, question: "Whiskered Pitta", answer: "Erythropitta kochi" },
-  {
-    id: 14,
-    question: "Giant Golden-crowned Flying Fox",
-    answer: "Acerodon jubatus",
-  },
-  { id: 15, question: "Philippine Duck", answer: "Anas luzonica" },
-  { id: 16, question: "Visayan Warty Pig", answer: "Sus cebifrons" },
-  { id: 17, question: "Philippine Tarsier", answer: "Carlito syrichta" },
-  { id: 18, question: "Binturong", answer: "Arctictis binturong" },
-  { id: 19, question: "Blue-naped Parrot", answer: "Tanygnathus lucionensis" },
-  {
-    id: 20,
-    question: "Mindoro Bleeding-heart",
-    answer: "Gallicolumba platenae",
-  },
-  {
-    id: 21,
-    question: "Negros Striped Babbler",
-    answer: "Zosterornis nigrorum",
-  },
-  { id: 22, question: "Philippine Hornbill", answer: "Penelopides panini" },
-  {
-    id: 23,
-    question: "Philippine Forest Turtle",
-    answer: "Siebenrockiella leytensis",
-  },
-  { id: 24, question: "Flying Dragon", answer: "Draco volans" },
-  { id: 25, question: "Cloud Rat", answer: "Phloeomys pallidus" },
-];
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import API_URL from "../../../Config";
 
 function MatchingTypes() {
   const [started, setStarted] = useState(false);
@@ -64,12 +10,25 @@ function MatchingTypes() {
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
   const [showAllAnswers, setShowAllAnswers] = useState(false);
+  const [matchingData, setMatchingData] = useState([]);
 
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
 
+  useEffect(() => {
+    // Fetch questions from the backend
+    axios
+      .get(`${API_URL}/api/matching_type_question`)
+      .then((response) => {
+        setMatchingData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching questions:", error);
+      });
+  }, []);
+
   const handleStart = () => {
-    const shuffled = [...matchingData.map((item) => item.answer)].sort(
+    const shuffled = [...matchingData.map((item) => item.column_b)].sort(
       () => Math.random() - 0.5
     );
     setShuffledAnswers(shuffled);
@@ -88,7 +47,7 @@ function MatchingTypes() {
   const handleSubmit = () => {
     let correct = 0;
     matchingData.forEach((item) => {
-      if (matches[item.id] === item.answer) {
+      if (matches[item.id] === item.column_b) {
         correct += 1;
       }
     });
@@ -147,7 +106,8 @@ function MatchingTypes() {
               <ul className="space-y-2">
                 {matchingData.map((item) => (
                   <li key={item.id} className="text-sm">
-                    ✅ <strong>{item.question}</strong> — <em>{item.answer}</em>
+                    ✅ <strong>{item.column_a}</strong> —{" "}
+                    <em>{item.column_b}</em>
                   </li>
                 ))}
               </ul>
@@ -168,7 +128,7 @@ function MatchingTypes() {
               {currentQuestions.map((item) => (
                 <div key={item.id} className="mb-3">
                   <div className="p-3 bg-green-100 rounded-lg">
-                    {item.question}
+                    {item.column_a}
                   </div>
                 </div>
               ))}
