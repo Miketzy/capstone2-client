@@ -753,6 +753,30 @@ app.get("/api/matching_type_question", async (req, res) => {
   }
 });
 
+// POST: Save quiz score for logged-in user
+app.post('/api/matching-submit-score', (req, res) => {
+  console.log("Received score submission:", req.body);
+  
+  const { firstname, lastname, score } = req.body;
+
+  if (!firstname || !lastname || score === undefined) {
+    return res.status(400).json({ error: 'Missing required fields (firstname, lastname, or score)' });
+  }
+
+  // Directly insert without looking up user — since you're passing firstname/lastname
+  const insertQuery = 'INSERT INTO matching_type_questions (firstname, lastname, score) VALUES ($1, $2, $3)';
+  
+  pool.query(insertQuery, [firstname, lastname, score], (err) => {
+    if (err) {
+      console.error('Error saving score:', err);
+      return res.status(500).json({ error: 'Failed to save score' });
+    }
+    res.json({ message: 'Score saved successfully!' });
+  });
+});
+
+
+
 
 // Start the server on port 8081
 app.listen(8081, () => {

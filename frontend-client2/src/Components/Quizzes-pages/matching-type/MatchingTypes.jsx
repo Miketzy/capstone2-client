@@ -50,7 +50,7 @@ function MatchingTypes() {
     (currentPage + 1) * questionsPerPage
   );
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let correct = 0;
     matchingData.forEach((item) => {
       if (matches[item.id] === item.item_b) {
@@ -59,6 +59,22 @@ function MatchingTypes() {
     });
     setScore(correct);
     setShowResult(true);
+
+    // Get user info from localStorage
+    const firstname = localStorage.getItem("firstname");
+    const lastname = localStorage.getItem("lastname");
+
+    try {
+      await axios.post(`${API_URL}/api/matching-submit-score`, {
+        firstname,
+        lastname,
+        score: correct,
+      });
+
+      console.log("Score submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting score:", error);
+    }
   };
 
   if (loading) {
