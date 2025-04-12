@@ -16,13 +16,16 @@ function Quizzes() {
 
   const questionsPerPage = 5;
 
+  // Get firstname and lastname early
+  const firstname = localStorage.getItem("firstname") || "";
+  const lastname = localStorage.getItem("lastname") || "";
+
   useEffect(() => {
     axios
       .get(`${API_URL}/api/multiple-choice`)
       .then((res) => setQuestions(res.data))
       .catch((err) => console.error("Failed to fetch questions", err));
 
-    // Get last score from localStorage if exists
     const savedScore = localStorage.getItem("lastQuizScore");
     if (savedScore !== null) {
       setLastScore(savedScore);
@@ -45,23 +48,17 @@ function Quizzes() {
   const handleSubmit = () => {
     let finalScore = 0;
 
-    // Calculate the score
     questions.forEach((q) => {
       if (userAnswers[q.id] === q.correctAnswer) {
         finalScore++;
       }
     });
 
-    // Retrieve firstname and lastname from localStorage
-    const firstname = localStorage.getItem("firstname");
-    const lastname = localStorage.getItem("lastname");
-
     if (!firstname || !lastname) {
       console.error("User details (firstname/lastname) are missing");
       return;
     }
 
-    // Submit the score to the backend
     axios
       .post(`${API_URL}/api/submit-score`, {
         firstname,
@@ -73,7 +70,7 @@ function Quizzes() {
         setScore(finalScore);
         setSubmitted(true);
         setShowScore(true);
-        localStorage.setItem("lastQuizScore", finalScore); // Save score
+        localStorage.setItem("lastQuizScore", finalScore);
       })
       .catch((error) => {
         console.error("Error submitting score:", error);
@@ -197,12 +194,12 @@ function Quizzes() {
             </h1>
 
             <p className="text-lg mb-2">
-              Welcome, {firstname} {lastname} Test your species knowledge. Click
-              "Get Started" to begin.
+              Welcome, {firstname} {lastname}! Test your species knowledge.
+              Click "Get Started" to begin.
             </p>
-            {lastScore !== null && (
+            {lastScore !== null && questions.length > 0 && (
               <p className="text-green-700 font-medium text-lg">
-                🏆 Last Score: {lastScore} / {matchingData.length}
+                🏆 Last Score: {lastScore} / {questions.length}
               </p>
             )}
             <button
