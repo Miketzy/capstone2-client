@@ -35,7 +35,7 @@ function Quizzes() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let finalScore = 0;
     questions.forEach((q) => {
       if (userAnswers[q.id] === q.correctAnswer) {
@@ -46,6 +46,26 @@ function Quizzes() {
     setScore(finalScore);
     setSubmitted(true);
     setShowScore(true);
+
+    // Get the logged-in user's ID (assuming it's stored in localStorage or a state variable)
+    const userId = localStorage.getItem("userId"); // Replace with your actual method of getting the logged-in user ID
+
+    if (!userId) {
+      console.error("User not logged in.");
+      return;
+    }
+
+    try {
+      // Send the score and userId to the backend to save the quiz result
+      const response = await axios.post(`${API_URL}/api/submit-score`, {
+        userId: userId,
+        score: finalScore,
+      });
+
+      console.log("Score submitted successfully:", response.data);
+    } catch (error) {
+      console.error("Error submitting score:", error);
+    }
   };
 
   const handleRestart = () => {
