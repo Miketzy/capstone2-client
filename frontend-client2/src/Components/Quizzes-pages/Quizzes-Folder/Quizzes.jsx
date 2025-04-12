@@ -17,7 +17,7 @@ function Quizzes() {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/api/multiple-choice`)
+      .get(`${API_URL}/api/submit-score`)
       .then((res) => setQuestions(res.data))
       .catch((err) => console.error("Failed to fetch questions", err));
   }, []);
