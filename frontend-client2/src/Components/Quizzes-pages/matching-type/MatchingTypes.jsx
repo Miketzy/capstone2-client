@@ -58,8 +58,9 @@ function MatchingTypes() {
   const handleSubmit = () => {
     let finalScore = 0;
 
-    matchingData.forEach((q) => {
-      if (matches[q.id] === q.correctAnswer) {
+    Object.entries(matches).forEach(([id, answer]) => {
+      const question = matchingData.find((q) => q.id.toString() === id);
+      if (question && question.correctAnswer === answer) {
         finalScore++;
       }
     });
