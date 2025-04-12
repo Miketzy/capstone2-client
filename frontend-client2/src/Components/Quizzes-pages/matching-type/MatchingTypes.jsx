@@ -17,30 +17,24 @@ function MatchingTypes() {
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
 
-  // Get user info from localStorage
   const firstname = localStorage.getItem("firstname") || "Guest";
   const lastname = localStorage.getItem("lastname") || "";
 
   useEffect(() => {
-    const fetchMatchingQuestions = async () => {
-      try {
-        const response = await axios.get(
-          `${API_URL}/api/matching_type_question`
-        );
-        setMatchingData(response.data);
+    axios
+      .get(`${API_URL}/api/matching_type_question`)
+      .then((res) => {
+        setMatchingData(res.data);
         setLoading(false);
-      } catch (error) {
-        console.error("Error fetching matching questions:", error);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch questions", err);
         setLoading(false);
-      }
-    };
+      });
 
-    fetchMatchingQuestions();
-
-    // Load previous score if available
-    const savedScore = localStorage.getItem("lastScore");
-    if (savedScore) {
-      setLastScore(parseInt(savedScore));
+    const savedScore = localStorage.getItem("lastQuizScore");
+    if (savedScore !== null) {
+      setLastScore(savedScore);
     }
   }, []);
 
@@ -61,34 +55,36 @@ function MatchingTypes() {
     (currentPage + 1) * questionsPerPage
   );
 
-  const handleSubmit = async () => {
-    let correct = 0;
-    matchingData.forEach((item) => {
-      if (matches[item.id] === item.item_b) {
-        correct += 1;
+  const handleSubmit = () => {
+    let finalScore = 0;
+
+    Object.entries(matches).forEach(([id, answer]) => {
+      const question = matchingData.find((q) => q.id.toString() === id);
+      if (question && question.correctAnswer === answer) {
+        finalScore++;
       }
     });
-    setScore(correct);
-    setShowResult(true);
 
-    // Compare new score with last score
-    const previousScore = localStorage.getItem("lastScore");
-
-    if (!previousScore || correct > parseInt(previousScore)) {
-      localStorage.setItem("lastScore", correct);
-      setLastScore(correct); // Update the state so UI also changes
+    if (!firstname || !lastname) {
+      console.error("User details (firstname/lastname) are missing");
+      return;
     }
 
-    try {
-      await axios.post(`${API_URL}/api/matching-submit-score`, {
+    axios
+      .post(`${API_URL}/api/matching-submit-score`, {
         firstname,
         lastname,
-        score: correct,
+        score: finalScore,
+      })
+      .then((response) => {
+        console.log("Score submitted:", response.data);
+        setScore(finalScore);
+        setShowResult(true);
+        localStorage.setItem("lastQuizScore", finalScore);
+      })
+      .catch((error) => {
+        console.error("Error submitting score:", error);
       });
-      console.log("Score submitted successfully!");
-    } catch (error) {
-      console.error("Error submitting score:", error);
-    }
   };
 
   if (loading) {
