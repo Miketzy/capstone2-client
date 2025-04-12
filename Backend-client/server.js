@@ -702,10 +702,22 @@ app.post("/reset-password", (req, res) => {
   });
 });
 
-
-
-
-
+// Endpoint to get quiz questions
+app.get('/api/multiple-choice', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM questions');
+    const formatted = result.rows.map((q) => ({
+      id: q.id,
+      question: q.question,
+      options: [q.optiona, q.optionb, q.optionc, q.optiond],
+      correctAnswer: q.correct_answer
+    }));
+    res.json(formatted);
+  } catch (error) {
+    console.error('Query error:', error);
+    res.status(500).json({ error: 'Database query failed' });
+  }
+});
 // Start the server on port 8081
 app.listen(8081, () => {
   console.log("Server is running on port 8081");
