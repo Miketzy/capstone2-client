@@ -34,7 +34,7 @@ function MatchingTypes() {
   }, []);
 
   const handleStart = () => {
-    const shuffled = [...matchingData.map((item) => item.column_b)].sort(
+    const shuffled = [...matchingData.map((item) => item.item_b)].sort(
       () => Math.random() - 0.5
     );
     setShuffledAnswers(shuffled);
@@ -53,7 +53,7 @@ function MatchingTypes() {
   const handleSubmit = () => {
     let correct = 0;
     matchingData.forEach((item) => {
-      if (matches[item.id] === item.column_b) {
+      if (matches[item.id] === item.item_b) {
         correct += 1;
       }
     });
