@@ -195,16 +195,14 @@ function Quizzes() {
             <h1 className="text-3xl font-bold text-green-700 mb-4">
               🧬 Multiple Choice Quiz
             </h1>
+
             <p className="text-lg mb-2">
-              Welcome! Test your species knowledge. Click "Get Started" to
-              begin.
+              Welcome, {firstname} {lastname} Test your species knowledge. Click
+              "Get Started" to begin.
             </p>
             {lastScore !== null && (
-              <p className="text-md mb-4 text-gray-600">
-                Your last score:{" "}
-                <span className="font-semibold text-green-700">
-                  {lastScore} / {questions.length}
-                </span>
+              <p className="text-green-700 font-medium text-lg">
+                🏆 Last Score: {lastScore} / {matchingData.length}
               </p>
             )}
             <button
