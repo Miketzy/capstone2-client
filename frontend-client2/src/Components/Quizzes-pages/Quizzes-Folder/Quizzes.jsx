@@ -16,16 +16,13 @@ function Quizzes() {
 
   const questionsPerPage = 5;
 
-  // Get firstname and lastname early
-  const firstname = localStorage.getItem("firstname") || "";
-  const lastname = localStorage.getItem("lastname") || "";
-
   useEffect(() => {
     axios
       .get(`${API_URL}/api/multiple-choice`)
       .then((res) => setQuestions(res.data))
       .catch((err) => console.error("Failed to fetch questions", err));
 
+    // Get last score from localStorage if exists
     const savedScore = localStorage.getItem("lastQuizScore");
     if (savedScore !== null) {
       setLastScore(savedScore);
@@ -48,17 +45,23 @@ function Quizzes() {
   const handleSubmit = () => {
     let finalScore = 0;
 
+    // Calculate the score
     questions.forEach((q) => {
       if (userAnswers[q.id] === q.correctAnswer) {
         finalScore++;
       }
     });
 
+    // Retrieve firstname and lastname from localStorage
+    const firstname = localStorage.getItem("firstname");
+    const lastname = localStorage.getItem("lastname");
+
     if (!firstname || !lastname) {
       console.error("User details (firstname/lastname) are missing");
       return;
     }
 
+    // Submit the score to the backend
     axios
       .post(`${API_URL}/api/submit-score`, {
         firstname,
@@ -70,7 +73,7 @@ function Quizzes() {
         setScore(finalScore);
         setSubmitted(true);
         setShowScore(true);
-        localStorage.setItem("lastQuizScore", finalScore);
+        localStorage.setItem("lastQuizScore", finalScore); // Save score
       })
       .catch((error) => {
         console.error("Error submitting score:", error);
@@ -101,105 +104,41 @@ function Quizzes() {
     currentQuestionGroupIndex * questionsPerPage >=
     questions.length - questionsPerPage;
 
-  if (showScore && !showAllAnswers) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="bg-white p-10 rounded-xl shadow-xl text-center max-w-lg w-full">
-          <h1 className="text-3xl font-bold text-green-700 mb-4">
-            🎉 Quiz Completed!
-          </h1>
-          <p className="text-lg mb-2">You scored:</p>
-          <p className="text-4xl font-bold text-green-600 mb-6">
-            {score} / {questions.length}
-          </p>
-          <div className="flex flex-col gap-4">
-            <button
-              onClick={handleSeeAnswers}
-              className="bg-green-500 text-white py-2 px-6 rounded-lg"
-            >
-              📖 See All Answers
-            </button>
-            <button
-              onClick={handleRestart}
-              className="bg-gray-400 text-white py-2 px-6 rounded-lg"
-            >
-              🔁 Retry Quiz
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (showAllAnswers) {
-    return (
-      <div className="min-h-screen p-6">
-        <div className="bg-white p-8 rounded-xl shadow-2xl max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">
-            📚 All Correct Answers
-          </h2>
-          {questions.map((q, index) => {
-            const userAnswer = userAnswers[q.id] || "";
-            const isCorrect =
-              userAnswer.toLowerCase() === q.correctAnswer.toLowerCase();
-            return (
-              <div
-                key={q.id}
-                className={`p-4 mb-4 border-2 rounded-lg ${
-                  isCorrect
-                    ? "border-green-400 bg-green-50"
-                    : "border-red-400 bg-red-50"
-                }`}
-              >
-                <p className="font-semibold mb-2">
-                  {index + 1}. {q.question}
-                </p>
-                <p>
-                  <b>Your Answer:</b>{" "}
-                  <span
-                    className={isCorrect ? "text-green-600" : "text-red-600"}
-                  >
-                    {userAnswer || "No answer"}
-                  </span>
-                </p>
-                {!isCorrect && (
-                  <p>
-                    <b>Correct Answer:</b>{" "}
-                    <span className="text-green-800">{q.correctAnswer}</span>
-                  </p>
-                )}
-              </div>
-            );
-          })}
-          <div className="text-center mt-6">
-            <button
-              onClick={handleRestart}
-              className="bg-green-600 text-white py-2 px-6 rounded-lg"
-            >
-              🔁 Retake Quiz
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const firstname = localStorage.getItem("firstname");
+  const lastname = localStorage.getItem("lastname");
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
       <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full mb-[180px]">
         {!quizStarted ? (
           <>
+            {/* Display greeting and last score */}
+            <p className="text-gray-600">
+              Welcome,{" "}
+              <span className="font-semibold">
+                {firstname} {lastname}
+              </span>
+              !
+            </p>
+            {lastScore !== null && (
+              <p className="text-green-700 font-medium text-lg">
+                🏆 Last Score: {lastScore} / {questions.length}
+              </p>
+            )}
             <h1 className="text-3xl font-bold text-green-700 mb-4">
               🧬 Multiple Choice Quiz
             </h1>
 
             <p className="text-lg mb-2">
-              Welcome, {firstname} {lastname}! Test your species knowledge.
-              Click "Get Started" to begin.
+              Welcome! Test your species knowledge. Click "Get Started" to
+              begin.
             </p>
-            {lastScore !== null && questions.length > 0 && (
-              <p className="text-green-700 font-medium text-lg">
-                🏆 Last Score: {lastScore} / {questions.length}
+            {lastScore !== null && (
+              <p className="text-md mb-4 text-gray-600">
+                Your last score:{" "}
+                <span className="font-semibold text-green-700">
+                  {lastScore} / {questions.length}
+                </span>
               </p>
             )}
             <button
