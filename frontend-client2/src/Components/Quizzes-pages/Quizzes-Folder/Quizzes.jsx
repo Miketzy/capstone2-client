@@ -12,6 +12,7 @@ function Quizzes() {
   const [quizStarted, setQuizStarted] = useState(false);
   const [showScore, setShowScore] = useState(false);
   const [showAllAnswers, setShowAllAnswers] = useState(false);
+  const [userId, setUserId] = useState(1); // Example user ID, replace as needed
 
   const questionsPerPage = 5;
 
@@ -193,36 +194,33 @@ function Quizzes() {
               <div key={q.id} className="mb-6 text-left">
                 <p className="font-medium">{q.question}</p>
                 {q.options.map((opt, idx) => (
-                  <label key={idx} className="block ml-4">
+                  <label key={idx} className="block ml-2">
                     <input
                       type="radio"
-                      name={`q-${q.id}`}
+                      name={q.id}
                       value={opt}
                       checked={userAnswers[q.id] === opt}
                       onChange={() => handleOptionChange(q.id, opt)}
-                      className="mr-2"
                     />
                     {opt}
                   </label>
                 ))}
               </div>
             ))}
-            <div className="mt-4">
-              {isLastGroup ? (
-                <button
-                  onClick={submitScore}
-                  className="bg-green-600 text-white py-2 px-6 rounded-lg"
-                >
-                  Submit
-                </button>
-              ) : (
-                <button
-                  onClick={handleNext}
-                  className="bg-green-600 text-white py-2 px-6 rounded-lg"
-                >
-                  Next
-                </button>
-              )}
+            <div className="flex justify-between">
+              <button
+                onClick={handleNext}
+                disabled={isLastGroup}
+                className="bg-green-500 text-white py-2 px-6 rounded-lg"
+              >
+                Next
+              </button>
+              <button
+                onClick={() => setShowScore(true)}
+                className="bg-green-600 text-white py-2 px-6 rounded-lg"
+              >
+                Submit Quiz
+              </button>
             </div>
           </div>
         )}
