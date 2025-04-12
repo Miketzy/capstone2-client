@@ -42,7 +42,21 @@ function MatchingTypes() {
   };
 
   const handleSelect = (id, selected) => {
-    setMatches((prev) => ({ ...prev, [id]: selected }));
+    setMatches((prev) => {
+      const updatedMatches = { ...prev, [id]: selected };
+      calculateScore(updatedMatches);
+      return updatedMatches;
+    });
+  };
+
+  const calculateScore = (matches) => {
+    let correct = 0;
+    matchingData.forEach((item) => {
+      if (matches[item.id] === item.item_b) {
+        correct += 1;
+      }
+    });
+    setScore(correct);
   };
 
   const currentQuestions = matchingData.slice(
@@ -98,6 +112,9 @@ function MatchingTypes() {
             Match the common name (Column A) to its scientific name (Column B).
             Ready to explore?
           </p>
+          {score > 0 && (
+            <p className="text-xl text-green-600">You scored {score} so far.</p>
+          )}
           <button
             onClick={handleStart}
             className="bg-green-600 text-white px-6 py-2 rounded-xl hover:bg-green-700 transition"
