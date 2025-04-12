@@ -12,9 +12,14 @@ function MatchingTypes() {
   const [showAllAnswers, setShowAllAnswers] = useState(false);
   const [matchingData, setMatchingData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [lastScore, setLastScore] = useState(null);
 
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
+
+  // Get user info from localStorage
+  const firstname = localStorage.getItem("firstname") || "Guest";
+  const lastname = localStorage.getItem("lastname") || "";
 
   useEffect(() => {
     const fetchMatchingQuestions = async () => {
@@ -31,6 +36,12 @@ function MatchingTypes() {
     };
 
     fetchMatchingQuestions();
+
+    // Load previous score if available
+    const savedScore = localStorage.getItem("lastScore");
+    if (savedScore) {
+      setLastScore(parseInt(savedScore));
+    }
   }, []);
 
   const handleStart = () => {
@@ -60,9 +71,8 @@ function MatchingTypes() {
     setScore(correct);
     setShowResult(true);
 
-    // Get user info from localStorage
-    const firstname = localStorage.getItem("firstname");
-    const lastname = localStorage.getItem("lastname");
+    // Save score in localStorage
+    localStorage.setItem("lastScore", correct);
 
     try {
       await axios.post(`${API_URL}/api/matching-submit-score`, {
@@ -70,7 +80,6 @@ function MatchingTypes() {
         lastname,
         score: correct,
       });
-
       console.log("Score submitted successfully!");
     } catch (error) {
       console.error("Error submitting score:", error);
@@ -94,6 +103,18 @@ function MatchingTypes() {
           <h1 className="text-3xl font-bold text-green-700">
             🌿 BiExplorer Matching Quiz
           </h1>
+          <p className="text-gray-600">
+            Welcome,{" "}
+            <span className="font-semibold">
+              {firstname} {lastname}
+            </span>
+            !
+          </p>
+          {lastScore !== null && (
+            <p className="text-green-700 font-medium text-lg">
+              🏆 Last Score: {lastScore} / {matchingData.length}
+            </p>
+          )}
           <p className="text-gray-600">
             Match the common name (Column A) to its scientific name (Column B).
             Ready to explore?
