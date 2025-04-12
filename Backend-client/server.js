@@ -36,7 +36,7 @@ cloudinary.config({
 // Enable CORS with a specific origin
 app.use(
   cors({
-    origin: "davao-oriental-bioexplorer-client.vercel.app", // Allow requests from this origin
+    origin: "https://davao-oriental-bioexplorer-client.vercel.app", // Allow requests from this origin
     methods: ["GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"], // Allowed methods
     credentials: true, // Allow cookies, if needed
   })
