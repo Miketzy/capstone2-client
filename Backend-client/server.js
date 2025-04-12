@@ -742,14 +742,14 @@ app.post('/api/submit-score', (req, res) => {
   });
 });
 
-// API route to get questions
+// Route to fetch matching questions
 app.get("/api/matching_type_question", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM matching_questions"); // Adjust your query as needed
+    const result = await pool.query("SELECT id, column_a, column_b FROM matching_questions");
     res.json(result.rows);
-  } catch (error) {
-    console.error("Error fetching data from database:", error);
-    res.status(500).send("Internal Server Error");
+  } catch (err) {
+    console.error("Error fetching data:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

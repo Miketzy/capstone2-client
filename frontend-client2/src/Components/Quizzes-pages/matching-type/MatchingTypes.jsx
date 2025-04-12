@@ -11,20 +11,26 @@ function MatchingTypes() {
   const [score, setScore] = useState(0);
   const [showAllAnswers, setShowAllAnswers] = useState(false);
   const [matchingData, setMatchingData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
 
   useEffect(() => {
-    // Fetch questions from the backend
-    axios
-      .get(`${API_URL}/api/matching_type_question`)
-      .then((response) => {
+    const fetchMatchingQuestions = async () => {
+      try {
+        const response = await axios.get(
+          `${API_URL}/api/matching_type_question`
+        );
         setMatchingData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching questions:", error);
-      });
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching matching questions:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchMatchingQuestions();
   }, []);
 
   const handleStart = () => {
@@ -54,6 +60,16 @@ function MatchingTypes() {
     setScore(correct);
     setShowResult(true);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-lg text-green-700 font-semibold">
+          Loading questions...
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-200 flex items-center justify-center p-6">
@@ -97,7 +113,6 @@ function MatchingTypes() {
             </button>
           </div>
 
-          {/* Optional display all correct answers */}
           {showAllAnswers && (
             <div className="mt-6 text-left max-h-64 overflow-y-auto">
               <h2 className="text-xl font-semibold text-green-600 mb-2">
