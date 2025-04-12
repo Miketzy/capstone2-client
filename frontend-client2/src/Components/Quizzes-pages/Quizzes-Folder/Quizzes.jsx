@@ -38,28 +38,28 @@ function Quizzes() {
   const handleSubmit = () => {
     let finalScore = 0;
 
-    // Calculate the score
     questions.forEach((q) => {
-      if (userAnswers[q.id] === q.correctAnswer) {
+      if (
+        userAnswers.hasOwnProperty(q.id) &&
+        userAnswers[q.id] === q.correctAnswer
+      ) {
         finalScore++;
       }
     });
 
-    // Retrieve firstname and lastname from localStorage
     const firstname = localStorage.getItem("firstname");
     const lastname = localStorage.getItem("lastname");
 
     if (!firstname || !lastname) {
       console.error("User details (firstname/lastname) are missing");
-      return; // Exit if the firstname or lastname is not available
+      return;
     }
 
-    // Submit the score to the backend using firstname and lastname instead of userId
     axios
       .post(`${API_URL}/api/submit-score`, {
-        firstname: firstname, // Use firstname
-        lastname: lastname, // Use lastname
-        score: finalScore, // The calculated score
+        firstname,
+        lastname,
+        score: finalScore,
       })
       .then((response) => {
         console.log("Score submitted:", response.data);
@@ -95,6 +95,8 @@ function Quizzes() {
   const isLastGroup =
     currentQuestionGroupIndex * questionsPerPage >=
     questions.length - questionsPerPage;
+
+  const allAnswered = questions.every((q) => userAnswers[q.id]);
 
   if (showScore && !showAllAnswers) {
     return (
@@ -230,7 +232,12 @@ function Quizzes() {
               {isLastGroup ? (
                 <button
                   onClick={handleSubmit}
-                  className="bg-green-600 text-white py-2 px-6 rounded-lg"
+                  className={`py-2 px-6 rounded-lg ${
+                    allAnswered
+                      ? "bg-green-600 text-white"
+                      : "bg-gray-400 text-white cursor-not-allowed"
+                  }`}
+                  disabled={!allAnswered}
                 >
                   Submit
                 </button>
