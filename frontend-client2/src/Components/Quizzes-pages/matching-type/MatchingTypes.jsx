@@ -17,97 +17,74 @@ function MatchingTypes() {
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
 
+  // Get user info from localStorage
   const firstname = localStorage.getItem("firstname") || "Guest";
   const lastname = localStorage.getItem("lastname") || "";
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/api/matching_type_question`)
-      .then((res) => {
-        setMatchingData(res.data);
+    const fetchMatchingQuestions = async () => {
+      try {
+        const response = await axios.get(
+          `${API_URL}/api/matching_type_question`
+        );
+        setMatchingData(response.data);
         setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch questions", err);
+      } catch (error) {
+        console.error("Error fetching matching questions:", error);
         setLoading(false);
-      });
+      }
+    };
 
-    const savedScore = localStorage.getItem("lastQuizScore");
-    if (savedScore !== null) {
-      setLastScore(savedScore);
+    fetchMatchingQuestions();
+
+    // Load previous score if available
+    const savedScore = localStorage.getItem("lastScore");
+    if (savedScore) {
+      setLastScore(parseInt(savedScore));
     }
   }, []);
 
   const handleStart = () => {
-    shuffleAnswersForCurrentPage();
-    setStarted(true);
-  };
-
-  const shuffleAnswersForCurrentPage = () => {
-    const currentQuestions = matchingData.slice(
-      currentPage * questionsPerPage,
-      (currentPage + 1) * questionsPerPage
-    );
-    const shuffled = [...currentQuestions.map((item) => item.item_b)].sort(
+    const shuffled = [...matchingData.map((item) => item.item_b)].sort(
       () => Math.random() - 0.5
     );
     setShuffledAnswers(shuffled);
+    setStarted(true);
   };
 
   const handleSelect = (id, selected) => {
     setMatches((prev) => ({ ...prev, [id]: selected }));
   };
 
-  const handleSubmit = () => {
-    let finalScore = 0;
-    matchingData.forEach((question) => {
-      if (matches[question.id] === question.item_b) {
-        finalScore++;
-      }
-    });
-
-    if (!firstname || !lastname) {
-      console.error("User details (firstname/lastname) are missing");
-      return;
-    }
-
-    axios
-      .post(`${API_URL}/api/matching-submit-score`, {
-        firstname,
-        lastname,
-        score: finalScore,
-      })
-      .then((response) => {
-        console.log("Score submitted:", response.data);
-        setScore(finalScore);
-        setShowResult(true);
-        localStorage.setItem("lastQuizScore", finalScore);
-      })
-      .catch((error) => {
-        console.error("Error submitting score:", error);
-      });
-  };
-
-  const handleNextPage = () => {
-    const nextPage = currentPage + 1;
-    if (nextPage < totalPages) {
-      setCurrentPage(nextPage);
-      shuffleAnswersForCurrentPage();
-    }
-  };
-
-  const handlePreviousPage = () => {
-    const prevPage = currentPage - 1;
-    if (prevPage >= 0) {
-      setCurrentPage(prevPage);
-      shuffleAnswersForCurrentPage();
-    }
-  };
-
   const currentQuestions = matchingData.slice(
     currentPage * questionsPerPage,
     (currentPage + 1) * questionsPerPage
   );
+
+  const handleSubmit = async () => {
+    let correct = 0;
+    matchingData.forEach((item) => {
+      if (matches[item.id] === item.item_b) {
+        correct += 1;
+      }
+    });
+    setScore(correct);
+    setShowResult(true);
+
+    // Save score in localStorage
+    localStorage.setItem("lastScore", correct);
+
+    try {
+      await axios.post(`${API_URL}/api/matching-submit-score`, {
+        firstname,
+        lastname,
+        score: correct,
+      });
+      console.log("Score submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting score:", error);
+    }
+  };
 
   if (loading) {
     return (
@@ -235,7 +212,7 @@ function MatchingTypes() {
           {/* Pagination / Submit */}
           <div className="flex justify-between mt-6">
             <button
-              onClick={handlePreviousPage}
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
               className={`px-4 py-2 rounded-lg ${
                 currentPage === 0
                   ? "bg-gray-300 cursor-not-allowed"
@@ -255,8 +232,14 @@ function MatchingTypes() {
               </button>
             ) : (
               <button
-                onClick={handleNextPage}
-                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))
+                }
+                className={`px-4 py-2 rounded-lg ${
+                  currentPage === totalPages - 1
+                    ? "bg-gray-300 cursor-not-allowed"
+                    : "bg-green-600 text-white hover:bg-green-700"
+                }`}
               >
                 Next
               </button>
