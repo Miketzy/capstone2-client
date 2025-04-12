@@ -47,11 +47,12 @@ function Quizzes() {
     setSubmitted(true);
     setShowScore(true);
 
-    // Get the logged-in user's ID (assuming it's stored in localStorage or a state variable)
+    // Ensure userId is retrieved from localStorage or a state variable
     const userId = localStorage.getItem("userId"); // Replace with your actual method of getting the logged-in user ID
+    console.log("User ID:", userId); // Check if userId is valid
 
     if (!userId) {
-      console.error("User not logged in.");
+      console.error("User ID is missing or undefined.");
       return;
     }
 
