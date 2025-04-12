@@ -722,15 +722,15 @@ app.get('/api/multiple-choice', async (req, res) => {
 // POST: Save quiz score for logged-in user
 app.post('/api/submit-score', (req, res) => {
   console.log("Received score submission:", req.body);
-  const { userId, score } = req.body;
+  const { id, score } = req.body;  // Use 'id' instead of 'userId'
 
-  if (!userId || score === undefined) {
+  if (!id || score === undefined) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
   const getUserQuery = 'SELECT firstname, lastname FROM users WHERE id = $1';
 
-  pool.query(getUserQuery, [userId], (err, result) => {
+  pool.query(getUserQuery, [id], (err, result) => {
     if (err) {
       console.error('Error retrieving user details:', err);
       return res.status(500).json({ error: 'Error retrieving user details' });

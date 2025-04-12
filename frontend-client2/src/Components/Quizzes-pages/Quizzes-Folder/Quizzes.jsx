@@ -35,7 +35,7 @@ function Quizzes() {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     let finalScore = 0;
     questions.forEach((q) => {
       if (userAnswers[q.id] === q.correctAnswer) {
@@ -43,30 +43,28 @@ function Quizzes() {
       }
     });
 
-    setScore(finalScore);
-    setSubmitted(true);
-    setShowScore(true);
-
-    // Ensure userId is retrieved from localStorage or a state variable
-    const userId = localStorage.getItem("userId"); // Replace with your actual method of getting the logged-in user ID
-    console.log("User ID:", userId); // Check if userId is valid
-
+    // Fetch user ID (id from localStorage)
+    const userId = localStorage.getItem("id");
     if (!userId) {
-      console.error("User ID is missing or undefined.");
+      console.error("User ID is missing");
       return;
     }
 
-    try {
-      // Send the score and userId to the backend to save the quiz result
-      const response = await axios.post(`${API_URL}/api/submit-score`, {
-        userId: userId,
+    // Submit the score to the backend
+    axios
+      .post(`${API_URL}/api/submit-score`, {
+        id: userId, // Change from userId to id
         score: finalScore,
+      })
+      .then((response) => {
+        console.log("Score submitted:", response.data);
+        setScore(finalScore);
+        setSubmitted(true);
+        setShowScore(true);
+      })
+      .catch((error) => {
+        console.error("Error submitting score:", error);
       });
-
-      console.log("Score submitted successfully:", response.data);
-    } catch (error) {
-      console.error("Error submitting score:", error);
-    }
   };
 
   const handleRestart = () => {
