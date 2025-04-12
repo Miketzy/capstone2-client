@@ -42,7 +42,21 @@ function MatchingTypes() {
   };
 
   const handleSelect = (id, selected) => {
-    setMatches((prev) => ({ ...prev, [id]: selected }));
+    setMatches((prev) => {
+      const updatedMatches = { ...prev, [id]: selected };
+      calculateScore(updatedMatches);
+      return updatedMatches;
+    });
+  };
+
+  const calculateScore = (matches) => {
+    let correct = 0;
+    matchingData.forEach((item) => {
+      if (matches[item.id] === item.item_b) {
+        correct += 1;
+      }
+    });
+    setScore(correct);
   };
 
   const currentQuestions = matchingData.slice(
@@ -65,15 +79,11 @@ function MatchingTypes() {
     const lastname = localStorage.getItem("lastname");
 
     try {
-      // Send the score to the backend, including user's first and last name
-      const response = await axios.post(
-        `${API_URL}/api/matching-submit-score`,
-        {
-          firstname,
-          lastname,
-          score: correct,
-        }
-      );
+      await axios.post(`${API_URL}/api/matching-submit-score`, {
+        firstname,
+        lastname,
+        score: correct,
+      });
 
       console.log("Score submitted successfully!");
     } catch (error) {
@@ -99,26 +109,12 @@ function MatchingTypes() {
             🌿 BiExplorer Matching Quiz
           </h1>
           <p className="text-gray-600">
-            Welcome,{" "}
-            <span className="font-semibold">
-              {localStorage.getItem("firstname") &&
-              localStorage.getItem("lastname")
-                ? `${localStorage.getItem("firstname")} ${localStorage.getItem(
-                    "lastname"
-                  )}`
-                : "User"}
-            </span>{" "}
-            !
-          </p>
-          {score !== null && (
-            <p className="text-green-700 font-medium text-lg">
-              🏆 Last Score: {score} / {matchingData.length}
-            </p>
-          )}
-          <p className="text-gray-600">
             Match the common name (Column A) to its scientific name (Column B).
             Ready to explore?
           </p>
+          {score > 0 && (
+            <p className="text-xl text-green-600">You scored {score} so far.</p>
+          )}
           <button
             onClick={handleStart}
             className="bg-green-600 text-white px-6 py-2 rounded-xl hover:bg-green-700 transition"
