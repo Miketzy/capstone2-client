@@ -12,6 +12,7 @@ function Quizzes() {
   const [quizStarted, setQuizStarted] = useState(false);
   const [showScore, setShowScore] = useState(false);
   const [showAllAnswers, setShowAllAnswers] = useState(false);
+  const [lastScore, setLastScore] = useState(null);
 
   const questionsPerPage = 5;
 
@@ -20,6 +21,12 @@ function Quizzes() {
       .get(`${API_URL}/api/multiple-choice`)
       .then((res) => setQuestions(res.data))
       .catch((err) => console.error("Failed to fetch questions", err));
+
+    // Get last score from localStorage if exists
+    const savedScore = localStorage.getItem("lastQuizScore");
+    if (savedScore !== null) {
+      setLastScore(savedScore);
+    }
   }, []);
 
   const handleOptionChange = (questionId, selectedOption) => {
@@ -51,21 +58,22 @@ function Quizzes() {
 
     if (!firstname || !lastname) {
       console.error("User details (firstname/lastname) are missing");
-      return; // Exit if the firstname or lastname is not available
+      return;
     }
 
-    // Submit the score to the backend using firstname and lastname instead of userId
+    // Submit the score to the backend
     axios
       .post(`${API_URL}/api/submit-score`, {
-        firstname: firstname, // Use firstname
-        lastname: lastname, // Use lastname
-        score: finalScore, // The calculated score
+        firstname,
+        lastname,
+        score: finalScore,
       })
       .then((response) => {
         console.log("Score submitted:", response.data);
         setScore(finalScore);
         setSubmitted(true);
         setShowScore(true);
+        localStorage.setItem("lastQuizScore", finalScore); // Save score
       })
       .catch((error) => {
         console.error("Error submitting score:", error);
@@ -187,10 +195,18 @@ function Quizzes() {
             <h1 className="text-3xl font-bold text-green-700 mb-4">
               🧬 Multiple Choice Quiz
             </h1>
-            <p className="text-lg mb-6">
+            <p className="text-lg mb-2">
               Welcome! Test your species knowledge. Click "Get Started" to
               begin.
             </p>
+            {lastScore !== null && (
+              <p className="text-md mb-4 text-gray-600">
+                Your last score:{" "}
+                <span className="font-semibold text-green-700">
+                  {lastScore} / {questions.length}
+                </span>
+              </p>
+            )}
             <button
               onClick={() => setQuizStarted(true)}
               className="bg-green-600 text-white py-2 px-6 rounded-lg"
