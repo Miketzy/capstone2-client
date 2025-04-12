@@ -745,7 +745,7 @@ app.post('/api/submit-score', (req, res) => {
 // Route to fetch matching questions
 app.get("/api/matching_type_question", async (req, res) => {
   try {
-    const result = await pool.query("SELECT id, column_a, column_b FROM matching_questions");
+    const result = await pool.query("SELECT id, item_a, item_b FROM matching_questions");
     res.json(result.rows);
   } catch (err) {
     console.error("Error fetching data:", err);
