@@ -71,8 +71,13 @@ function MatchingTypes() {
     setScore(correct);
     setShowResult(true);
 
-    // Save score in localStorage
-    localStorage.setItem("lastScore", correct);
+    // Compare new score with last score
+    const previousScore = localStorage.getItem("lastScore");
+
+    if (!previousScore || correct > parseInt(previousScore)) {
+      localStorage.setItem("lastScore", correct);
+      setLastScore(correct); // Update the state so UI also changes
+    }
 
     try {
       await axios.post(`${API_URL}/api/matching-submit-score`, {
