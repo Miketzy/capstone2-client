@@ -1,280 +1,260 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import API_URL from "../../../Config";
 
-function Quizzes() {
-  const [questions, setQuestions] = useState([]);
-  const [userAnswers, setUserAnswers] = useState({});
-  const [currentQuestionGroupIndex, setCurrentQuestionGroupIndex] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
+function MatchingTypes() {
+  const [started, setStarted] = useState(false);
+  const [matches, setMatches] = useState({});
+  const [shuffledAnswers, setShuffledAnswers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
-  const [showAnswers, setShowAnswers] = useState(false);
-  const [quizStarted, setQuizStarted] = useState(false);
-  const [showScore, setShowScore] = useState(false);
   const [showAllAnswers, setShowAllAnswers] = useState(false);
+  const [matchingData, setMatchingData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [lastScore, setLastScore] = useState(null);
 
   const questionsPerPage = 5;
+  const totalPages = Math.ceil(matchingData.length / questionsPerPage);
+
+  // Get user info from localStorage
+  const firstname = localStorage.getItem("firstname") || "Guest";
+  const lastname = localStorage.getItem("lastname") || "";
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/api/multiple-choice`)
-      .then((res) => setQuestions(res.data))
+      .get(`${API_URL}/api/matching_type_question`)
+      .then((res) => setMatchingData(res.data))
       .catch((err) => console.error("Failed to fetch questions", err));
 
     // Get last score from localStorage if exists
-    const savedScore = localStorage.getItem("lastQuizScore");
+    const savedScore = localStorage.getItem("lastScore");
     if (savedScore !== null) {
       setLastScore(savedScore);
     }
   }, []);
 
-  const handleOptionChange = (questionId, selectedOption) => {
-    setUserAnswers((prev) => ({ ...prev, [questionId]: selectedOption }));
+  const handleStart = () => {
+    const shuffled = [...matchingData.map((item) => item.item_b)].sort(
+      () => Math.random() - 0.5
+    );
+    setShuffledAnswers(shuffled);
+    setStarted(true);
   };
 
-  const handleNext = () => {
-    if (
-      currentQuestionGroupIndex * questionsPerPage + questionsPerPage <
-      questions.length
-    ) {
-      setCurrentQuestionGroupIndex((prev) => prev + 1);
-    }
+  const handleSelect = (id, selected) => {
+    setMatches((prev) => ({ ...prev, [id]: selected }));
   };
 
-  const handleSubmit = () => {
-    let finalScore = 0;
+  const currentQuestions = matchingData.slice(
+    currentPage * questionsPerPage,
+    (currentPage + 1) * questionsPerPage
+  );
 
-    // Calculate the score
-    questions.forEach((q) => {
-      if (userAnswers[q.id] === q.correctAnswer) {
-        finalScore++;
+  const handleSubmit = async () => {
+    let correct = 0;
+    matchingData.forEach((item) => {
+      if (matches[item.id] === item.item_b) {
+        correct += 1;
       }
     });
+    setScore(correct);
+    setShowResult(true);
 
     // Retrieve firstname and lastname from localStorage
     const firstname = localStorage.getItem("firstname");
     const lastname = localStorage.getItem("lastname");
 
-    if (!firstname || !lastname) {
-      console.error("User details (firstname/lastname) are missing");
-      return;
-    }
+    // Compare new score with last score
+    const previousScore = localStorage.getItem("lastScore");
 
-    // Submit the score to the backend
-    axios
-      .post(`${API_URL}/api/submit-score`, {
-        firstname,
-        lastname,
-        score: finalScore,
-      })
-      .then((response) => {
-        console.log("Score submitted:", response.data);
-        setScore(finalScore);
-        setSubmitted(true);
-        setShowScore(true);
-        localStorage.setItem("lastQuizScore", finalScore); // Save score
-      })
-      .catch((error) => {
+    if (!previousScore || correct > parseInt(previousScore)) {
+      localStorage.setItem("lastScore", correct);
+      setLastScore(correct); // Update the state so UI also changes
+
+      // Submit score to backend
+      try {
+        await axios.post(`${API_URL}/api/matching-submit-score`, {
+          firstname,
+          lastname,
+          score: correct,
+        });
+        console.log("Score submitted successfully!");
+      } catch (error) {
         console.error("Error submitting score:", error);
-      });
+      }
+    }
   };
 
-  const handleRestart = () => {
-    setQuizStarted(false);
-    setSubmitted(false);
-    setCurrentQuestionGroupIndex(0);
-    setUserAnswers({});
-    setScore(0);
-    setShowAnswers(false);
-    setShowScore(false);
-    setShowAllAnswers(false);
-  };
-
-  const handleSeeAnswers = () => {
-    setShowAllAnswers(true);
-  };
-
-  const currentQuestions = questions.slice(
-    currentQuestionGroupIndex * questionsPerPage,
-    (currentQuestionGroupIndex + 1) * questionsPerPage
-  );
-
-  const isLastGroup =
-    currentQuestionGroupIndex * questionsPerPage >=
-    questions.length - questionsPerPage;
-
-  if (showScore && !showAllAnswers) {
+  if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="bg-white p-10 rounded-xl shadow-xl text-center max-w-lg w-full">
-          <h1 className="text-3xl font-bold text-green-700 mb-4">
-            🎉 Quiz Completed!
-          </h1>
-          <p className="text-lg mb-2">You scored:</p>
-          <p className="text-4xl font-bold text-green-600 mb-6">
-            {score} / {questions.length}
-          </p>
-          <div className="flex flex-col gap-4">
-            <button
-              onClick={handleSeeAnswers}
-              className="bg-green-500 text-white py-2 px-6 rounded-lg"
-            >
-              📖 See All Answers
-            </button>
-            <button
-              onClick={handleRestart}
-              className="bg-gray-400 text-white py-2 px-6 rounded-lg"
-            >
-              🔁 Retry Quiz
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (showAllAnswers) {
-    return (
-      <div className="min-h-screen p-6">
-        <div className="bg-white p-8 rounded-xl shadow-2xl max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">
-            📚 All Correct Answers
-          </h2>
-          {questions.map((q, index) => {
-            const userAnswer = userAnswers[q.id] || "";
-            const isCorrect =
-              userAnswer.toLowerCase() === q.correctAnswer.toLowerCase();
-            return (
-              <div
-                key={q.id}
-                className={`p-4 mb-4 border-2 rounded-lg ${
-                  isCorrect
-                    ? "border-green-400 bg-green-50"
-                    : "border-red-400 bg-red-50"
-                }`}
-              >
-                <p className="font-semibold mb-2">
-                  {index + 1}. {q.question}
-                </p>
-                <p>
-                  <b>Your Answer:</b>{" "}
-                  <span
-                    className={isCorrect ? "text-green-600" : "text-red-600"}
-                  >
-                    {userAnswer || "No answer"}
-                  </span>
-                </p>
-                {!isCorrect && (
-                  <p>
-                    <b>Correct Answer:</b>{" "}
-                    <span className="text-green-800">{q.correctAnswer}</span>
-                  </p>
-                )}
-              </div>
-            );
-          })}
-          <div className="text-center mt-6">
-            <button
-              onClick={handleRestart}
-              className="bg-green-600 text-white py-2 px-6 rounded-lg"
-            >
-              🔁 Retake Quiz
-            </button>
-          </div>
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-lg text-green-700 font-semibold">
+          Loading questions...
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
-      <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full mb-[180px]">
-        {!quizStarted ? (
-          <>
-            <h1 className="text-3xl font-bold text-green-700 mb-4">
-              🧬 Multiple Choice Quiz
-            </h1>
-
-            <p className="text-gray-600">
-              Welcome,{" "}
-              <span className="font-semibold">
-                {localStorage.getItem("firstname") &&
-                localStorage.getItem("lastname")
-                  ? `${localStorage.getItem(
-                      "firstname"
-                    )} ${localStorage.getItem("lastname")}`
-                  : "User"}{" "}
-                {/* Fallback if no name found */}
-              </span>
-              !
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-200 flex items-center justify-center p-6">
+      {!started ? (
+        <div className="text-center space-y-6 max-w-xl bg-white p-8 rounded-2xl shadow-lg">
+          <h1 className="text-3xl font-bold text-green-700">
+            🌿 BiExplorer Matching Quiz
+          </h1>
+          <p className="text-gray-600">
+            Welcome,{" "}
+            <span className="font-semibold">
+              {localStorage.getItem("firstname") &&
+              localStorage.getItem("lastname")
+                ? `${localStorage.getItem("firstname")} ${localStorage.getItem(
+                    "lastname"
+                  )}`
+                : "User"}{" "}
+              {/* Fallback if no name found */}
+            </span>
+            !
+          </p>
+          {lastScore !== null && (
+            <p className="text-green-700 font-medium text-lg">
+              🏆 Last Score: {lastScore} / {matchingData.length}
             </p>
-            {lastScore !== null && (
-              <p className="text-green-700 font-medium text-lg">
-                🏆 Last Score: {lastScore} / {questions.length}
-              </p>
-            )}
-            <p className="text-lg mb-2">
-              Test your species knowledge. Click "Get Started" to begin.
-            </p>
-
+          )}
+          <p className="text-gray-600">
+            Match the common name (Column A) to its scientific name (Column B).
+            Ready to explore?
+          </p>
+          <button
+            onClick={handleStart}
+            className="bg-green-600 text-white px-6 py-2 rounded-xl hover:bg-green-700 transition"
+          >
+            Get Started
+          </button>
+        </div>
+      ) : showResult ? (
+        <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full">
+          <h1 className="text-3xl font-bold text-green-700 mb-4">
+            🎉 Quiz Completed!
+          </h1>
+          <p className="text-lg text-gray-800 mb-2">You scored:</p>
+          <p className="text-4xl font-bold text-green-600 mb-6">
+            {score} / {matchingData.length}
+          </p>
+          <div className="flex flex-col gap-4">
             <button
-              onClick={() => setQuizStarted(true)}
-              className="bg-green-600 text-white py-2 px-6 rounded-lg"
+              onClick={() => setShowAllAnswers(true)}
+              className="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg font-medium transition"
             >
-              Get Started
+              📖 See All Correct Answers
             </button>
-          </>
-        ) : (
-          <div>
-            <h2 className="text-xl font-semibold mb-6">
-              Questions {currentQuestionGroupIndex * questionsPerPage + 1} -{" "}
-              {Math.min(
-                (currentQuestionGroupIndex + 1) * questionsPerPage,
-                questions.length
-              )}{" "}
-              of {questions.length}
-            </h2>
-            {currentQuestions.map((q) => (
-              <div key={q.id} className="mb-6 text-left">
-                <p className="font-medium">{q.question}</p>
-                {q.options.map((opt, idx) => (
-                  <label key={idx} className="block ml-4">
-                    <input
-                      type="radio"
-                      name={`q-${q.id}`}
-                      value={opt}
-                      checked={userAnswers[q.id] === opt}
-                      onChange={() => handleOptionChange(q.id, opt)}
-                      className="mr-2"
-                    />
-                    {opt}
-                  </label>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-gray-400 hover:bg-gray-500 text-white py-2 px-6 rounded-lg font-medium transition"
+            >
+              🔁 Retry Quiz
+            </button>
+          </div>
+
+          {showAllAnswers && (
+            <div className="mt-6 text-left max-h-64 overflow-y-auto">
+              <h2 className="text-xl font-semibold text-green-600 mb-2">
+                Correct Answers:
+              </h2>
+              <ul className="space-y-2">
+                {matchingData.map((item) => (
+                  <li key={item.id} className="text-sm">
+                    ✅ <strong>{item.item_a}</strong> — <em>{item.item_b}</em>
+                  </li>
                 ))}
-              </div>
-            ))}
-            <div className="mt-4">
-              {isLastGroup ? (
-                <button
-                  onClick={handleSubmit}
-                  className="bg-green-600 text-white py-2 px-6 rounded-lg"
-                >
-                  Submit
-                </button>
-              ) : (
-                <button
-                  onClick={handleNext}
-                  className="bg-green-600 text-white py-2 px-6 rounded-lg"
-                >
-                  Next
-                </button>
-              )}
+              </ul>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-4xl">
+          <h2 className="text-2xl font-bold text-green-800 mb-4">
+            Match the Species
+          </h2>
+          <div className="grid grid-cols-2 gap-6">
+            {/* Column A */}
+            <div>
+              <h3 className="font-semibold text-green-600 mb-2">
+                Column A (Common Name)
+              </h3>
+              {currentQuestions.map((item) => (
+                <div key={item.id} className="mb-3">
+                  <div className="p-3 bg-green-100 rounded-lg">
+                    {item.item_a}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Column B */}
+            <div>
+              <h3 className="font-semibold text-green-600 mb-2">
+                Column B (Scientific Name)
+              </h3>
+              {currentQuestions.map((item) => (
+                <div key={item.id} className="mb-3">
+                  <select
+                    onChange={(e) => handleSelect(item.id, e.target.value)}
+                    className="w-full p-2 border border-green-300 rounded-md"
+                    value={matches[item.id] || ""}
+                  >
+                    <option value="">Select answer</option>
+                    {shuffledAnswers.map((ans, index) => (
+                      <option key={index} value={ans}>
+                        {ans}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ))}
             </div>
           </div>
-        )}
-      </div>
+
+          {/* Pagination / Submit */}
+          <div className="flex justify-between mt-6">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
+              className={`px-4 py-2 rounded-lg ${
+                currentPage === 0
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-green-600 text-white hover:bg-green-700"
+              }`}
+              disabled={currentPage === 0}
+            >
+              Previous
+            </button>
+
+            {currentPage === totalPages - 1 ? (
+              <button
+                onClick={handleSubmit}
+                className="bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800"
+              >
+                ✅ Submit
+              </button>
+            ) : (
+              <button
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))
+                }
+                className={`px-4 py-2 rounded-lg ${
+                  currentPage === totalPages - 1
+                    ? "bg-gray-300 cursor-not-allowed"
+                    : "bg-green-600 text-white hover:bg-green-700"
+                }`}
+              >
+                Next
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-export default Quizzes;
+export default MatchingTypes;
