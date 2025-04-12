@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import API_URL from "../../../../Config";
 
 function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -31,7 +32,7 @@ function ChangePassword() {
 
     try {
       const response = await axios.post(
-        "https://capstone2-client.onrender.com/password-changes",
+        `${API_URL}/password-changes`,
         {
           currentPassword,
           newPassword,

@@ -3,6 +3,7 @@ import "./Database.css";
 import axios from "axios"; // Import axios
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import CloseIcon from "@mui/icons-material/Close";
+import API_URL from "../../../Config"; // Dalawang level up ✅
 
 function Database() {
   const [images, setImages] = useState([]);
@@ -13,8 +14,7 @@ function Database() {
   const navigate = useNavigate(); // Initialize navigate
 
   const openModal = (species) => {
-    const imageUrl = `https://bioexplorer-backend.onrender.com/uploads/images/${species.uploadimage}`; // Use the correct path for the images
-    setSelectedImage(imageUrl);
+    setSelectedImage(species.uploadimage); // Diretso Cloudinary URL
     setSelectedSpecies(species);
   };
 
@@ -23,10 +23,10 @@ function Database() {
     setSelectedSpecies(null);
   };
 
-  // Fetch images from the backend
+  // Fetch species data from the backend
   useEffect(() => {
     axios
-      .get("https://capstone2-client.onrender.com/api/images")
+      .get(`${API_URL}/api/images`)
       .then((response) => {
         console.log("Fetched images:", response.data);
         setImages(response.data); // Set the fetched images to state
@@ -49,7 +49,6 @@ function Database() {
     };
   }, [selectedImage]);
 
-  // Filter images based on the search term
   // Filter images based on the search term and sort alphabetically
   useEffect(() => {
     const results = images
@@ -96,25 +95,22 @@ function Database() {
       {/* Gallery */}
       <div className="gallery grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full max-w-screen-xl">
         {filteredImages.length > 0 ? (
-          filteredImages.map((species) => {
-            const imageUrl = `https://bioexplorer-backend.onrender.com/uploads/images/${species.uploadimage}`; // Correct URL
-            return (
-              <div
-                className="gallery-item cursor-pointer relative rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
-                key={species.id}
-                onClick={() => openModal(species)} // Open modal with the entire species object
-              >
-                <img
-                  src={imageUrl} // Use the constructed image URL
-                  alt={species.commonname}
-                  className="gallery-image w-full h-64 "
-                />
-                <h3 className="title-commonname text-center mt-2 text-lg font-semibold text-gray-800">
-                  {species.commonname}
-                </h3>
-              </div>
-            );
-          })
+          filteredImages.map((species) => (
+            <div
+              className="gallery-item cursor-pointer relative rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
+              key={species.id}
+              onClick={() => openModal(species)} // Open modal with the entire species object
+            >
+              <img
+                src={species.uploadimage} // Cloudinary URL
+                alt={species.commonname}
+                className="gallery-image w-full h-64 "
+              />
+              <h3 className="title-commonname text-center mt-2 text-lg font-semibold text-gray-800">
+                {species.commonname}
+              </h3>
+            </div>
+          ))
         ) : (
           <p>No images available.</p> // Message if no images are available
         )}
@@ -127,7 +123,7 @@ function Database() {
               <CloseIcon />
             </span>
             <img
-              src={selectedImage} // Use the correct image URL here
+              src={selectedImage} // Cloudinary image
               alt="Selected"
               className="modal-image"
             />

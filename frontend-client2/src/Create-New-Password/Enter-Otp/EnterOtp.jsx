@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../../Config";
 
 function EnterOtp() {
   const location = useLocation();
@@ -46,7 +47,7 @@ function EnterOtp() {
     setTimer(60);
     setCanResend(false);
     axios
-      .post("https://capstone2-client.onrender.com/send-otp", { email })
+      .post(`${API_URL}/send-otp`, { email })
       .then(() => {
         alert("OTP has been resent to your email.");
       })
@@ -58,7 +59,7 @@ function EnterOtp() {
   const handleVerifyOTP = () => {
     const otpCode = otp.join("");
     axios
-      .post("https://capstone2-client.onrender.com/verify-otp", {
+      .post(`${API_URL}/verify-otp`, {
         email,
         otp: otpCode,
       })

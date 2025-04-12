@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import API_URL from "../../../Config"; // Dalawang level up ✅
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -23,13 +24,9 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "https://capstone2-client.onrender.com/login",
-        values,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`${API_URL}/login`, values, {
+        withCredentials: true,
+      });
 
       if (response.data) {
         alert("Login successful!");
@@ -47,7 +44,7 @@ const Login = () => {
 
   const GoToRegister = async () => {
     try {
-      await axios.post("https://capstone2-client.onrender.com/gotoregister");
+      await axios.post(`${API_URL}/gotoregister`);
       localStorage.removeItem("token");
       navigate("/registration");
     } catch (error) {
@@ -57,7 +54,7 @@ const Login = () => {
 
   const GoToForgotPassword = async () => {
     try {
-      await axios.post("https://capstone2-client.onrender.com/gotoforgot");
+      await axios.post(`${API_URL}/gotoforgot`);
       localStorage.removeItem("token");
       navigate("/Enter-Email");
     } catch (error) {

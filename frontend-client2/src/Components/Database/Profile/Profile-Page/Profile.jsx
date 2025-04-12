@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../../../../Config";
 
 function Profile() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function Profile() {
     // Fetch user data from backend
     const fetchUserData = async () => {
       try {
-        const res = await axios.get("https://capstone2-client.onrender.com/", {
+        const res = await axios.get(`${API_URL}/`, {
           withCredentials: true,
         });
         console.log("Fetched profile data:", res.data); // Log response
@@ -36,7 +37,7 @@ function Profile() {
         const user = res.data.user; // Get user object from response
 
         const imageUrl = user.image
-          ? `https://capstone2-client.onrender.com/images/${user.image}`
+          ? `${API_URL}/images/${user.image}`
           : "/picture/Unknown_Member.jpg"; // Default image
 
         setUserData({

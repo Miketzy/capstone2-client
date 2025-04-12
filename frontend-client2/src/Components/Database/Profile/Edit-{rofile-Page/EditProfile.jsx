@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BsPlusCircleDotted } from "react-icons/bs";
+import API_URL from "../../../../Config";
 
 const EditProfile = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -30,13 +31,13 @@ const EditProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await axios.get("https://capstone2-client.onrender.com/", {
+        const res = await axios.get(`${API_URL}/`, {
           withCredentials: true,
         });
 
         const user = res.data.user;
         const imageUrl = user.image
-          ? `https://capstone2-client.onrender.com/images/${user.image}`
+          ? `${API_URL}/images/${user.image}`
           : "./picture/Unknown_Member.jpg";
 
         setUserData({
@@ -83,16 +84,12 @@ const EditProfile = () => {
     }
 
     try {
-      const res = await axios.put(
-        "https://capstone2-client.onrender.com/profile",
-        formData,
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axios.put(`${API_URL}/profile`, formData, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (res.status === 200) {
         setUserData(res.data);

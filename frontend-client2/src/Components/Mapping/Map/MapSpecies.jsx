@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet"; // Import Leaflet
 import { useLocation } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
+import API_URL from "../../../Config"; // Dalawang level up ✅
 
 // Define a custom icon
 const customIcon = new L.Icon({
@@ -38,9 +39,7 @@ function MapSpecies() {
     try {
       setError("");
       const response = await axios.get(
-        `https://capstone2-client.onrender.com/api/species?name=${
-          term || searchTerm
-        }`
+        `${API_URL}/api/species?name=${term || searchTerm}`
       );
 
       if (response.data && response.data.length > 0) {
@@ -108,7 +107,7 @@ function MapSpecies() {
                   <div className="flex flex-col items-center space-y-2">
                     {/* Image */}
                     <img
-                      src={`https://bioexplorer-backend.onrender.com/uploads/images/${species.uploadimage}`}
+                      src={species.uploadimage} // Use the Cloudinary image URL
                       alt={species.specificname}
                       className="w-32 h-32  rounded-md"
                     />
@@ -121,11 +120,6 @@ function MapSpecies() {
                         <HiLocationMarker className="mr-1" />
                         <span>{species.location}</span>
                       </div>
-                      <em>{species.specificname}</em>
-                      <br />
-                      <em>{species.scientificname}</em>
-                      <br />
-                      <em>{species.speciescategory}</em>
                     </div>
                   </div>
                 </Popup>

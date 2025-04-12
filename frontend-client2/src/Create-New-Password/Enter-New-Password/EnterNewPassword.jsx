@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import API_URL from "../../Config";
 
 function EnterNewPassword() {
   const location = useLocation();
@@ -35,7 +36,7 @@ function EnterNewPassword() {
     }
 
     axios
-      .post("https://capstone2-client.onrender.com/reset-password", {
+      .post(`${API_URL}/reset-password`, {
         email,
         password: newPassword,
       })

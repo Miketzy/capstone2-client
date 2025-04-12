@@ -8,6 +8,7 @@ import { IoPerson } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
 import axios from "axios";
 import MenuIcon from "@mui/icons-material/Menu";
+import API_URL from "../../Config"; // Dalawang level up ✅
 
 function Navbar({ toggleSidebar }) {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function Navbar({ toggleSidebar }) {
 
   const fetchUserData = () => {
     axios
-      .get("https://capstone2-client.onrender.com/", { withCredentials: true })
+      .get(`${API_URL}/`, { withCredentials: true })
       .then((response) => {
         if (response.data.message === "Profile retrieved successfully") {
           setUser({
@@ -41,7 +42,7 @@ function Navbar({ toggleSidebar }) {
             lastname: response.data.user.lastname || "",
             email: response.data.user.email || "",
             image: response.data.user.image
-              ? `https://capstone2-client.onrender.com/images/${response.data.user.image}`
+              ? `${API_URL}/images/${response.data.user.image}`
               : "/picture/Unknown_Member.jpg",
           });
         } else {
@@ -83,7 +84,7 @@ function Navbar({ toggleSidebar }) {
     if (confirmLogout) {
       try {
         // Call the logout endpoint
-        await axios.post("https://capstone2-client.onrender.com/logout");
+        await axios.post(`${API_URL}/logout`);
 
         // Optionally, clear the token from localStorage (if stored)
         localStorage.removeItem("token");

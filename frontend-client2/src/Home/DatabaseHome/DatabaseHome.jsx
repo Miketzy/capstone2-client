@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./DatabaseHome.css";
-import Database from "../../Components/Database/Database-image/Database";
 import Navbar from "../../Components/Navbar/Navbar";
 import ImageSlider from "../../Components/Database/Image-slider/ImageSlider";
 import Sidebar from "../../Components/sidebar/Sidebar";
+import Database from "../../Components/Database/Database-image/Database";
 
 function DatabaseHome() {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);

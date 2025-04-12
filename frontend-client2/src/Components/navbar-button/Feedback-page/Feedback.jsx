@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import API_URL from "../../../Config";
 
 function Feedback() {
   const [rating, setRating] = useState(0); // rating state is used to track the rating value
@@ -16,7 +17,7 @@ function Feedback() {
 
     try {
       const response = await axios.post(
-        "https://capstone2-client.onrender.com/submit-feedback",
+        `${API_URL}/submit-feedback`,
         { rating, message },
         { withCredentials: true }
       );

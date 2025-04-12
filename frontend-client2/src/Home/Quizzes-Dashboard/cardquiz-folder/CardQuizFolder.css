@@ -1,0 +1,9 @@
+.quizes-navbarTop{
+    position: fixed;
+    margin-top: -21vh;
+}
+
+
+.quizes-content{
+    margin-top: 21vh;
+}

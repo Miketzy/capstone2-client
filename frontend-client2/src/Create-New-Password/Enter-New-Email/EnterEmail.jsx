@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../../Config";
 
 function EnterEmail() {
   const [email, setEmail] = useState("");
@@ -29,7 +30,7 @@ function EnterEmail() {
 
     setLoading(true);
     axios
-      .post("https://capstone2-client.onrender.com/send-otp", { email })
+      .post(`${API_URL}/send-otp`, { email })
       .then((response) => {
         setMessage(response.data);
         navigate("/Enter-Otp", { state: { email } });
@@ -48,7 +49,7 @@ function EnterEmail() {
 
   const GoToLogin = async () => {
     try {
-      await axios.post("https://capstone2-client.onrender.com/logout");
+      await axios.post(`${API_URL}/logout`);
       localStorage.removeItem("token");
       navigate("/login");
     } catch (error) {

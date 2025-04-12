@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../../../Config"; // Dalawang level up ✅
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -32,18 +33,15 @@ const Registration = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post(
-        "https://capstone2-client.onrender.com/api/register",
-        {
-          firstname: formData.firstname,
-          middlename: formData.middlename,
-          lastname: formData.lastname,
-          email: formData.email,
-          gender: formData.gender,
-          password: formData.password,
-          address: formData.address,
-        }
-      );
+      const response = await axios.post(`${API_URL}/api/register`, {
+        firstname: formData.firstname,
+        middlename: formData.middlename,
+        lastname: formData.lastname,
+        email: formData.email,
+        gender: formData.gender,
+        password: formData.password,
+        address: formData.address,
+      });
 
       console.log(response.data);
       alert("Registration successful!");
@@ -69,7 +67,7 @@ const Registration = () => {
 
   const GoToLogin = async () => {
     try {
-      await axios.post("https://capstone2-client.onrender.com/gotologin");
+      await axios.post(`${API_URL}/gotologin`);
       localStorage.removeItem("token");
       navigate("/login");
     } catch (error) {

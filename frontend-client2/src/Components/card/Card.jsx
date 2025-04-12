@@ -54,7 +54,7 @@ function Card() {
           </div>
         </Link>
 
-        <Link to="/quizzes-intro" className="card-link">
+        <Link to="/cardquizzes" className="card-link">
           <div className="bg-green-600 shadow-lg rounded-lg p-4 hover:shadow-xl transition-transform duration-300 flex flex-col items-center justify-center hover:scale-105 h-[210px] animate-fadeIn hover:bg-green-500">
             <div className="bg-white w-full h-full p-4 rounded-lg flex flex-col items-center justify-center">
               <div className="mb-4">
