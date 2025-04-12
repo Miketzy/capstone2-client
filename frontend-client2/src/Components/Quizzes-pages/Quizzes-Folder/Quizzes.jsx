@@ -12,7 +12,6 @@ function Quizzes() {
   const [quizStarted, setQuizStarted] = useState(false);
   const [showScore, setShowScore] = useState(false);
   const [showAllAnswers, setShowAllAnswers] = useState(false);
-  const [userId, setUserId] = useState(1); // Example user ID, replace as needed
 
   const questionsPerPage = 5;
 
@@ -36,22 +35,17 @@ function Quizzes() {
     }
   };
 
-  const submitScore = async (userId, score) => {
-    try {
-      const response = await axios.post(`${API_URL}/api/submit-score`, {
-        userId,
-        score,
-      });
+  const handleSubmit = () => {
+    let finalScore = 0;
+    questions.forEach((q) => {
+      if (userAnswers[q.id] === q.correctAnswer) {
+        finalScore++;
+      }
+    });
 
-      console.log("✅ Score submitted:", response.data.message);
-      alert("Score submitted successfully!");
-    } catch (error) {
-      console.error(
-        "❌ Failed to submit score:",
-        error.response?.data || error.message
-      );
-      alert("Failed to submit score. Please try again.");
-    }
+    setScore(finalScore);
+    setSubmitted(true);
+    setShowScore(true);
   };
 
   const handleRestart = () => {
@@ -194,33 +188,36 @@ function Quizzes() {
               <div key={q.id} className="mb-6 text-left">
                 <p className="font-medium">{q.question}</p>
                 {q.options.map((opt, idx) => (
-                  <label key={idx} className="block ml-2">
+                  <label key={idx} className="block ml-4">
                     <input
                       type="radio"
-                      name={q.id}
+                      name={`q-${q.id}`}
                       value={opt}
                       checked={userAnswers[q.id] === opt}
                       onChange={() => handleOptionChange(q.id, opt)}
+                      className="mr-2"
                     />
                     {opt}
                   </label>
                 ))}
               </div>
             ))}
-            <div className="flex justify-between">
-              <button
-                onClick={handleNext}
-                disabled={isLastGroup}
-                className="bg-green-500 text-white py-2 px-6 rounded-lg"
-              >
-                Next
-              </button>
-              <button
-                onClick={() => setShowScore(true)}
-                className="bg-green-600 text-white py-2 px-6 rounded-lg"
-              >
-                Submit Quiz
-              </button>
+            <div className="mt-4">
+              {isLastGroup ? (
+                <button
+                  onClick={handleSubmit}
+                  className="bg-green-600 text-white py-2 px-6 rounded-lg"
+                >
+                  Submit
+                </button>
+              ) : (
+                <button
+                  onClick={handleNext}
+                  className="bg-green-600 text-white py-2 px-6 rounded-lg"
+                >
+                  Next
+                </button>
+              )}
             </div>
           </div>
         )}
