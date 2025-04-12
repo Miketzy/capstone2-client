@@ -112,6 +112,9 @@ function Quizzes() {
       <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full mb-[180px]">
         {!quizStarted ? (
           <>
+            <h1 className="text-3xl font-bold text-green-700 mb-4">
+              🧬 Multiple Choice Quiz
+            </h1>
             {/* Display greeting and last score */}
             <p className="text-gray-600">
               Welcome,{" "}
@@ -125,13 +128,8 @@ function Quizzes() {
                 🏆 Last Score: {lastScore} / {questions.length}
               </p>
             )}
-            <h1 className="text-3xl font-bold text-green-700 mb-4">
-              🧬 Multiple Choice Quiz
-            </h1>
-
             <p className="text-lg mb-2">
-              Welcome! Test your species knowledge. Click "Get Started" to
-              begin.
+              Test your species knowledge. Click "Get Started" to begin.
             </p>
             {lastScore !== null && (
               <p className="text-md mb-4 text-gray-600">
