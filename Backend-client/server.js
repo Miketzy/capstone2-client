@@ -724,37 +724,21 @@ app.get('/api/multiple-choice', async (req, res) => {
 app.post('/api/submit-score', (req, res) => {
   console.log("Received score submission:", req.body);
   
-  const { firstname, lastname, score } = req.body;  // Receive firstname, lastname, and score
+  const { firstname, lastname, score } = req.body;
 
-  // Check for missing fields (firstname, lastname, or score)
   if (!firstname || !lastname || score === undefined) {
     return res.status(400).json({ error: 'Missing required fields (firstname, lastname, or score)' });
   }
 
-  // Query to find user by firstname and lastname (if you want to use these instead of ID)
-  const getUserQuery = 'SELECT id FROM users WHERE firstname = $1 AND lastname = $2';
-
-  pool.query(getUserQuery, [firstname, lastname], (err, result) => {
+  // Directly insert without looking up user — since you're passing firstname/lastname
+  const insertQuery = 'INSERT INTO quizzes (firstname, lastname, score) VALUES ($1, $2, $3)';
+  
+  pool.query(insertQuery, [firstname, lastname, score], (err) => {
     if (err) {
-      console.error('Error retrieving user details:', err);
-      return res.status(500).json({ error: 'Error retrieving user details' });
+      console.error('Error saving score:', err);
+      return res.status(500).json({ error: 'Failed to save score' });
     }
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    const userId = result.rows[0].id;  // Get the user's ID from the database
-
-    const insertQuery = 'INSERT INTO quizzes (firstname, lastname, score) VALUES ($1, $2, $3, $4)';
-    
-    pool.query(insertQuery, [userId, firstname, lastname, score], (err) => {
-      if (err) {
-        console.error('Error saving score:', err);
-        return res.status(500).json({ error: 'Failed to save score' });
-      }
-      res.json({ message: 'Score saved successfully!' });
-    });
+    res.json({ message: 'Score saved successfully!' });
   });
 });
 
