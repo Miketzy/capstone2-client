@@ -232,8 +232,6 @@ app.post("/login", (req, res) => {
 app.post("/api/register", async (req, res) => {
   const { firstname, middlename, lastname, email, password, address, gender } =
     req.body;
-    localStorage.setItem('firstname', firstname);  // Store firstname
-    localStorage.setItem('lastname', lastname);  // Store lastname
   // Basic validation
   if (
     !firstname ||
