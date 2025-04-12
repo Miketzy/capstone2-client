@@ -711,7 +711,7 @@ app.get('/api/multiple-choice', async (req, res) => {
       id: q.id,
       question: q.question,
       options: [q.optiona, q.optionb, q.optionc, q.optiond],
-      correctAnswer: q.correct_answer
+      correctAnswer: q.correctanswer
     }));
     res.json(formatted);
   } catch (error) {

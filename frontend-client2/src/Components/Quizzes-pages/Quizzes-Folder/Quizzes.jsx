@@ -41,7 +41,7 @@ function Quizzes() {
     questions.forEach((q) => {
       if (
         userAnswers.hasOwnProperty(q.id) &&
-        userAnswers[q.id] === q.correctAnswer
+        userAnswers[q.id] === q.correctanswer
       ) {
         finalScore++;
       }
