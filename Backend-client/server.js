@@ -199,9 +199,10 @@ app.post("/login", (req, res) => {
           // Set the JWT token in a cookie
           res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax",
+            secure: true, // must be true in production (HTTPS)
+            sameSite: "None", // allows cross-site cookies
           });
+          
           return res.json({
             Status: "Success",
             firstname: user.firstname,
