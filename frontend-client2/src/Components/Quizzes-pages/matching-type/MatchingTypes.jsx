@@ -123,7 +123,7 @@ function MatchingTypes() {
           </p>
           {lastScore !== null && (
             <p className="text-green-700 font-medium text-lg">
-              🏆 Last Score: {lastScore} / {questions.length}
+              🏆 Last Score: {lastScore} / {matchingData.length}
             </p>
           )}
           <p className="text-gray-600">
