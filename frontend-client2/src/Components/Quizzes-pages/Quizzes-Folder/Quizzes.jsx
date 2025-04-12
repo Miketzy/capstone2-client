@@ -37,7 +37,7 @@ function Quizzes() {
 
   const submitScore = async (userId, score) => {
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/submit-score`, {
+      const response = await axios.post(`${API_URL}/api/submit-score`, {
         userId,
         score,
       });
