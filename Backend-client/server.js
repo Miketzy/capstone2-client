@@ -746,7 +746,7 @@ app.post('/api/submit-score', (req, res) => {
 
     const userId = result.rows[0].id;  // Get the user's ID from the database
 
-    const insertQuery = 'INSERT INTO quizzes (id, firstname, lastname, score) VALUES ($1, $2, $3, $4)';
+    const insertQuery = 'INSERT INTO quizzes (firstname, lastname, score) VALUES ($1, $2, $3, $4)';
     
     pool.query(insertQuery, [userId, firstname, lastname, score], (err) => {
       if (err) {
