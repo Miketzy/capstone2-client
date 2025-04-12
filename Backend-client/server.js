@@ -748,7 +748,7 @@ app.post('/api/submit-score', (req, res) => {
 
     const insertQuery = 'INSERT INTO quizzes (firstname, lastname, score) VALUES ($1, $2, $3, $4)';
     
-    pool.query(insertQuery, [userId, firstname, lastname, score], (err) => {
+    pool.query(insertQuery, firstname, lastname, score], (err) => {
       if (err) {
         console.error('Error saving score:', err);
         return res.status(500).json({ error: 'Failed to save score' });
