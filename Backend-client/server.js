@@ -718,6 +718,44 @@ app.get('/api/multiple-choice', async (req, res) => {
     res.status(500).json({ error: 'Database query failed' });
   }
 });
+
+// POST: Save quiz score for logged-in user
+app.post('/api/submit-score', (req, res) => {
+  const { userId, score } = req.body;  // Get the user ID and score from the frontend
+
+  if (!userId || score === undefined) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  // Get user's firstname and lastname from the database using the userId
+  const getUserQuery = 'SELECT firstname, lastname FROM users WHERE id = $1';
+
+  pool.query(getUserQuery, [userId], (err, result) => {
+    if (err) {
+      console.error('Error retrieving user details:', err);
+      return res.status(500).json({ error: 'Error retrieving user details' });
+    }
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const { firstname, lastname } = result.rows[0];
+
+    // Insert score with the user's firstname and lastname
+    const insertQuery = 'INSERT INTO quizzes (firstname, lastname, score) VALUES ($1, $2, $3)';
+    
+    pool.query(insertQuery, [firstname, lastname, score], (err) => {
+      if (err) {
+        console.error('Error saving score:', err);
+        return res.status(500).json({ error: 'Failed to save score' });
+      }
+      res.json({ message: 'Score saved successfully!' });
+    });
+  });
+});
+
+
 // Start the server on port 8081
 app.listen(8081, () => {
   console.log("Server is running on port 8081");
