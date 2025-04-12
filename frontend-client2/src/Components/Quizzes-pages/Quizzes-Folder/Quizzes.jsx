@@ -35,28 +35,22 @@ function Quizzes() {
     }
   };
 
-  const handleSubmit = () => {
-    let finalScore = 0;
-    questions.forEach((q) => {
-      if (userAnswers[q.id] === q.correctAnswer) {
-        finalScore++;
-      }
-    });
-
-    setScore(finalScore);
-    setSubmitted(true);
-    setShowScore(true);
-
-    // Send the score to the backend here
-    const userId = 1; // This should be the actual logged-in user's ID
-    axios
-      .post(`${API_URL}/api/submit-score`, { userId, score: finalScore })
-      .then((res) => {
-        console.log("Score submitted successfully:", res.data);
-      })
-      .catch((err) => {
-        console.error("Error submitting score:", err);
+  const submitScore = async (userId, score) => {
+    try {
+      const response = await axios.post(`${BACKEND_URL}/api/submit-score`, {
+        userId,
+        score,
       });
+
+      console.log("✅ Score submitted:", response.data.message);
+      alert("Score submitted successfully!");
+    } catch (error) {
+      console.error(
+        "❌ Failed to submit score:",
+        error.response?.data || error.message
+      );
+      alert("Failed to submit score. Please try again.");
+    }
   };
 
   const handleRestart = () => {
@@ -216,7 +210,7 @@ function Quizzes() {
             <div className="mt-4">
               {isLastGroup ? (
                 <button
-                  onClick={handleSubmit}
+                  onClick={submitScore}
                   className="bg-green-600 text-white py-2 px-6 rounded-lg"
                 >
                   Submit

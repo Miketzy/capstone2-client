@@ -722,13 +722,12 @@ app.get('/api/multiple-choice', async (req, res) => {
 // POST: Save quiz score for logged-in user
 app.post('/api/submit-score', (req, res) => {
   console.log("Received score submission:", req.body);
-  const { userId, score } = req.body;  // Get the user ID and score from the frontend
+  const { userId, score } = req.body;
 
   if (!userId || score === undefined) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  // Get user's firstname and lastname from the database using the userId
   const getUserQuery = 'SELECT firstname, lastname FROM users WHERE id = $1';
 
   pool.query(getUserQuery, [userId], (err, result) => {
@@ -743,7 +742,6 @@ app.post('/api/submit-score', (req, res) => {
 
     const { firstname, lastname } = result.rows[0];
 
-    // Insert score with the user's firstname and lastname
     const insertQuery = 'INSERT INTO quizzes (firstname, lastname, score) VALUES ($1, $2, $3)';
     
     pool.query(insertQuery, [firstname, lastname, score], (err) => {
@@ -755,6 +753,7 @@ app.post('/api/submit-score', (req, res) => {
     });
   });
 });
+
 
 
 // Start the server on port 8081
