@@ -121,8 +121,7 @@ function MatchingTypes() {
               <ul className="space-y-2">
                 {matchingData.map((item) => (
                   <li key={item.id} className="text-sm">
-                    ✅ <strong>{item.column_a}</strong> —{" "}
-                    <em>{item.column_b}</em>
+                    ✅ <strong>{item.item_a}</strong> — <em>{item.item_b}</em>
                   </li>
                 ))}
               </ul>
