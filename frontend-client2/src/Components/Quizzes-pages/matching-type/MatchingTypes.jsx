@@ -17,21 +17,17 @@ function MatchingTypes() {
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
 
+  // Get user info from localStorage
   const firstname = localStorage.getItem("firstname") || "Guest";
   const lastname = localStorage.getItem("lastname") || "";
 
   useEffect(() => {
     axios
       .get(`${API_URL}/api/matching_type_question`)
-      .then((res) => {
-        setMatchingData(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch questions", err);
-        setLoading(false);
-      });
+      .then((res) => setQuestions(res.data))
+      .catch((err) => console.error("Failed to fetch questions", err));
 
+    // Get last score from localStorage if exists
     const savedScore = localStorage.getItem("lastQuizScore");
     if (savedScore !== null) {
       setLastScore(savedScore);
@@ -55,36 +51,34 @@ function MatchingTypes() {
     (currentPage + 1) * questionsPerPage
   );
 
-  const handleSubmit = () => {
-    let finalScore = 0;
-
-    Object.entries(matches).forEach(([id, answer]) => {
-      const question = matchingData.find((q) => q.id.toString() === id);
-      if (question && question.correctAnswer === answer) {
-        finalScore++;
+  const handleSubmit = async () => {
+    let correct = 0;
+    matchingData.forEach((item) => {
+      if (matches[item.id] === item.item_b) {
+        correct += 1;
       }
     });
+    setScore(correct);
+    setShowResult(true);
 
-    if (!firstname || !lastname) {
-      console.error("User details (firstname/lastname) are missing");
-      return;
+    // Compare new score with last score
+    const previousScore = localStorage.getItem("lastScore");
+
+    if (!previousScore || correct > parseInt(previousScore)) {
+      localStorage.setItem("lastScore", correct);
+      setLastScore(correct); // Update the state so UI also changes
     }
 
-    axios
-      .post(`${API_URL}/api/matching-submit-score`, {
+    try {
+      await axios.post(`${API_URL}/api/matching-submit-score`, {
         firstname,
         lastname,
-        score: finalScore,
-      })
-      .then((response) => {
-        console.log("Score submitted:", response.data);
-        setScore(finalScore);
-        setShowResult(true);
-        localStorage.setItem("lastQuizScore", finalScore);
-      })
-      .catch((error) => {
-        console.error("Error submitting score:", error);
+        score: correct,
       });
+      console.log("Score submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting score:", error);
+    }
   };
 
   if (loading) {
@@ -106,9 +100,15 @@ function MatchingTypes() {
           </h1>
           <p className="text-gray-600">
             Welcome,{" "}
-            <span className="font-semibold">{`${firstname} ${
-              lastname || ""
-            }`}</span>
+            <span className="font-semibold">
+              {localStorage.getItem("firstname") &&
+              localStorage.getItem("lastname")
+                ? `${localStorage.getItem("firstname")} ${localStorage.getItem(
+                    "lastname"
+                  )}`
+                : "User"}{" "}
+              {/* Fallback if no name found */}
+            </span>
             !
           </p>
           {lastScore !== null && (
@@ -150,6 +150,7 @@ function MatchingTypes() {
               🔁 Retry Quiz
             </button>
           </div>
+
           {showAllAnswers && (
             <div className="mt-6 text-left max-h-64 overflow-y-auto">
               <h2 className="text-xl font-semibold text-green-600 mb-2">
@@ -184,6 +185,7 @@ function MatchingTypes() {
                 </div>
               ))}
             </div>
+
             {/* Column B */}
             <div>
               <h3 className="font-semibold text-green-600 mb-2">
@@ -207,6 +209,7 @@ function MatchingTypes() {
               ))}
             </div>
           </div>
+
           {/* Pagination / Submit */}
           <div className="flex justify-between mt-6">
             <button
@@ -220,6 +223,7 @@ function MatchingTypes() {
             >
               Previous
             </button>
+
             {currentPage === totalPages - 1 ? (
               <button
                 onClick={handleSubmit}
