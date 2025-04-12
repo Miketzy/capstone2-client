@@ -39,28 +39,29 @@ function MatchingTypes() {
   }, []);
 
   const handleStart = () => {
-    const shuffled = [...matchingData.map((item) => item.item_b)].sort(
+    shuffleAnswersForCurrentPage();
+    setStarted(true);
+  };
+
+  const shuffleAnswersForCurrentPage = () => {
+    const currentQuestions = matchingData.slice(
+      currentPage * questionsPerPage,
+      (currentPage + 1) * questionsPerPage
+    );
+    const shuffled = [...currentQuestions.map((item) => item.item_b)].sort(
       () => Math.random() - 0.5
     );
     setShuffledAnswers(shuffled);
-    setStarted(true);
   };
 
   const handleSelect = (id, selected) => {
     setMatches((prev) => ({ ...prev, [id]: selected }));
   };
 
-  const currentQuestions = matchingData.slice(
-    currentPage * questionsPerPage,
-    (currentPage + 1) * questionsPerPage
-  );
-
   const handleSubmit = () => {
     let finalScore = 0;
-
-    Object.entries(matches).forEach(([id, answer]) => {
-      const question = matchingData.find((q) => q.id.toString() === id);
-      if (question && question.correctAnswer === answer) {
+    matchingData.forEach((question) => {
+      if (matches[question.id] === question.item_b) {
         finalScore++;
       }
     });
@@ -87,6 +88,27 @@ function MatchingTypes() {
       });
   };
 
+  const handleNextPage = () => {
+    const nextPage = currentPage + 1;
+    if (nextPage < totalPages) {
+      setCurrentPage(nextPage);
+      shuffleAnswersForCurrentPage();
+    }
+  };
+
+  const handlePreviousPage = () => {
+    const prevPage = currentPage - 1;
+    if (prevPage >= 0) {
+      setCurrentPage(prevPage);
+      shuffleAnswersForCurrentPage();
+    }
+  };
+
+  const currentQuestions = matchingData.slice(
+    currentPage * questionsPerPage,
+    (currentPage + 1) * questionsPerPage
+  );
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -107,13 +129,7 @@ function MatchingTypes() {
           <p className="text-gray-600">
             Welcome,{" "}
             <span className="font-semibold">
-              {localStorage.getItem("firstname") &&
-              localStorage.getItem("lastname")
-                ? `${localStorage.getItem("firstname")} ${localStorage.getItem(
-                    "lastname"
-                  )}`
-                : "User"}{" "}
-              {/* Fallback if no name found */}
+              {firstname} {lastname}
             </span>
             !
           </p>
@@ -219,7 +235,7 @@ function MatchingTypes() {
           {/* Pagination / Submit */}
           <div className="flex justify-between mt-6">
             <button
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
+              onClick={handlePreviousPage}
               className={`px-4 py-2 rounded-lg ${
                 currentPage === 0
                   ? "bg-gray-300 cursor-not-allowed"
@@ -239,14 +255,8 @@ function MatchingTypes() {
               </button>
             ) : (
               <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))
-                }
-                className={`px-4 py-2 rounded-lg ${
-                  currentPage === totalPages - 1
-                    ? "bg-gray-300 cursor-not-allowed"
-                    : "bg-green-600 text-white hover:bg-green-700"
-                }`}
+                onClick={handleNextPage}
+                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
               >
                 Next
               </button>
