@@ -318,7 +318,7 @@ app.get("/api/species", (req, res) => {
   }
 
   const query = `
-    SELECT specificname, commonname, scientificname, location, speciescategory, uploadimage
+    SELECT specificname, commonname, scientificname, location, speciescategory, uploadimage, latitude, longitude
     FROM species 
     WHERE (specificname LIKE $1 OR commonname LIKE $1 OR scientificname LIKE $1 OR speciescategory LIKE $1)
   `;
