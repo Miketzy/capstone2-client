@@ -83,7 +83,7 @@ function Identifications() {
     const lastname = localStorage.getItem("lastname");
 
     try {
-      await axios.post(`${API_URL}/api/matching-submit-score`, {
+      await axios.post(`${API_URL}/api/submit-quiz`, {
         firstname,
         lastname,
         score: correct,
