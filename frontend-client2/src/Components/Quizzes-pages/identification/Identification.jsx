@@ -72,7 +72,6 @@ function Identifications() {
     const allAnswered = currentQuestions.every(
       (_, i) => userAnswers[start + i].trim() !== ""
     );
-
     if (!allAnswered) {
       alert("Please answer all questions before continuing.");
       return;
@@ -87,41 +86,20 @@ function Identifications() {
           calculatedScore += 1;
         }
       });
-
       setScore(calculatedScore);
       setShowScore(true);
-
-      // Get firstName and lastName from localStorage
-      const firstName = localStorage.getItem("firstName");
-      const lastName = localStorage.getItem("lastName");
-
-      // Debugging logs
-      console.log("First Name:", firstName);
-      console.log("Last Name:", lastName);
-      console.log("Score:", calculatedScore);
-
-      // Check if firstName or lastName is missing
-      if (!firstName || !lastName) {
-        alert(
-          "Missing user information. Please make sure you are logged in properly."
-        );
-        return;
-      }
 
       // Submit the quiz results to the backend
       try {
         await axios.post(`${API_URL}/api/submit-quiz`, {
-          firstName: firstName,
-          lastName: lastName,
+          firstName: "YourFirstName", // Replace with actual first name of the user
+          lastName: "YourLastName", // Replace with actual last name of the user
           score: calculatedScore,
         });
-        console.log("Quiz results submitted successfully!");
       } catch (error) {
         console.error("Error submitting quiz results:", error);
-        alert("Failed to submit quiz results. Please try again later.");
       }
     } else {
-      // Move to next page
       setCurrentPage(currentPage + 1);
     }
   };
