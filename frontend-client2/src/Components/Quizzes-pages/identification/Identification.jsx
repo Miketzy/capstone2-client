@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import axios
-import API_URL from "../../../Config";
+import API_URL from "../../../Config"; // Make sure your API_URL is correct
 
 // Fisher-Yates Shuffle function to randomize questions
 const shuffleArray = (array) => {
@@ -13,7 +13,7 @@ const shuffleArray = (array) => {
 };
 
 function Identifications() {
-  const [questions, setQuestions] = useState([]); // HINDI na hardcoded
+  const [questions, setQuestions] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const [showScore, setShowScore] = useState(false);
@@ -21,28 +21,30 @@ function Identifications() {
   const [showAllAnswers, setShowAllAnswers] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
   const [randomizedQuestions, setRandomizedQuestions] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
 
   const questionsPerPage = 5;
 
-  // Fetch questions from backend when the component mounts
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
           `${API_URL}/api/identification_question`
         );
-        const formattedQuestions = response.data.map((item) => ({
-          id: item.id,
-          question: item.statement,
-          correctAnswer: item.answer,
-        }));
-        // Limit to the first 25 questions
-        setQuestions(formattedQuestions.slice(0, 25));
-        setUserAnswers(Array(25).fill(""));
-        setLoading(false);
+        if (Array.isArray(response.data)) {
+          const formattedQuestions = response.data.map((item) => ({
+            id: item.id,
+            question: item.statement,
+            correctAnswer: item.answer,
+          }));
+          setQuestions(formattedQuestions.slice(0, 25));
+          setUserAnswers(Array(25).fill(""));
+        } else {
+          console.error("Invalid response format:", response.data);
+        }
       } catch (error) {
         console.error("Error fetching questions:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -87,16 +89,16 @@ function Identifications() {
       setScore(calculatedScore);
       setShowScore(true);
     } else {
-      setCurrentPage(currentPage + 1);
+      setCurrentPage((prev) => prev + 1);
     }
   };
 
   const handleBackToIntro = () => {
-    setQuizStarted(false); // Go back to the intro screen
-    setCurrentPage(0); // Reset the page to 0
-    setUserAnswers(Array(25).fill("")); // Reset answers
-    setShowScore(false); // Hide score
-    setScore(0); // Reset score
+    setQuizStarted(false);
+    setCurrentPage(0);
+    setUserAnswers(Array(25).fill(""));
+    setShowScore(false);
+    setScore(0);
   };
 
   if (loading) {
@@ -109,7 +111,7 @@ function Identifications() {
           <p className="text-lg text-gray-800 mb-6">
             Please wait while we load the quiz questions.
           </p>
-          <div className="loader"></div> {/* Add a loader here */}
+          <div className="loader"></div>
         </div>
       </div>
     );
@@ -118,7 +120,7 @@ function Identifications() {
   if (!quizStarted) {
     return (
       <div className="min-h-screen from-green-50 to-green-200 flex items-center justify-center p-6">
-        <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full  mb-[180px]">
+        <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full mb-[180px]">
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🧬 Identification Quiz
           </h1>
