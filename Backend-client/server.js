@@ -785,6 +785,25 @@ app.get('/api/identification_question', async (req, res) => {
   }
 });
 
+// Route to submit quiz results
+app.post('/api/submit-quiz', async (req, res) => {
+  const { firstName, lastName, score } = req.body;
+
+  if (!firstName || !lastName || score === undefined) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO quiz_results (firstname, lastname, score) VALUES ($1, $2, $3) RETURNING *',
+      [firstName, lastName, score]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Database error' });
+  }
+});
 
 
 // Start the server on port 8081
