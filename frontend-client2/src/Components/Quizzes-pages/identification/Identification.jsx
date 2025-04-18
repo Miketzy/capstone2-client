@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // <--- ADD this
+import API_URL from "../../../Config";
 
 const shuffleArray = (array) => {
   let shuffledArray = array.slice();
@@ -30,7 +31,9 @@ function Identifications() {
 
   const fetchQuestions = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/questions"); // backend URL
+      const response = await axios.get(
+        `${API_URL}/api/identification-questions`
+      ); // backend URL
       const fetchedQuestions = response.data;
       setQuestions(fetchedQuestions);
       setRandomizedQuestions(shuffleArray(fetchedQuestions));
