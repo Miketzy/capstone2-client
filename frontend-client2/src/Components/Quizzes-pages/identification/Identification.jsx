@@ -34,15 +34,16 @@ function Identifications() {
         );
         const formattedQuestions = response.data.map((item) => ({
           id: item.id,
-          question: item.statement, // Use the "statement" as the question
-          correctAnswer: item.answer, // Use the "answer"
+          question: item.statement,
+          correctAnswer: item.answer,
         }));
-        setQuestions(formattedQuestions);
-        setUserAnswers(Array(formattedQuestions.length).fill(""));
-        setLoading(false); // Set loading to false after fetching
+        // Limit to the first 25 questions
+        setQuestions(formattedQuestions.slice(0, 25));
+        setUserAnswers(Array(25).fill(""));
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching questions:", error);
-        setLoading(false); // Set loading to false on error
+        setLoading(false);
       }
     };
 
