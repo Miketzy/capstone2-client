@@ -790,13 +790,15 @@ app.get('/api/identification_question', async (req, res) => {
 app.post('/api/submit-quiz', (req, res) => {
   console.log("Received score submission:", req.body);
   
+  // Destructure the body data with matching variable names
   const { firstname, lastname, score } = req.body;
 
+  // Check if required fields are present
   if (!firstname || !lastname || score === undefined) {
     return res.status(400).json({ error: 'Missing required fields (firstname, lastname, or score)' });
   }
 
-  // Directly insert without looking up user — since you're passing firstname/lastname
+  // Directly insert the data into the database
   const insertQuery = 'INSERT INTO quiz_results (firstname, lastname, score) VALUES ($1, $2, $3)';
   
   pool.query(insertQuery, [firstname, lastname, score], (err) => {

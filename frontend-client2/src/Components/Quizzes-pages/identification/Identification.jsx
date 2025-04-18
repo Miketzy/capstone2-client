@@ -72,6 +72,7 @@ function Identifications() {
     const allAnswered = currentQuestions.every(
       (_, i) => userAnswers[start + i].trim() !== ""
     );
+
     if (!allAnswered) {
       alert("Please answer all questions before continuing.");
       return;
@@ -86,18 +87,25 @@ function Identifications() {
           calculatedScore += 1;
         }
       });
+
       setScore(calculatedScore);
       setShowScore(true);
 
-      // Kunin ang firstName at lastName mula sa localStorage
+      // Get firstName and lastName from localStorage
       const firstName = localStorage.getItem("firstName") || "";
       const lastName = localStorage.getItem("lastName") || "";
 
       // Submit the quiz results to the backend
       try {
+        console.log("Sending data to backend:", {
+          firstname: firstName, // Ensure matching casing with backend
+          lastname: lastName, // Ensure matching casing with backend
+          score: calculatedScore,
+        });
+
         await axios.post(`${API_URL}/api/submit-quiz`, {
-          firstName: firstName,
-          lastName: lastName,
+          firstname: firstName, // Use lowercase to match backend
+          lastname: lastName, // Use lowercase to match backend
           score: calculatedScore,
         });
       } catch (error) {
