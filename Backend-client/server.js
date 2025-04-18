@@ -33,7 +33,6 @@ cloudinary.config({
 });
 
 
-// Enable CORS with a specific origin
 app.use(
   cors({
     origin: "https://davao-oriental-bioexplorer-client.vercel.app", // Allow requests from this origin
@@ -41,6 +40,7 @@ app.use(
     credentials: true, // Allow cookies, if needed
   })
 );
+
 
 
 const pool = new Pool({
