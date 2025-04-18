@@ -13,7 +13,7 @@ const shuffleArray = (array) => {
 };
 
 function Identifications() {
-  const [questions, setQuestions] = useState([]); // HINDI na hardcoded
+  const [questions, setQuestions] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const [showScore, setShowScore] = useState(false);
@@ -21,7 +21,7 @@ function Identifications() {
   const [showAllAnswers, setShowAllAnswers] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
   const [randomizedQuestions, setRandomizedQuestions] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
 
   const questionsPerPage = 5;
 
@@ -37,7 +37,6 @@ function Identifications() {
           question: item.statement,
           correctAnswer: item.answer,
         }));
-        // Limit to the first 25 questions
         setQuestions(formattedQuestions.slice(0, 25));
         setUserAnswers(Array(25).fill(""));
         setLoading(false);
@@ -66,7 +65,7 @@ function Identifications() {
     setUserAnswers(updatedAnswers);
   };
 
-  const handleNextOrSubmit = () => {
+  const handleNextOrSubmit = async () => {
     const allAnswered = currentQuestions.every(
       (_, i) => userAnswers[start + i].trim() !== ""
     );
@@ -86,6 +85,17 @@ function Identifications() {
       });
       setScore(calculatedScore);
       setShowScore(true);
+
+      // Submit the quiz results to the backend
+      try {
+        await axios.post(`${API_URL}/api/submit-quiz`, {
+          firstName: "YourFirstName", // Replace with actual first name of the user
+          lastName: "YourLastName", // Replace with actual last name of the user
+          score: calculatedScore,
+        });
+      } catch (error) {
+        console.error("Error submitting quiz results:", error);
+      }
     } else {
       setCurrentPage(currentPage + 1);
     }
@@ -109,7 +119,7 @@ function Identifications() {
           <p className="text-lg text-gray-800 mb-6">
             Please wait while we load the quiz questions.
           </p>
-          <div className="loader"></div> {/* Add a loader here */}
+          <div className="loader"></div>
         </div>
       </div>
     );
@@ -118,7 +128,7 @@ function Identifications() {
   if (!quizStarted) {
     return (
       <div className="min-h-screen from-green-50 to-green-200 flex items-center justify-center p-6">
-        <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full  mb-[180px]">
+        <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full mb-[180px]">
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🧬 Identification Quiz
           </h1>
@@ -230,36 +240,29 @@ function Identifications() {
         <h1 className="text-3xl font-bold text-green-700 mb-6 text-center">
           🧬 Identification Quiz
         </h1>
-
-        <button
-          onClick={handleBackToIntro}
-          className="bg-gray-400 hover:bg-gray-500 text-white py-2 px-6 rounded-lg font-medium mb-4 transition"
-        >
-          Back to Intro
-        </button>
-
-        {currentQuestions.map((q, index) => (
-          <div key={q.id} className="mb-6">
-            <p className="text-lg font-medium text-gray-800 mb-2">
-              {start + index + 1}. {q.question}
-            </p>
-            <input
-              type="text"
-              value={userAnswers[start + index]}
-              onChange={(e) => handleChange(index, e.target.value)}
-              className="w-full p-2 border-2 border-gray-300 rounded-md"
-              placeholder="Your answer"
+        <div className="text-center">
+          <p className="text-xl font-medium mb-4">
+            Question {currentPage + 1} of {Math.ceil(questions.length / 5)}
+          </p>
+          <div className="mb-6">
+            <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              {currentQuestions[0]?.question}
+            </h2>
+            <textarea
+              rows="3"
+              placeholder="Your Answer"
+              value={userAnswers[start]}
+              onChange={(e) => handleChange(0, e.target.value)}
+              className="w-full p-2 border-2 rounded-lg mb-4"
             />
+            {/* Add additional questions here */}
+            <button
+              onClick={handleNextOrSubmit}
+              className="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg font-medium transition"
+            >
+              {end >= randomizedQuestions.length ? "Submit" : "Next Question"}
+            </button>
           </div>
-        ))}
-
-        <div className="flex justify-between">
-          <button
-            onClick={handleNextOrSubmit}
-            className="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg font-medium transition"
-          >
-            {end >= randomizedQuestions.length ? "Submit Quiz" : "Next"}
-          </button>
         </div>
       </div>
     </div>
