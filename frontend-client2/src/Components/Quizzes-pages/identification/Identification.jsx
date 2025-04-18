@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import axios
+import API_URL from "../../../Config";
 
 // Fisher-Yates Shuffle function to randomize questions
 const shuffleArray = (array) => {
@@ -29,7 +30,7 @@ function Identifications() {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/identification_question"
+          `${API_URL}api/identification_question`
         );
         const formattedQuestions = response.data.map((item) => ({
           id: item.id,
