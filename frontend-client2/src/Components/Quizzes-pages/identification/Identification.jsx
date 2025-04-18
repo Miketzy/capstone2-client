@@ -83,7 +83,7 @@ function Identifications() {
     const lastname = localStorage.getItem("lastname");
 
     try {
-      await axios.post(`${API_URL}/api/submit-quiz`, {
+      await axios.post(`${API_URL}/api/matching-submit-score`, {
         firstname,
         lastname,
         score: correct,
@@ -95,6 +95,54 @@ function Identifications() {
       localStorage.setItem("user_score", correct);
     } catch (error) {
       console.error("Error submitting score:", error);
+    }
+  };
+
+  const handleNextOrSubmit = async () => {
+    const allAnswered = currentQuestions.every(
+      (_, i) => userAnswers[start + i].trim() !== ""
+    );
+
+    if (!allAnswered) {
+      alert("Please answer all questions before continuing.");
+      return;
+    }
+
+    if (end >= randomizedQuestions.length) {
+      let calculatedScore = 0;
+      randomizedQuestions.forEach((q, i) => {
+        if (
+          userAnswers[i].trim().toLowerCase() === q.correctAnswer.toLowerCase()
+        ) {
+          calculatedScore += 1;
+        }
+      });
+
+      setScore(calculatedScore);
+      setShowScore(true);
+
+      // Get firstName and lastName from localStorage
+      const firstName = localStorage.getItem("firstName") || "";
+      const lastName = localStorage.getItem("lastName") || "";
+
+      // Submit the quiz results to the backend
+      try {
+        console.log("Sending data to backend:", {
+          firstname: firstName, // Ensure matching casing with backend
+          lastname: lastName, // Ensure matching casing with backend
+          score: calculatedScore,
+        });
+
+        await axios.post(`${API_URL}/api/submit-quiz`, {
+          firstname: firstName, // Use lowercase to match backend
+          lastname: lastName, // Use lowercase to match backend
+          score: calculatedScore,
+        });
+      } catch (error) {
+        console.error("Error submitting quiz results:", error);
+      }
+    } else {
+      setCurrentPage(currentPage + 1);
     }
   };
 
