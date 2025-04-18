@@ -773,17 +773,17 @@ app.post('/api/matching-submit-score', (req, res) => {
   });
 });
 
-// Route to fetch matching questions
-app.get("/api/identification_question", async (req, res) => {
+// Route to fetch quiz questions
+app.get('/api/identification_question', async (req, res) => {
   try {
-    const result = await pool.query("SELECT id, statement, answer FROM identification_questions");
-    res.json(result.rows);
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    res.status(500).json({ error: "Internal server error" });
+    const result = await pool.query('SELECT id, statement, answer FROM identification_questions');
+    const questions = result.rows;
+    res.json(questions);
+  } catch (error) {
+    console.error('Error fetching questions:', error);
+    res.status(500).json({ error: 'Error fetching questions' });
   }
 });
-
 
 
 
