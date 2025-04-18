@@ -30,7 +30,7 @@ function Identifications() {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          `${API_URL}api/identification_question`
+          `${API_URL}/api/identification_question`
         );
         const formattedQuestions = response.data.map((item) => ({
           id: item.id,
