@@ -89,11 +89,15 @@ function Identifications() {
       setScore(calculatedScore);
       setShowScore(true);
 
+      // Get firstName and lastName from localStorage
+      const firstName = localStorage.getItem("firstName");
+      const lastName = localStorage.getItem("lastName");
+
       // Submit the quiz results to the backend
       try {
         await axios.post(`${API_URL}/api/submit-quiz`, {
-          firstName: "YourFirstName", // Replace with actual first name of the user
-          lastName: "YourLastName", // Replace with actual last name of the user
+          firstName: firstName,
+          lastName: lastName,
           score: calculatedScore,
         });
       } catch (error) {
