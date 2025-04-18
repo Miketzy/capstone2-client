@@ -69,36 +69,6 @@ function Identifications() {
   };
 
   const handleNextOrSubmit = async () => {
-    let correct = 0;
-    matchingData.forEach((item) => {
-      if (matches[item.id] === item.item_b) {
-        correct += 1;
-      }
-    });
-    setScore(correct);
-    setShowResult(true);
-
-    // Get user info from localStorage
-    const firstname = localStorage.getItem("firstname");
-    const lastname = localStorage.getItem("lastname");
-
-    try {
-      await axios.post(`${API_URL}/api/matching-submit-score`, {
-        firstname,
-        lastname,
-        score: correct,
-      });
-
-      console.log("Score submitted successfully!");
-
-      // Store the score in localStorage for the current user
-      localStorage.setItem("user_score", correct);
-    } catch (error) {
-      console.error("Error submitting score:", error);
-    }
-  };
-
-  const handleNextOrSubmit = async () => {
     const allAnswered = currentQuestions.every(
       (_, i) => userAnswers[start + i].trim() !== ""
     );
