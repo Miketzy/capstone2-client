@@ -68,7 +68,7 @@ function Identifications() {
     setUserAnswers(updatedAnswers);
   };
 
-  const handleNextOrSubmit = () => {
+  const handleNextOrSubmit = async () => {
     const allAnswered = currentQuestions.every(
       (_, i) => userAnswers[start + i].trim() !== ""
     );
@@ -88,8 +88,19 @@ function Identifications() {
       });
       setScore(calculatedScore);
       setShowScore(true);
+
+      // Submit the quiz results to the backend
+      try {
+        await axios.post(`${API_URL}/api/submit-quiz`, {
+          firstName: "YourFirstName", // Replace with actual first name of the user
+          lastName: "YourLastName", // Replace with actual last name of the user
+          score: calculatedScore,
+        });
+      } catch (error) {
+        console.error("Error submitting quiz results:", error);
+      }
     } else {
-      setCurrentPage((prev) => prev + 1);
+      setCurrentPage(currentPage + 1);
     }
   };
 
