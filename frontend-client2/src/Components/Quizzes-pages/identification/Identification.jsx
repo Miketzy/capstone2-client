@@ -95,21 +95,38 @@ function Identifications() {
       const firstName = localStorage.getItem("firstName") || "";
       const lastName = localStorage.getItem("lastName") || "";
 
+      console.log("Retrieved firstName:", firstName);
+      console.log("Retrieved lastName:", lastName);
+
+      // Validate if firstName and lastName are present
+      if (!firstName || !lastName) {
+        alert(
+          "Missing first name or last name. Please log in or register first."
+        );
+        return;
+      }
+
       // Submit the quiz results to the backend
       try {
-        console.log("Sending data to backend:", {
-          firstname: firstName, // Ensure matching casing with backend
-          lastname: lastName, // Ensure matching casing with backend
+        const payload = {
+          firstname: firstName, // Match backend expected fields
+          lastname: lastName,
           score: calculatedScore,
-        });
+        };
 
-        await axios.post(`${API_URL}/api/submit-quiz`, {
-          firstname: firstName, // Use lowercase to match backend
-          lastname: lastName, // Use lowercase to match backend
-          score: calculatedScore,
-        });
+        console.log("Sending data to backend:", payload);
+
+        await axios.post(`${API_URL}/api/submit-quiz`, payload);
+
+        console.log("Quiz results submitted successfully!");
       } catch (error) {
-        console.error("Error submitting quiz results:", error);
+        console.error(
+          "Error submitting quiz results:",
+          error.response?.data || error.message
+        );
+        alert(
+          "There was an error submitting your quiz. Please try again later."
+        );
       }
     } else {
       setCurrentPage(currentPage + 1);
