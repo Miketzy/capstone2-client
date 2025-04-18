@@ -70,7 +70,7 @@ function Identifications() {
 
   const handleNextOrSubmit = async () => {
     const allAnswered = currentQuestions.every(
-      (_, i) => userAnswers[start + i].trim() !== ""
+      (_, i) => userAnswers[start + i]?.trim() !== ""
     );
 
     if (!allAnswered) {
@@ -82,7 +82,7 @@ function Identifications() {
       let calculatedScore = 0;
       randomizedQuestions.forEach((q, i) => {
         if (
-          userAnswers[i].trim().toLowerCase() === q.correctAnswer.toLowerCase()
+          userAnswers[i]?.trim().toLowerCase() === q.correctAnswer.toLowerCase()
         ) {
           calculatedScore += 1;
         }
@@ -95,21 +95,33 @@ function Identifications() {
       const firstName = localStorage.getItem("firstName") || "";
       const lastName = localStorage.getItem("lastName") || "";
 
+      // Check if firstName and lastName exist before submitting
+      if (!firstName || !lastName) {
+        alert("Missing user information. Please login again.");
+        return;
+      }
+
       // Submit the quiz results to the backend
       try {
         console.log("Sending data to backend:", {
-          firstname: firstName, // Ensure matching casing with backend
-          lastname: lastName, // Ensure matching casing with backend
+          firstname: firstName, // lowercase to match backend
+          lastname: lastName,
           score: calculatedScore,
         });
 
         await axios.post(`${API_URL}/api/submit-quiz`, {
-          firstname: firstName, // Use lowercase to match backend
-          lastname: lastName, // Use lowercase to match backend
+          firstname: firstName, // backend expects lowercase "firstname"
+          lastname: lastName, // backend expects lowercase "lastname"
           score: calculatedScore,
         });
+
+        console.log("Quiz results submitted successfully!");
       } catch (error) {
-        console.error("Error submitting quiz results:", error);
+        console.error(
+          "Error submitting quiz results:",
+          error.response?.data || error.message
+        );
+        alert("Failed to submit quiz. Please try again later.");
       }
     } else {
       setCurrentPage(currentPage + 1);
