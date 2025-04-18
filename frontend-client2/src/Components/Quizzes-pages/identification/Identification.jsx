@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios"; // <--- ADD this
 
-// Fisher-Yates Shuffle function to randomize questions
 const shuffleArray = (array) => {
   let shuffledArray = array.slice();
   for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -11,28 +11,34 @@ const shuffleArray = (array) => {
 };
 
 function Identifications() {
-  const questions = Array.from({ length: 25 }, (_, i) => ({
-    id: i + 1,
-    question: `What is the scientific name of species?`, // Number is now before the question
-    correctAnswer: `Answer${i + 1}`, // Example correct answers
-  }));
-
+  const [questions, setQuestions] = useState([]); // <--- now dynamic
   const [currentPage, setCurrentPage] = useState(0);
-  const [userAnswers, setUserAnswers] = useState(Array(25).fill(""));
+  const [userAnswers, setUserAnswers] = useState([]);
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
   const [showAllAnswers, setShowAllAnswers] = useState(false);
-  const [quizStarted, setQuizStarted] = useState(false); // Flag to control intro screen
-  const [randomizedQuestions, setRandomizedQuestions] = useState([]); // Store randomized questions
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [randomizedQuestions, setRandomizedQuestions] = useState([]);
 
   const questionsPerPage = 5;
 
   useEffect(() => {
     if (quizStarted) {
-      // Shuffle the questions when quiz starts or restarts
-      setRandomizedQuestions(shuffleArray(questions));
+      fetchQuestions(); // <--- fetch from backend when quiz starts
     }
   }, [quizStarted]);
+
+  const fetchQuestions = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/questions"); // backend URL
+      const fetchedQuestions = response.data;
+      setQuestions(fetchedQuestions);
+      setRandomizedQuestions(shuffleArray(fetchedQuestions));
+      setUserAnswers(Array(fetchedQuestions.length).fill(""));
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+    }
+  };
 
   const start = currentPage * questionsPerPage;
   const end = start + questionsPerPage;
@@ -70,23 +76,23 @@ function Identifications() {
   };
 
   const handleBackToIntro = () => {
-    setQuizStarted(false); // Go back to the intro screen
-    setCurrentPage(0); // Reset the page to 0
-    setUserAnswers(Array(25).fill("")); // Reset answers
-    setShowScore(false); // Hide score
-    setScore(0); // Reset score
+    setQuizStarted(false);
+    setCurrentPage(0);
+    setUserAnswers([]);
+    setShowScore(false);
+    setScore(0);
   };
 
   if (!quizStarted) {
     return (
-      <div className="min-h-screen  from-green-50 to-green-200 flex items-center justify-center p-6">
-        <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full  mb-[180px]">
+      <div className="min-h-screen from-green-50 to-green-200 flex items-center justify-center p-6">
+        <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full mb-[180px]">
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🧬 Identification Quiz
           </h1>
           <p className="text-lg text-gray-800 mb-6">
             Welcome to the Identification Quiz! Test your knowledge of species
-            and their scientific names. Click "Get Started" to begin.
+            and their scientific names.
           </p>
           <button
             onClick={() => setQuizStarted(true)}
@@ -101,7 +107,7 @@ function Identifications() {
 
   if (showScore && !showAllAnswers) {
     return (
-      <div className="min-h-screen  from-green-50 to-green-200 flex items-center justify-center p-6">
+      <div className="min-h-screen from-green-50 to-green-200 flex items-center justify-center p-6">
         <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full">
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🎉 Quiz Completed!
@@ -141,7 +147,6 @@ function Identifications() {
             const correctAnswer = q.correctAnswer.trim();
             const isCorrect =
               userAnswer.toLowerCase() === correctAnswer.toLowerCase();
-
             return (
               <div
                 key={q.id}
@@ -187,7 +192,7 @@ function Identifications() {
   }
 
   return (
-    <div className="min-h-screen  from-green-50 to-green-200 p-6 flex items-center justify-center">
+    <div className="min-h-screen from-green-50 to-green-200 p-6 flex items-center justify-center">
       <div className="bg-white shadow-2xl rounded-2xl p-8 max-w-lg w-full">
         <h1 className="text-3xl font-bold text-green-700 mb-6 text-center">
           🧬 Identification Quiz

@@ -773,6 +773,17 @@ app.post('/api/matching-submit-score', (req, res) => {
   });
 });
 
+// Route to get identification questions
+app.get('/api/identification-questions', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT statement, answer FROM identification_questions');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching identification questions', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 
 
