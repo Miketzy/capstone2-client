@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Import axios
-import API_URL from "../../../Config"; // Make sure your API_URL is correct
+import axios from "axios";
+import API_URL from "../../../Config"; // Siguraduhin tama ang path mo dito
 
-// Fisher-Yates Shuffle function to randomize questions
+// Shuffle function (Fisher-Yates algorithm)
 const shuffleArray = (array) => {
   let shuffledArray = array.slice();
   for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -22,6 +22,7 @@ function Identifications() {
   const [quizStarted, setQuizStarted] = useState(false);
   const [randomizedQuestions, setRandomizedQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false); // ADD THIS
 
   const questionsPerPage = 5;
 
@@ -79,7 +80,6 @@ function Identifications() {
     }
 
     if (end >= randomizedQuestions.length) {
-      // Calculate score
       let calculatedScore = 0;
       randomizedQuestions.forEach((q, i) => {
         if (
@@ -92,12 +92,8 @@ function Identifications() {
       setScore(calculatedScore);
       setShowScore(true);
 
-      // Retrieve user info from localStorage
       const firstName = localStorage.getItem("firstname") || "";
       const lastName = localStorage.getItem("lastname") || "";
-
-      console.log("Retrieved firstname:", firstName);
-      console.log("Retrieved lastname:", lastName);
 
       if (!firstName || !lastName) {
         alert(
@@ -112,17 +108,12 @@ function Identifications() {
         score: calculatedScore,
       };
 
-      console.log("Sending data to backend:", payload);
-
       try {
-        // Optional: show loading indicator
         setIsSubmitting(true);
-
         const response = await axios.post(
           `${API_URL}/api/submit-quiz`,
           payload
         );
-
         console.log("Quiz results submitted successfully!", response.data);
         alert("Quiz results submitted successfully!");
       } catch (error) {
@@ -132,11 +123,9 @@ function Identifications() {
             "There was an error submitting your quiz. Please try again later."
         );
       } finally {
-        // Turn off loading indicator
         setIsSubmitting(false);
       }
     } else {
-      // Move to next page
       setCurrentPage(currentPage + 1);
     }
   };
@@ -225,7 +214,7 @@ function Identifications() {
             📚 All Correct Answers
           </h2>
           {randomizedQuestions.map((q, index) => {
-            const userAnswer = userAnswers[index].trim();
+            const userAnswer = userAnswers[index]?.trim() || "";
             const correctAnswer = q.correctAnswer.trim();
             const isCorrect =
               userAnswer.toLowerCase() === correctAnswer.toLowerCase();
@@ -245,9 +234,7 @@ function Identifications() {
                 <p className="text-sm">
                   <span className="font-medium">Your Answer: </span>
                   <span
-                    className={`${
-                      isCorrect ? "text-green-700" : "text-red-700"
-                    }`}
+                    className={isCorrect ? "text-green-700" : "text-red-700"}
                   >
                     {userAnswer || "No answer"}
                   </span>
@@ -297,20 +284,23 @@ function Identifications() {
               type="text"
               value={userAnswers[start + index]}
               onChange={(e) => handleChange(index, e.target.value)}
-              className="w-full p-2 border-2 border-gray-300 rounded-md"
-              placeholder="Your answer"
+              className="w-full p-2 border border-gray-300 rounded-lg"
+              placeholder="Enter your answer..."
             />
           </div>
         ))}
 
-        <div className="flex justify-between">
-          <button
-            onClick={handleNextOrSubmit}
-            className="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg font-medium transition"
-          >
-            {end >= randomizedQuestions.length ? "Submit Quiz" : "Next"}
-          </button>
-        </div>
+        <button
+          onClick={handleNextOrSubmit}
+          className={`w-full py-2 px-6 rounded-lg font-medium transition ${
+            isSubmitting
+              ? "bg-gray-400"
+              : "bg-green-500 hover:bg-green-600 text-white"
+          }`}
+          disabled={isSubmitting}
+        >
+          {end >= randomizedQuestions.length ? "Submit Quiz" : "Next"}
+        </button>
       </div>
     </div>
   );
