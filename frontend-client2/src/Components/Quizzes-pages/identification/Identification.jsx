@@ -79,6 +79,7 @@ function Identifications() {
     }
 
     if (end >= randomizedQuestions.length) {
+      // Calculate score
       let calculatedScore = 0;
       randomizedQuestions.forEach((q, i) => {
         if (
@@ -91,14 +92,13 @@ function Identifications() {
       setScore(calculatedScore);
       setShowScore(true);
 
-      // Get firstName and lastName from localStorage
-      const firstName = localStorage.getItem("firstName") || "";
-      const lastName = localStorage.getItem("lastName") || "";
+      // Retrieve user info from localStorage
+      const firstName = localStorage.getItem("firstname") || "";
+      const lastName = localStorage.getItem("lastname") || "";
 
-      console.log("Retrieved firstName:", firstName);
-      console.log("Retrieved lastName:", lastName);
+      console.log("Retrieved firstname:", firstName);
+      console.log("Retrieved lastname:", lastName);
 
-      // Validate if firstName and lastName are present
       if (!firstName || !lastName) {
         alert(
           "Missing first name or last name. Please log in or register first."
@@ -106,30 +106,37 @@ function Identifications() {
         return;
       }
 
-      // Submit the quiz results to the backend
+      const payload = {
+        firstname: firstName,
+        lastname: lastName,
+        score: calculatedScore,
+      };
+
+      console.log("Sending data to backend:", payload);
+
       try {
-        const payload = {
-          firstname: firstName, // match backend field name exactly
-          lastname: lastName,
-          score: calculatedScore,
-        };
+        // Optional: show loading indicator
+        setIsSubmitting(true);
 
-        console.log("Sending data to backend:", payload);
+        const response = await axios.post(
+          `${API_URL}/api/submit-quiz`,
+          payload
+        );
 
-        await axios.post(`${API_URL}/api/submit-quiz`, payload);
-
-        console.log("Quiz results submitted successfully!");
-        alert("Quiz results submitted successfully!"); // optional: notify user
+        console.log("Quiz results submitted successfully!", response.data);
+        alert("Quiz results submitted successfully!");
       } catch (error) {
-        console.error(
-          "Error submitting quiz results:",
-          error.response?.data || error.message
-        );
+        console.error("Error submitting quiz results:", error);
         alert(
-          "There was an error submitting your quiz. Please try again later."
+          error.response?.data?.message ||
+            "There was an error submitting your quiz. Please try again later."
         );
+      } finally {
+        // Turn off loading indicator
+        setIsSubmitting(false);
       }
     } else {
+      // Move to next page
       setCurrentPage(currentPage + 1);
     }
   };
