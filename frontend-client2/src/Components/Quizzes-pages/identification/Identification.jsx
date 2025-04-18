@@ -70,7 +70,7 @@ function Identifications() {
 
   const handleNextOrSubmit = async () => {
     const allAnswered = currentQuestions.every(
-      (_, i) => userAnswers[start + i].trim() !== ""
+      (_, i) => userAnswers[start + i]?.trim() !== ""
     );
 
     if (!allAnswered) {
@@ -82,7 +82,7 @@ function Identifications() {
       let calculatedScore = 0;
       randomizedQuestions.forEach((q, i) => {
         if (
-          userAnswers[i].trim().toLowerCase() === q.correctAnswer.toLowerCase()
+          userAnswers[i]?.trim().toLowerCase() === q.correctAnswer.toLowerCase()
         ) {
           calculatedScore += 1;
         }
@@ -109,7 +109,7 @@ function Identifications() {
       // Submit the quiz results to the backend
       try {
         const payload = {
-          firstname: firstName, // Match backend expected fields
+          firstname: firstName, // match backend field name exactly
           lastname: lastName,
           score: calculatedScore,
         };
@@ -119,6 +119,7 @@ function Identifications() {
         await axios.post(`${API_URL}/api/submit-quiz`, payload);
 
         console.log("Quiz results submitted successfully!");
+        alert("Quiz results submitted successfully!"); // optional: notify user
       } catch (error) {
         console.error(
           "Error submitting quiz results:",
