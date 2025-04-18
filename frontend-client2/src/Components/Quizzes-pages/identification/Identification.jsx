@@ -69,62 +69,32 @@ function Identifications() {
   };
 
   const handleNextOrSubmit = async () => {
-    const allAnswered = currentQuestions.every(
-      (_, i) => userAnswers[start + i]?.trim() !== ""
-    );
+    let correct = 0;
+    matchingData.forEach((item) => {
+      if (matches[item.id] === item.item_b) {
+        correct += 1;
+      }
+    });
+    setScore(correct);
+    setShowResult(true);
 
-    if (!allAnswered) {
-      alert("Please answer all questions before continuing.");
-      return;
-    }
+    // Get user info from localStorage
+    const firstname = localStorage.getItem("firstname");
+    const lastname = localStorage.getItem("lastname");
 
-    if (end >= randomizedQuestions.length) {
-      let calculatedScore = 0;
-      randomizedQuestions.forEach((q, i) => {
-        if (
-          userAnswers[i]?.trim().toLowerCase() === q.correctAnswer.toLowerCase()
-        ) {
-          calculatedScore += 1;
-        }
+    try {
+      await axios.post(`${API_URL}/api/matching-submit-score`, {
+        firstname,
+        lastname,
+        score: correct,
       });
 
-      setScore(calculatedScore);
-      setShowScore(true);
+      console.log("Score submitted successfully!");
 
-      // Get firstName and lastName from localStorage
-      const firstName = localStorage.getItem("firstName") || "";
-      const lastName = localStorage.getItem("lastName") || "";
-
-      // Check if firstName and lastName exist before submitting
-      if (!firstName || !lastName) {
-        alert("Missing user information. Please login again.");
-        return;
-      }
-
-      // Submit the quiz results to the backend
-      try {
-        console.log("Sending data to backend:", {
-          firstname: firstName, // lowercase to match backend
-          lastname: lastName,
-          score: calculatedScore,
-        });
-
-        await axios.post(`${API_URL}/api/submit-quiz`, {
-          firstname: firstName, // backend expects lowercase "firstname"
-          lastname: lastName, // backend expects lowercase "lastname"
-          score: calculatedScore,
-        });
-
-        console.log("Quiz results submitted successfully!");
-      } catch (error) {
-        console.error(
-          "Error submitting quiz results:",
-          error.response?.data || error.message
-        );
-        alert("Failed to submit quiz. Please try again later.");
-      }
-    } else {
-      setCurrentPage(currentPage + 1);
+      // Store the score in localStorage for the current user
+      localStorage.setItem("user_score", correct);
+    } catch (error) {
+      console.error("Error submitting score:", error);
     }
   };
 
