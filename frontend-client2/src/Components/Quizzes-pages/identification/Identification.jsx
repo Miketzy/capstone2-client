@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // <--- ADD this
-import API_URL from "../../../Config";
+import axios from "axios"; // Import axios
 
+// Fisher-Yates Shuffle function to randomize questions
 const shuffleArray = (array) => {
   let shuffledArray = array.slice();
   for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -12,7 +12,7 @@ const shuffleArray = (array) => {
 };
 
 function Identifications() {
-  const [questions, setQuestions] = useState([]); // <--- now dynamic
+  const [questions, setQuestions] = useState([]); // HINDI na hardcoded
   const [currentPage, setCurrentPage] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const [showScore, setShowScore] = useState(false);
@@ -20,28 +20,39 @@ function Identifications() {
   const [showAllAnswers, setShowAllAnswers] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
   const [randomizedQuestions, setRandomizedQuestions] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state
 
   const questionsPerPage = 5;
 
+  // Fetch questions from backend when the component mounts
   useEffect(() => {
-    if (quizStarted) {
-      fetchQuestions(); // <--- fetch from backend when quiz starts
-    }
-  }, [quizStarted]);
+    const fetchQuestions = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/identification_question"
+        );
+        const formattedQuestions = response.data.map((item) => ({
+          id: item.id,
+          question: item.statement, // Use the "statement" as the question
+          correctAnswer: item.answer, // Use the "answer"
+        }));
+        setQuestions(formattedQuestions);
+        setUserAnswers(Array(formattedQuestions.length).fill(""));
+        setLoading(false); // Set loading to false after fetching
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+        setLoading(false); // Set loading to false on error
+      }
+    };
 
-  const fetchQuestions = async () => {
-    try {
-      const response = await axios.get(
-        `${API_URL}/api/identification-questions`
-      ); // backend URL
-      const fetchedQuestions = response.data;
-      setQuestions(fetchedQuestions);
-      setRandomizedQuestions(shuffleArray(fetchedQuestions));
-      setUserAnswers(Array(fetchedQuestions.length).fill(""));
-    } catch (error) {
-      console.error("Error fetching questions:", error);
+    fetchQuestions();
+  }, []);
+
+  useEffect(() => {
+    if (quizStarted && !loading) {
+      setRandomizedQuestions(shuffleArray(questions));
     }
-  };
+  }, [quizStarted, questions, loading]);
 
   const start = currentPage * questionsPerPage;
   const end = start + questionsPerPage;
@@ -79,23 +90,39 @@ function Identifications() {
   };
 
   const handleBackToIntro = () => {
-    setQuizStarted(false);
-    setCurrentPage(0);
-    setUserAnswers([]);
-    setShowScore(false);
-    setScore(0);
+    setQuizStarted(false); // Go back to the intro screen
+    setCurrentPage(0); // Reset the page to 0
+    setUserAnswers(Array(25).fill("")); // Reset answers
+    setShowScore(false); // Hide score
+    setScore(0); // Reset score
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen from-green-50 to-green-200 flex items-center justify-center p-6">
+        <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full">
+          <h1 className="text-3xl font-bold text-green-700 mb-4">
+            🧬 Loading Quiz...
+          </h1>
+          <p className="text-lg text-gray-800 mb-6">
+            Please wait while we load the quiz questions.
+          </p>
+          <div className="loader"></div> {/* Add a loader here */}
+        </div>
+      </div>
+    );
+  }
 
   if (!quizStarted) {
     return (
       <div className="min-h-screen from-green-50 to-green-200 flex items-center justify-center p-6">
-        <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full mb-[180px]">
+        <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full  mb-[180px]">
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🧬 Identification Quiz
           </h1>
           <p className="text-lg text-gray-800 mb-6">
             Welcome to the Identification Quiz! Test your knowledge of species
-            and their scientific names.
+            and their scientific names. Click "Get Started" to begin.
           </p>
           <button
             onClick={() => setQuizStarted(true)}
@@ -150,6 +177,7 @@ function Identifications() {
             const correctAnswer = q.correctAnswer.trim();
             const isCorrect =
               userAnswer.toLowerCase() === correctAnswer.toLowerCase();
+
             return (
               <div
                 key={q.id}
@@ -210,25 +238,27 @@ function Identifications() {
 
         {currentQuestions.map((q, index) => (
           <div key={q.id} className="mb-6">
-            <p className="font-semibold text-green-800 mb-2">
+            <p className="text-lg font-medium text-gray-800 mb-2">
               {start + index + 1}. {q.question}
             </p>
             <input
               type="text"
-              placeholder="Enter your answer..."
               value={userAnswers[start + index]}
               onChange={(e) => handleChange(index, e.target.value)}
-              className="w-full p-3 border-2 border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full p-2 border-2 border-gray-300 rounded-md"
+              placeholder="Your answer"
             />
           </div>
         ))}
 
-        <button
-          onClick={handleNextOrSubmit}
-          className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
-        >
-          {end >= randomizedQuestions.length ? "Submit" : "Next"}
-        </button>
+        <div className="flex justify-between">
+          <button
+            onClick={handleNextOrSubmit}
+            className="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg font-medium transition"
+          >
+            {end >= randomizedQuestions.length ? "Submit Quiz" : "Next"}
+          </button>
+        </div>
       </div>
     </div>
   );
