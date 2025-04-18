@@ -70,20 +70,26 @@ function Identifications() {
 
   const handleNextOrSubmit = async () => {
     let correct = 0;
-    matchingData.forEach((item) => {
-      if (matches[item.id] === item.item_b) {
+
+    // Ensure we are comparing user answers with correct answers
+    randomizedQuestions.forEach((item, index) => {
+      const userAnswer = userAnswers[index].trim().toLowerCase();
+      const correctAnswer = item.correctAnswer.trim().toLowerCase();
+
+      if (userAnswer === correctAnswer) {
         correct += 1;
       }
     });
+
     setScore(correct);
-    setShowResult(true);
+    setShowScore(true);
 
     // Get user info from localStorage
     const firstname = localStorage.getItem("firstname");
     const lastname = localStorage.getItem("lastname");
 
     try {
-      await axios.post(`${API_URL}/api/matching-submit-score`, {
+      await axios.post(`${API_URL}/api/identification-submit-score`, {
         firstname,
         lastname,
         score: correct,
