@@ -35,7 +35,7 @@ function MatchingTypes() {
         });
 
         setUser(response.data);
-        setLastScore(response.data.score || 0); // Set last score to 0 if null
+        setLastScore(response.data.score || 0);
       } catch (error) {
         console.error(
           "Error fetching user info:",
