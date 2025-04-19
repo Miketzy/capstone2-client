@@ -814,7 +814,7 @@ app.post('/api/submit-quiz', (req, res) => {
 });
 
 // Route to get user info
-router.get('/api/userinfo', verifyUser, (req, res) => {
+app.get('/api/userinfo', verifyUser, (req, res) => {
   const userId = req.user.id; // Assuming your JWT contains { id, firstname, lastname, etc. }
 
   const sql = 'SELECT firstname, lastname, score FROM quizzes WHERE id = ?';
