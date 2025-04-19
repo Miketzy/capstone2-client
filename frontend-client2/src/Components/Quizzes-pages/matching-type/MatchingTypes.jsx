@@ -26,7 +26,7 @@ function MatchingTypes() {
           console.error("No token found");
           return;
         }
-        const response = await axios.get(`${API_URL}/api/identificationinfo`, {
+        const response = await axios.get(`${API_URL}/api/matchinginfo`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
