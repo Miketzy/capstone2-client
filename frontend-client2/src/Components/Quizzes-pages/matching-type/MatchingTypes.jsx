@@ -12,9 +12,37 @@ function MatchingTypes() {
   const [showAllAnswers, setShowAllAnswers] = useState(false);
   const [matchingData, setMatchingData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
+
+  useEffect(() => {
+    const fetchMatchingInfo = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          console.error("No token found");
+          return;
+        }
+
+        const response = await axios.get(`${API_URL}/api/identificationinfo`, {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        });
+
+        setUser(response.data);
+        setLastScore(response.data.score || 0);
+      } catch (error) {
+        console.error(
+          "Error fetching user info:",
+          error.response?.data || error.message
+        );
+      }
+    };
+
+    fetchIdentificationInfo();
+  }, []);
 
   useEffect(() => {
     const fetchMatchingQuestions = async () => {
@@ -31,14 +59,6 @@ function MatchingTypes() {
     };
 
     fetchMatchingQuestions();
-  }, []);
-
-  useEffect(() => {
-    // Get the stored score from localStorage (if any) when the component loads
-    const storedScore = localStorage.getItem("user_score");
-    if (storedScore) {
-      setScore(Number(storedScore));
-    }
   }, []);
 
   const handleStart = () => {
@@ -123,9 +143,6 @@ function MatchingTypes() {
             Match the common name (Column A) to its scientific name (Column B).
             Ready to explore?
           </p>
-          {score > 0 && (
-            <p className="text-xl text-green-600">You scored {score} so far.</p>
-          )}
           <button
             onClick={handleStart}
             className="bg-green-600 text-white px-6 py-2 rounded-xl hover:bg-green-700 transition"
