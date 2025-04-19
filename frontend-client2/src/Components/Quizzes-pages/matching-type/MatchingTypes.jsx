@@ -135,6 +135,15 @@ function MatchingTypes() {
           <h1 className="text-3xl font-bold text-green-700">
             🌿 BiExplorer Matching Quiz
           </h1>
+
+          <p className="text-gray-600">
+            Welcome,{" "}
+            <span className="font-semibold">{user?.firstname || "User"}</span>
+          </p>
+          <p className="text-green-700 font-medium text-lg">
+            🏆 Last Score: {lastScore !== 0 ? lastScore : "No score yet"}
+          </p>
+
           <p className="text-gray-600">
             Match the common name (Column A) to its scientific name (Column B).
             Ready to explore?
