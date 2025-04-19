@@ -37,6 +37,7 @@ function Quizzes() {
 
         console.log("Fetched user info:", response.data); // Para makita kung anong sagot
         setUser(response.data);
+        setLastScore(response.data.score || 0); // Set last score to 0 if null
       } catch (error) {
         console.error(
           "Error fetching user info:",
@@ -231,7 +232,8 @@ function Quizzes() {
             </p>
             {lastScore !== null && (
               <p className="text-green-700 font-medium text-lg">
-                🏆 Last Score: {lastScore} / {questions.length}
+                🏆 Last Score: {lastScore !== null ? lastScore : "No score yet"}{" "}
+                / {questions.length}
               </p>
             )}
             <p className="text-lg mb-2">
