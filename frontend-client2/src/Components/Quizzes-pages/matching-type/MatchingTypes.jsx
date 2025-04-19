@@ -32,7 +32,6 @@ function MatchingTypes() {
         });
 
         setUser(response.data);
-        setLastScore(response.data.score || 0);
       } catch (error) {
         console.error(
           "Error fetching user info:",
@@ -41,7 +40,7 @@ function MatchingTypes() {
       }
     };
 
-    fetchIdentificationInfo();
+    fetchMatchingInfo();
   }, []);
 
   useEffect(() => {
@@ -102,7 +101,6 @@ function MatchingTypes() {
     setScore(correct);
     setShowResult(true);
 
-    // Get user info from localStorage
     const firstname = localStorage.getItem("firstname");
     const lastname = localStorage.getItem("lastname");
 
@@ -114,8 +112,6 @@ function MatchingTypes() {
       });
 
       console.log("Score submitted successfully!");
-
-      // Store the score in localStorage for the current user
       localStorage.setItem("user_score", correct);
     } catch (error) {
       console.error("Error submitting score:", error);
