@@ -23,8 +23,41 @@ function Identifications() {
   const [randomizedQuestions, setRandomizedQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false); // ADD THIS
+  const [user, setUser] = useState(null);
 
   const questionsPerPage = 5;
+
+  useEffect(() => {
+    const fetchIdentificationInfo = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        console.log("Token:", token); // Para makita kung may token
+
+        if (!token) {
+          console.error("No token found");
+          return;
+        }
+
+        const response = await axios.get(`${API_URL}/api/identificationinfo`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        });
+
+        console.log("Fetched user info:", response.data); // Para makita kung anong sagot
+        setUser(response.data);
+        setLastScore(response.data.score || 0); // Set last score to 0 if null
+      } catch (error) {
+        console.error(
+          "Error fetching user info:",
+          error.response?.data || error.message
+        );
+      }
+    };
+
+    fetchIdentificationInfo();
+  }, []);
 
   useEffect(() => {
     const fetchQuestions = async () => {
