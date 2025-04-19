@@ -23,68 +23,8 @@ function Identifications() {
   const [randomizedQuestions, setRandomizedQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false); // ADD THIS
-  const [user, setUser] = useState(null);
 
   const questionsPerPage = 5;
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        console.log("Token:", token); // Para makita kung may token
-
-        if (!token) {
-          console.error("No token found");
-          return;
-        }
-
-        const response = await axios.get(`${API_URL}/api/userinfo`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        });
-
-        console.log("Fetched user info:", response.data); // Para makita kung anong sagot
-        setUser(response.data);
-        setLastScore(response.data.score || 0); // Set last score to 0 if null
-      } catch (error) {
-        console.error(
-          "Error fetching user info:",
-          error.response?.data || error.message
-        );
-      }
-    };
-
-    fetchUserInfo();
-  }, []);
-
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await axios.get(
-          `${API_URL}/api/identification_question`
-        );
-        if (Array.isArray(response.data)) {
-          const formattedQuestions = response.data.map((item) => ({
-            id: item.id,
-            question: item.statement,
-            correctAnswer: item.answer,
-          }));
-          setQuestions(formattedQuestions.slice(0, 25));
-          setUserAnswers(Array(25).fill(""));
-        } else {
-          console.error("Invalid response format:", response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchQuestions();
-  }, []);
 
   useEffect(() => {
     if (quizStarted && !loading) {
@@ -194,21 +134,6 @@ function Identifications() {
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🧬 Identification Quiz
           </h1>
-
-          <p className="text-gray-600">
-            Welcome,{" "}
-            <span className="font-semibold">
-              {user?.firstname && user?.lastname
-                ? `${user.firstname} ${user.lastname}`
-                : "User"}{" "}
-            </span>
-          </p>
-
-          {lastScore !== null && (
-            <p className="text-green-700 font-medium text-lg">
-              🏆 Last Score: {lastScore} / {matchingData.length}
-            </p>
-          )}
 
           <p className="text-lg text-gray-800 mb-6">
             Welcome to the Identification Quiz! Test your knowledge of species
