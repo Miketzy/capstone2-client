@@ -894,7 +894,7 @@ app.get('/api/identificationinfo', verifyUser, async (req, res) => {
 
     // Kunin score mula sa quizzes table (based on firstname and lastname)
     const scoreResult = await pool.query(
-      'SELECT score FROM matching_type_questions WHERE firstname = $1 AND lastname = $2 ORDER BY id DESC LIMIT 1',
+      'SELECT score FROM quiz_results WHERE firstname = $1 AND lastname = $2 ORDER BY id DESC LIMIT 1',
       [userInfo.firstname, userInfo.lastname]
     );
 
