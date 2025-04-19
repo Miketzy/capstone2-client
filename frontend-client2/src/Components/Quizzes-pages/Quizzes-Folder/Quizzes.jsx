@@ -18,19 +18,31 @@ function Quizzes() {
   const questionsPerPage = 5;
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); // ADD THIS
-    axios
-      .get(`${API_URL}/api/userinfo`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
+    const fetchUserInfo = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          console.error("No token found");
+          return;
+        }
+
+        const response = await axios.get(`${API_URL}/api/userinfo`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true, // optional, depende sa backend mo
+        });
+
         setUser(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      } catch (error) {
+        console.error(
+          "Error fetching user info:",
+          error.response?.data || error.message
+        );
+      }
+    };
+
+    fetchUserInfo();
   }, []);
 
   useEffect(() => {
