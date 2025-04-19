@@ -827,7 +827,7 @@ app.get('/api/userinfo', verifyUser, async (req, res) => {
     const userInfo = userResult.rows[0];
 
     // Kunin score mula sa quizzes table
-    const scoreResult = await pool.query('SELECT score FROM quizzes WHERE user_id = $1', [userId]); // assuming may `user_id` column sa quizzes
+    const scoreResult = await pool.query('SELECT score FROM quizzes WHERE id = $1', [userId]); // assuming may `user_id` column sa quizzes
 
     const scoreInfo = scoreResult.rows[0] || { score: null }; // kung walang score, null nalang
 
