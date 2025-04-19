@@ -21,7 +21,7 @@ function Quizzes() {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log("Token:", token); // 👈 para makita kung may token
+        console.log("Token:", token); // Para makita kung may token
 
         if (!token) {
           console.error("No token found");
@@ -35,7 +35,7 @@ function Quizzes() {
           withCredentials: true,
         });
 
-        console.log("Fetched user info:", response.data); // 👈 para makita kung anong sagot
+        console.log("Fetched user info:", response.data); // Para makita kung anong sagot
         setUser(response.data);
       } catch (error) {
         console.error(

@@ -813,20 +813,35 @@ app.post('/api/submit-quiz', (req, res) => {
   });
 });
 
-app.get('/api/userinfo', verifyUser, (req, res) => {
-  const userId = req.user.id; // Dapat may naka-set na userID mula sa verifyUser middleware
+app.get('/api/userinfo', verifyUser, async (req, res) => {
+  const userId = req.user.id;
 
-  const sql = 'SELECT firstname, lastname, score FROM quizzes WHERE id = $1';
-  pool.query(sql, [userId], (err, result) => {
-    if (err) {
-      return res.status(500).json({ message: 'Database error', error: err });
-    }
-    if (result.rows.length === 0) {
+  try {
+    // Kunin firstname at lastname mula sa users table
+    const userResult = await pool.query('SELECT firstname, lastname FROM users WHERE id = $1', [userId]);
+
+    if (userResult.rows.length === 0) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    res.json(result.rows[0]);
-  });
+    const userInfo = userResult.rows[0];
+
+    // Kunin score mula sa quizzes table
+    const scoreResult = await pool.query('SELECT score FROM quizzes WHERE user_id = $1', [userId]); // assuming may `user_id` column sa quizzes
+
+    const scoreInfo = scoreResult.rows[0] || { score: null }; // kung walang score, null nalang
+
+    // Icombine mo sila
+    res.json({
+      firstname: userInfo.firstname,
+      lastname: userInfo.lastname,
+      score: scoreInfo.score,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Database error', error });
+  }
 });
 
 
