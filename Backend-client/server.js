@@ -817,7 +817,7 @@ app.get('/api/userinfo', verifyUser, async (req, res) => {
   const userId = req.user.id;
 
   try {
-    // Kunin firstname at lastname mula sa users table
+    // 1. Kunin firstname at lastname mula sa users table
     const userResult = await pool.query('SELECT firstname, lastname FROM users WHERE id = $1', [userId]);
 
     if (userResult.rows.length === 0) {
@@ -826,14 +826,19 @@ app.get('/api/userinfo', verifyUser, async (req, res) => {
 
     const userInfo = userResult.rows[0];
 
-    // Kunin score mula sa quizzes table (based on firstname and lastname)
+    // Debug: tignan mo ano firstname/lastname ang nakuha
+    console.log('Searching score for:', userInfo.firstname, userInfo.lastname);
+
+    // 2. Kunin score mula sa quizzes table gamit firstname at lastname
     const scoreResult = await pool.query(
-      'SELECT score FROM quizzes WHERE firstname = $1 AND lastname = $2 ORDER BY id DESC LIMIT 1',
-      [userInfo.firstname, userInfo.lastname]
+      'SELECT score FROM quizzes WHERE firstname ILIKE $1 AND lastname ILIKE $2 ORDER BY id DESC LIMIT 1',
+      [`%${userInfo.firstname}%`, `%${userInfo.lastname}%`]
     );
 
-    const scoreInfo = scoreResult.rows[0] || { score: null };
+    // 3. Kung walang nakita, gawin nating null yung score
+    const scoreInfo = scoreResult.rows.length > 0 ? scoreResult.rows[0] : { score: null };
 
+    // 4. Icombine mo at ibalik sa frontend
     res.json({
       firstname: userInfo.firstname,
       lastname: userInfo.lastname,
@@ -841,7 +846,7 @@ app.get('/api/userinfo', verifyUser, async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+    console.error('Database error:', error);
     res.status(500).json({ message: 'Database error', error });
   }
 });
