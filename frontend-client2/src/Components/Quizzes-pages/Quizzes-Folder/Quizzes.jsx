@@ -37,6 +37,7 @@ function Quizzes() {
 
         console.log("Fetched user info:", response.data); // Para makita kung anong sagot
         setUser(response.data);
+        setLastScore(response.data.score || 0); // Set last score to 0 if null
       } catch (error) {
         console.error(
           "Error fetching user info:",
@@ -231,7 +232,8 @@ function Quizzes() {
             </p>
             {lastScore !== null && (
               <p className="text-green-700 font-medium text-lg">
-                🏆 Last Score: {lastScore} / {questions.length}
+                🏆 Last Score: {lastScore !== null ? lastScore : "No score yet"}{" "}
+                / {questions.length}
               </p>
             )}
             <p className="text-lg mb-2">
@@ -256,39 +258,39 @@ function Quizzes() {
               of {questions.length}
             </h2>
             {currentQuestions.map((q) => (
-              <div key={q.id} className="mb-6 text-left">
-                <p className="font-medium">{q.question}</p>
-                {q.options.map((opt, idx) => (
-                  <label key={idx} className="block ml-4">
-                    <input
-                      type="radio"
-                      name={`q-${q.id}`}
-                      value={opt}
-                      checked={userAnswers[q.id] === opt}
-                      onChange={() => handleOptionChange(q.id, opt)}
-                      className="mr-2"
-                    />
-                    {opt}
-                  </label>
+              <div key={q.id} className="mb-4">
+                <p className="font-semibold mb-2">{q.question}</p>
+                {q.options.map((option, index) => (
+                  <div key={index} className="mb-2">
+                    <label>
+                      <input
+                        type="radio"
+                        name={`question_${q.id}`}
+                        value={option}
+                        onChange={() => handleOptionChange(q.id, option)}
+                        checked={userAnswers[q.id] === option}
+                      />
+                      {option}
+                    </label>
+                  </div>
                 ))}
               </div>
             ))}
-            <div className="mt-4">
-              {isLastGroup ? (
-                <button
-                  onClick={handleSubmit}
-                  className="bg-green-600 text-white py-2 px-6 rounded-lg"
-                >
-                  Submit
-                </button>
-              ) : (
-                <button
-                  onClick={handleNext}
-                  className="bg-green-600 text-white py-2 px-6 rounded-lg"
-                >
-                  Next
-                </button>
-              )}
+
+            <div className="flex justify-between items-center mt-4">
+              <button
+                onClick={handleNext}
+                disabled={isLastGroup}
+                className="bg-green-600 text-white py-2 px-4 rounded-lg"
+              >
+                Next
+              </button>
+              <button
+                onClick={handleSubmit}
+                className="bg-blue-600 text-white py-2 px-6 rounded-lg"
+              >
+                Submit
+              </button>
             </div>
           </div>
         )}
