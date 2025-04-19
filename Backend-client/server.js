@@ -826,15 +826,14 @@ app.get('/api/userinfo', verifyUser, async (req, res) => {
 
     const userInfo = userResult.rows[0];
 
-    // Kunin score mula sa quizzes table (based on user_id)
+    // Kunin score mula sa quizzes table (based on firstname and lastname)
     const scoreResult = await pool.query(
-      'SELECT score FROM quizzes WHERE id = $1 ORDER BY id DESC LIMIT 1',
-      [userId]
+      'SELECT score FROM quizzes WHERE firstname = $1 AND lastname = $2 ORDER BY id DESC LIMIT 1',
+      [userInfo.firstname, userInfo.lastname]
     );
 
-    const scoreInfo = scoreResult.rows[0] || { score: null }; // kung walang score, null nalang
+    const scoreInfo = scoreResult.rows[0] || { score: null };
 
-    // Icombine mo sila at i-send sa frontend
     res.json({
       firstname: userInfo.firstname,
       lastname: userInfo.lastname,
