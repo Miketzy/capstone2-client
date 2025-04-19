@@ -4,7 +4,7 @@ import API_URL from "../../../Config";
 
 function MatchingTypes() {
   const [started, setStarted] = useState(false);
-  const [matches, setMatches] = useState({});
+  const [matches, setMatches] = useState({}); // Ensure empty object as initial state
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -28,14 +28,12 @@ function MatchingTypes() {
         }
 
         const response = await axios.get(`${API_URL}/api/identificationinfo`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
 
         setUser(response.data);
-        setLastScore(response.data.score || 0); // Set last score to 0 if null
+        setLastScore(response.data.score || 0); // Default to 0 if no score is found
       } catch (error) {
         console.error(
           "Error fetching user info:",
