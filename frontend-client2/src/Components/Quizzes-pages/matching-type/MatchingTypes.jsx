@@ -13,7 +13,7 @@ function MatchingTypes() {
   const [matchingData, setMatchingData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const [lastScore, setLastScore] = useState(null);
+  const [lastScore, setLastScore] = useState(null); // <--- added this!
 
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
@@ -22,6 +22,8 @@ function MatchingTypes() {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem("token");
+        console.log("Token:", token); // Para makita kung may token
+
         if (!token) {
           console.error("No token found");
           return;
@@ -34,8 +36,9 @@ function MatchingTypes() {
           withCredentials: true,
         });
 
+        console.log("Fetched user info:", response.data); // Para makita kung anong sagot
         setUser(response.data);
-        setLastScore(response.data.score || 0);
+        setLastScore(response.data.score || 0); // Set last score to 0 if null
       } catch (error) {
         console.error(
           "Error fetching user info:",
@@ -115,8 +118,9 @@ function MatchingTypes() {
         score: correct,
       });
 
+      console.log("Score submitted successfully!");
       localStorage.setItem("user_score", correct);
-      setLastScore(correct); // Update last score
+      setLastScore(correct); // <-- update last score
     } catch (error) {
       console.error("Error submitting score:", error);
     }
@@ -144,7 +148,7 @@ function MatchingTypes() {
             <span className="font-semibold">
               {user?.firstname && user?.lastname
                 ? `${user.firstname} ${user.lastname}`
-                : "User"}
+                : "User"}{" "}
             </span>
           </p>
           {lastScore !== null && (
@@ -153,6 +157,7 @@ function MatchingTypes() {
               {matchingData.length}
             </p>
           )}
+
           <p className="text-gray-600">
             Match the common name (Column A) to its scientific name (Column B).
             Ready to explore?
@@ -178,6 +183,7 @@ function MatchingTypes() {
           <p className="text-4xl font-bold text-green-600 mb-6">
             {score} / {matchingData.length}
           </p>
+
           <div className="flex flex-col gap-4">
             <button
               onClick={() => setShowAllAnswers(true)}
@@ -192,6 +198,7 @@ function MatchingTypes() {
               🔁 Retry Quiz
             </button>
           </div>
+
           {showAllAnswers && (
             <div className="mt-6 text-left max-h-64 overflow-y-auto">
               <h2 className="text-xl font-semibold text-green-600 mb-2">
@@ -212,6 +219,7 @@ function MatchingTypes() {
           <h2 className="text-2xl font-bold text-green-800 mb-4">
             Match the Species
           </h2>
+
           <div className="grid grid-cols-2 gap-6">
             {/* Column A */}
             <div>
@@ -264,6 +272,7 @@ function MatchingTypes() {
             >
               Previous
             </button>
+
             {currentPage === totalPages - 1 ? (
               <button
                 onClick={handleSubmit}
