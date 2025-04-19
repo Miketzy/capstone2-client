@@ -13,20 +13,30 @@ function Quizzes() {
   const [showScore, setShowScore] = useState(false);
   const [showAllAnswers, setShowAllAnswers] = useState(false);
   const [lastScore, setLastScore] = useState(null);
+  const [user, setUser] = useState(null);
 
   const questionsPerPage = 5;
+
+  useEffect(() => {
+    axios
+      .get(`${API_URL}/api/userinfo`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // token ng naka-login na user
+        },
+      })
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   useEffect(() => {
     axios
       .get(`${API_URL}/api/multiple-choice`)
       .then((res) => setQuestions(res.data))
       .catch((err) => console.error("Failed to fetch questions", err));
-
-    // Get last score from localStorage if exists
-    const savedScore = localStorage.getItem("lastQuizScore");
-    if (savedScore !== null) {
-      setLastScore(savedScore);
-    }
   }, []);
 
   const handleOptionChange = (questionId, selectedOption) => {
@@ -52,16 +62,16 @@ function Quizzes() {
       }
     });
 
-    // Retrieve firstname and lastname from localStorage
-    const firstname = localStorage.getItem("firstname");
-    const lastname = localStorage.getItem("lastname");
+    // Retrieve firstname and lastname from user state or localStorage
+    const firstname = user?.firstname || "Unknown";
+    const lastname = user?.lastname || "User";
 
     if (!firstname || !lastname) {
       console.error("User details (firstname/lastname) are missing");
       return;
     }
 
-    // Submit the score to the backend
+    // Submit the score to the backend (quiz_results table)
     axios
       .post(`${API_URL}/api/submit-score`, {
         firstname,
@@ -73,7 +83,6 @@ function Quizzes() {
         setScore(finalScore);
         setSubmitted(true);
         setShowScore(true);
-        localStorage.setItem("lastQuizScore", finalScore); // Save score
       })
       .catch((error) => {
         console.error("Error submitting score:", error);
@@ -199,15 +208,10 @@ function Quizzes() {
             <p className="text-gray-600">
               Welcome,{" "}
               <span className="font-semibold">
-                {localStorage.getItem("firstname") &&
-                localStorage.getItem("lastname")
-                  ? `${localStorage.getItem(
-                      "firstname"
-                    )} ${localStorage.getItem("lastname")}`
+                {user?.firstname && user?.lastname
+                  ? `${user.firstname} ${user.lastname}`
                   : "User"}{" "}
-                {/* Fallback if no name found */}
               </span>
-              !
             </p>
             {lastScore !== null && (
               <p className="text-green-700 font-medium text-lg">
