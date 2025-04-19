@@ -13,6 +13,7 @@ function MatchingTypes() {
   const [matchingData, setMatchingData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [lastScore, setLastScore] = useState(null); // <--- added this!
 
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
@@ -35,10 +36,17 @@ function MatchingTypes() {
   }, []);
 
   useEffect(() => {
-    // Get the stored score from localStorage (if any) when the component loads
     const storedScore = localStorage.getItem("user_score");
     if (storedScore) {
       setScore(Number(storedScore));
+      setLastScore(Number(storedScore)); // <-- also set lastScore here!
+    }
+
+    // Fetch user info if you want (optional)
+    const firstname = localStorage.getItem("firstname");
+    const lastname = localStorage.getItem("lastname");
+    if (firstname && lastname) {
+      setUser({ firstname, lastname });
     }
   }, []);
 
@@ -83,7 +91,6 @@ function MatchingTypes() {
     setScore(correct);
     setShowResult(true);
 
-    // Get user info from localStorage
     const firstname = localStorage.getItem("firstname");
     const lastname = localStorage.getItem("lastname");
 
@@ -95,9 +102,8 @@ function MatchingTypes() {
       });
 
       console.log("Score submitted successfully!");
-
-      // Store the score in localStorage for the current user
       localStorage.setItem("user_score", correct);
+      setLastScore(correct); // <-- update last score
     } catch (error) {
       console.error("Error submitting score:", error);
     }
@@ -128,19 +134,22 @@ function MatchingTypes() {
                 : "User"}{" "}
             </span>
           </p>
+
           {lastScore !== null && (
             <p className="text-green-700 font-medium text-lg">
-              🏆 Last Score: {lastScore !== null ? lastScore : "No score yet"} /{" "}
-              {questions.length}
+              🏆 Last Score: {lastScore} / {matchingData.length}
             </p>
           )}
+
           <p className="text-gray-600">
             Match the common name (Column A) to its scientific name (Column B).
             Ready to explore?
           </p>
+
           {score > 0 && (
             <p className="text-xl text-green-600">You scored {score} so far.</p>
           )}
+
           <button
             onClick={handleStart}
             className="bg-green-600 text-white px-6 py-2 rounded-xl hover:bg-green-700 transition"
@@ -157,6 +166,7 @@ function MatchingTypes() {
           <p className="text-4xl font-bold text-green-600 mb-6">
             {score} / {matchingData.length}
           </p>
+
           <div className="flex flex-col gap-4">
             <button
               onClick={() => setShowAllAnswers(true)}
@@ -192,6 +202,7 @@ function MatchingTypes() {
           <h2 className="text-2xl font-bold text-green-800 mb-4">
             Match the Species
           </h2>
+
           <div className="grid grid-cols-2 gap-6">
             {/* Column A */}
             <div>
