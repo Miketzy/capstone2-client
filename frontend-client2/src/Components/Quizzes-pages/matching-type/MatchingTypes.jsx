@@ -12,6 +12,7 @@ function MatchingTypes() {
   const [showAllAnswers, setShowAllAnswers] = useState(false);
   const [matchingData, setMatchingData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
