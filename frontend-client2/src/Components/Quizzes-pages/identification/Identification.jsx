@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import API_URL from "../../../Config"; // Siguraduhin tama ang path mo dito
+import API_URL from "../../../Config"; // Make sure your path is correct
 
 // Shuffle function (Fisher-Yates algorithm)
 const shuffleArray = (array) => {
@@ -22,8 +22,9 @@ function Identifications() {
   const [quizStarted, setQuizStarted] = useState(false);
   const [randomizedQuestions, setRandomizedQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false); // ADD THIS
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [user, setUser] = useState(null);
+  const [lastScore, setLastScore] = useState(0);
 
   const questionsPerPage = 5;
 
@@ -31,23 +32,18 @@ function Identifications() {
     const fetchIdentificationInfo = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log("Token:", token); // Para makita kung may token
-
         if (!token) {
           console.error("No token found");
           return;
         }
 
         const response = await axios.get(`${API_URL}/api/identificationinfo`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
 
-        console.log("Fetched user info:", response.data); // Para makita kung anong sagot
         setUser(response.data);
-        setLastScore(response.data.score || 0); // Set last score to 0 if null
+        setLastScore(response.data.score || 0);
       } catch (error) {
         console.error(
           "Error fetching user info:",
@@ -173,7 +169,7 @@ function Identifications() {
 
   if (loading) {
     return (
-      <div className="min-h-screen from-green-50 to-green-200 flex items-center justify-center p-6">
+      <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-green-50 to-green-200">
         <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full">
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🧬 Loading Quiz...
@@ -181,7 +177,6 @@ function Identifications() {
           <p className="text-lg text-gray-800 mb-6">
             Please wait while we load the quiz questions.
           </p>
-          <div className="loader"></div>
         </div>
       </div>
     );
@@ -189,22 +184,21 @@ function Identifications() {
 
   if (!quizStarted) {
     return (
-      <div className="min-h-screen from-green-50 to-green-200 flex items-center justify-center p-6">
+      <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-green-50 to-green-200">
         <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full mb-[180px]">
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🧬 Identification Quiz
           </h1>
-
           <p className="text-gray-600">
-            Welcome, <span className="font-semibold">User</span>
+            Welcome,{" "}
+            <span className="font-semibold">{user?.firstname || "User"}</span>
           </p>
           <p className="text-green-700 font-medium text-lg">
-            🏆 Last Score: No score yet
+            🏆 Last Score: {lastScore !== 0 ? lastScore : "No score yet"}
           </p>
-
           <p className="text-lg text-gray-800 mb-6">
-            Welcome to the Identification Quiz! Test your knowledge of species
-            and their scientific names. Click "Get Started" to begin.
+            Test your knowledge of species and their scientific names. Click
+            "Get Started" to begin.
           </p>
           <button
             onClick={() => setQuizStarted(true)}
@@ -219,7 +213,7 @@ function Identifications() {
 
   if (showScore && !showAllAnswers) {
     return (
-      <div className="min-h-screen from-green-50 to-green-200 flex items-center justify-center p-6">
+      <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-green-50 to-green-200">
         <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full">
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🎉 Quiz Completed!
@@ -249,7 +243,7 @@ function Identifications() {
 
   if (showAllAnswers) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-200 p-6">
+      <div className="min-h-screen p-6 bg-gradient-to-br from-green-50 to-green-200">
         <div className="bg-white p-8 rounded-xl shadow-2xl max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">
             📚 All Correct Answers
@@ -303,45 +297,42 @@ function Identifications() {
   }
 
   return (
-    <div className="min-h-screen from-green-50 to-green-200 p-6 flex items-center justify-center">
-      <div className="bg-white shadow-2xl rounded-2xl p-8 max-w-lg w-full">
-        <h1 className="text-3xl font-bold text-green-700 mb-6 text-center">
+    <div className="min-h-screen p-6 bg-gradient-to-br from-green-50 to-green-200 flex items-center justify-center">
+      <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-3xl">
+        <h2 className="text-2xl font-bold mb-6 text-center text-green-700">
           🧬 Identification Quiz
-        </h1>
-
-        <button
-          onClick={handleBackToIntro}
-          className="bg-gray-400 hover:bg-gray-500 text-white py-2 px-6 rounded-lg font-medium mb-4 transition"
-        >
-          Back to Intro
-        </button>
-
+        </h2>
         {currentQuestions.map((q, index) => (
           <div key={q.id} className="mb-6">
-            <p className="text-lg font-medium text-gray-800 mb-2">
+            <p className="font-semibold mb-2">
               {start + index + 1}. {q.question}
             </p>
             <input
               type="text"
-              value={userAnswers[start + index]}
+              value={userAnswers[start + index] || ""}
               onChange={(e) => handleChange(index, e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-              placeholder="Enter your answer..."
+              className="border rounded-lg w-full p-2"
+              placeholder="Type your answer"
             />
           </div>
         ))}
-
-        <button
-          onClick={handleNextOrSubmit}
-          className={`w-full py-2 px-6 rounded-lg font-medium transition ${
-            isSubmitting
-              ? "bg-gray-400"
-              : "bg-green-500 hover:bg-green-600 text-white"
-          }`}
-          disabled={isSubmitting}
-        >
-          {end >= randomizedQuestions.length ? "Submit Quiz" : "Next"}
-        </button>
+        <div className="flex justify-between mt-8">
+          {currentPage > 0 && (
+            <button
+              onClick={() => setCurrentPage(currentPage - 1)}
+              className="bg-gray-400 hover:bg-gray-500 text-white py-2 px-4 rounded-lg transition"
+            >
+              ◀️ Previous
+            </button>
+          )}
+          <button
+            onClick={handleNextOrSubmit}
+            disabled={isSubmitting}
+            className="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg font-medium transition"
+          >
+            {end >= randomizedQuestions.length ? "Submit Quiz" : "Next ➡️"}
+          </button>
+        </div>
       </div>
     </div>
   );
