@@ -13,7 +13,7 @@ function MatchingTypes() {
   const [matchingData, setMatchingData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const [lastScore, setLastScore] = useState(null); // <--- added this!
+  const [lastScore, setLastScore] = useState(null);
 
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
@@ -22,7 +22,6 @@ function MatchingTypes() {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log("Token:", token); // Para makita kung may token
 
         if (!token) {
           console.error("No token found");
@@ -36,9 +35,8 @@ function MatchingTypes() {
           withCredentials: true,
         });
 
-        console.log("Fetched user info:", response.data); // Para makita kung anong sagot
         setUser(response.data);
-        setLastScore(response.data.score || 0); // Set last score to 0 if null
+        setLastScore(response.data.score || 0);
       } catch (error) {
         console.error(
           "Error fetching user info:",
@@ -118,9 +116,8 @@ function MatchingTypes() {
         score: correct,
       });
 
-      console.log("Score submitted successfully!");
       localStorage.setItem("user_score", correct);
-      setLastScore(correct); // <-- update last score
+      setLastScore(correct);
     } catch (error) {
       console.error("Error submitting score:", error);
     }
@@ -148,7 +145,7 @@ function MatchingTypes() {
             <span className="font-semibold">
               {user?.firstname && user?.lastname
                 ? `${user.firstname} ${user.lastname}`
-                : "User"}{" "}
+                : "User"}
             </span>
           </p>
           {lastScore !== null && (
