@@ -128,6 +128,7 @@ const verifyUser = (req, res, next) => {
       confirmPassword: decoded.confirmPassword,
       rating: decoded.rating,
       message: decoded.message,
+      score: decoded.score,
     };
 
     next();
@@ -191,6 +192,7 @@ app.post("/login", (req, res) => {
               confirmPassword: user.confirmPassword,
               rating: user.rating,
               message: user.message,
+              score: user.score
             },
             process.env.JWT_SECRET,
             { expiresIn: "30d" }
@@ -217,6 +219,7 @@ app.post("/login", (req, res) => {
             confirmPassword: user.confirmPassword,
             rating: user.rating,
             message: user.message,
+            score: user.score
           });
         } else {
           return res.status(401).json({ Message: "Incorrect Password" });
