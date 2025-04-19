@@ -137,7 +137,7 @@ function MatchingTypes() {
           </p>
           <p className="text-green-700 font-medium text-lg">
             🏆 Last Score:{" "}
-            {user?.lastScore !== undefined ? user.lastScore : "No score yet"}
+            {user?.score !== undefined ? user.score : "No score yet"}
           </p>
 
           <p className="text-gray-600">
@@ -237,34 +237,22 @@ function MatchingTypes() {
           {/* Pagination / Submit */}
           <div className="flex justify-between mt-6">
             <button
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
-              className={`px-4 py-2 rounded-lg ${
-                currentPage === 0
-                  ? "bg-gray-300 cursor-not-allowed"
-                  : "bg-green-600 text-white hover:bg-green-700"
-              }`}
+              onClick={() => setCurrentPage((prev) => Math.max(0, prev - 1))}
               disabled={currentPage === 0}
+              className="bg-gray-300 text-gray-600 py-2 px-4 rounded-lg"
             >
-              Previous
+              Prev
             </button>
-
-            {currentPage === totalPages - 1 ? (
-              <button
-                onClick={handleSubmit}
-                className="bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800"
-              >
-                ✅ Submit
-              </button>
-            ) : (
-              <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))
-                }
-                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
-              >
-                Next
-              </button>
-            )}
+            <button
+              onClick={() =>
+                currentPage + 1 < totalPages
+                  ? setCurrentPage((prev) => prev + 1)
+                  : handleSubmit()
+              }
+              className="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg"
+            >
+              {currentPage + 1 === totalPages ? "Submit" : "Next"}
+            </button>
           </div>
         </div>
       )}
