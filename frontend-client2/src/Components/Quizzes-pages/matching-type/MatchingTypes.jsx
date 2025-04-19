@@ -13,11 +13,12 @@ function MatchingTypes() {
   const [matchingData, setMatchingData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const [lastScore, setLastScore] = useState(null);
+  const [lastScore, setLastScore] = useState(0); // Initialize lastScore here
 
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
 
+  // Fetch user info
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -36,7 +37,7 @@ function MatchingTypes() {
         });
 
         setUser(response.data);
-        setLastScore(response.data.score || 0);
+        setLastScore(response.data.score || 0); // Set lastScore from response
       } catch (error) {
         console.error(
           "Error fetching user info:",
@@ -48,6 +49,7 @@ function MatchingTypes() {
     fetchUserInfo();
   }, []);
 
+  // Fetch matching questions
   useEffect(() => {
     const fetchMatchingQuestions = async () => {
       try {
@@ -117,7 +119,7 @@ function MatchingTypes() {
       });
 
       localStorage.setItem("user_score", correct);
-      setLastScore(correct);
+      setLastScore(correct); // Update lastScore after submission
     } catch (error) {
       console.error("Error submitting score:", error);
     }
