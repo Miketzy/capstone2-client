@@ -879,6 +879,39 @@ app.get('/api/matchinginfo', verifyUser, async (req, res) => {
   }
 });
 
+app.get('/api/identificationinfo', verifyUser, async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    // Kunin firstname at lastname mula sa users table
+    const userResult = await pool.query('SELECT firstname, lastname FROM users WHERE id = $1', [userId]);
+
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const userInfo = userResult.rows[0];
+
+    // Kunin score mula sa quizzes table (based on firstname and lastname)
+    const scoreResult = await pool.query(
+      'SELECT score FROM matching_type_questions WHERE firstname = $1 AND lastname = $2 ORDER BY id DESC LIMIT 1',
+      [userInfo.firstname, userInfo.lastname]
+    );
+
+    const scoreInfo = scoreResult.rows[0] || { score: null };
+
+    res.json({
+      firstname: userInfo.firstname,
+      lastname: userInfo.lastname,
+      score: scoreInfo.score,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Database error', error });
+  }
+});
+
 
 
 
