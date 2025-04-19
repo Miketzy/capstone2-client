@@ -18,10 +18,11 @@ function Quizzes() {
   const questionsPerPage = 5;
 
   useEffect(() => {
+    const token = localStorage.getItem("token"); // ADD THIS
     axios
       .get(`${API_URL}/api/userinfo`, {
         headers: {
-          Authorization: `Bearer ${token}`, // token ng naka-login na user
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
