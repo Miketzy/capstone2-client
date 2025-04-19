@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import API_URL from "../../../Config";
 
-function MatchingTypes() {
+function Identification() {
+  // Initialize state variables
   const [started, setStarted] = useState(false);
   const [matches, setMatches] = useState({});
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
@@ -10,7 +11,7 @@ function MatchingTypes() {
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
   const [showAllAnswers, setShowAllAnswers] = useState(false);
-  const [matchingData, setMatchingData] = useState([]);
+  const [matchingData, setMatchingData] = useState([]); // Initialize matchingData state
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [lastScore, setLastScore] = useState(0); // Initialize lastScore here
@@ -56,7 +57,7 @@ function MatchingTypes() {
         const response = await axios.get(
           `${API_URL}/api/matching_type_question`
         );
-        setMatchingData(response.data);
+        setMatchingData(response.data); // Set fetched data to matchingData
         setLoading(false);
       } catch (error) {
         console.error("Error fetching matching questions:", error);
@@ -300,4 +301,4 @@ function MatchingTypes() {
   );
 }
 
-export default MatchingTypes;
+export default Identification;
