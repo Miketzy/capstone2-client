@@ -13,7 +13,6 @@ function MatchingTypes() {
   const [matchingData, setMatchingData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const [lastScore, setLastScore] = useState(0);
 
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
@@ -39,15 +38,7 @@ function MatchingTypes() {
       }
     };
 
-    const getLastScore = () => {
-      const savedScore = localStorage.getItem("user_score");
-      if (savedScore !== null) {
-        setLastScore(parseInt(savedScore, 10));
-      }
-    };
-
     fetchUserInfo();
-    getLastScore();
   }, []);
 
   useEffect(() => {
@@ -113,7 +104,6 @@ function MatchingTypes() {
         score: correct,
       });
       console.log("Score submitted successfully!");
-      localStorage.setItem("user_score", correct);
     } catch (error) {
       console.error("Error submitting score:", error);
     }
@@ -146,8 +136,10 @@ function MatchingTypes() {
             <span className="font-semibold">{user?.firstname || "User"}</span>
           </p>
           <p className="text-green-700 font-medium text-lg">
-            🏆 Last Score: {lastScore !== 0 ? lastScore : "No score yet"}
+            🏆 Last Score:{" "}
+            {user?.lastScore !== undefined ? user.lastScore : "No score yet"}
           </p>
+
           <p className="text-gray-600">
             Match the common name (Column A) to its scientific name (Column B).
             Ready to explore?
