@@ -826,12 +826,15 @@ app.get('/api/userinfo', verifyUser, async (req, res) => {
 
     const userInfo = userResult.rows[0];
 
-    // Kunin score mula sa quizzes table
-    const scoreResult = await pool.query('SELECT score FROM quizzes WHERE id = $1', [userId]); // assuming may `user_id` column sa quizzes
+    // Kunin score mula sa quizzes table (based on user_id)
+    const scoreResult = await pool.query(
+      'SELECT score FROM quizzes WHERE id = $1 ORDER BY id DESC LIMIT 1',
+      [userId]
+    );
 
     const scoreInfo = scoreResult.rows[0] || { score: null }; // kung walang score, null nalang
 
-    // Icombine mo sila
+    // Icombine mo sila at i-send sa frontend
     res.json({
       firstname: userInfo.firstname,
       lastname: userInfo.lastname,
@@ -843,6 +846,7 @@ app.get('/api/userinfo', verifyUser, async (req, res) => {
     res.status(500).json({ message: 'Database error', error });
   }
 });
+
 
 
 
