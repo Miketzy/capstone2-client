@@ -161,6 +161,14 @@ function Identifications() {
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🧬 Identification Quiz
           </h1>
+
+          <p className="text-gray-600">
+            Welcome, <span className="font-semibold">User</span>
+          </p>
+          <p className="text-green-700 font-medium text-lg">
+            🏆 Last Score: No score yet
+          </p>
+
           <p className="text-lg text-gray-800 mb-6">
             Welcome to the Identification Quiz! Test your knowledge of species
             and their scientific names. Click "Get Started" to begin.
