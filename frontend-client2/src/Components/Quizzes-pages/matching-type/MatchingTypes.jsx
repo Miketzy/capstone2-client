@@ -13,24 +13,23 @@ function MatchingTypes() {
   const [matchingData, setMatchingData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [lastScore, setLastScore] = useState(0);
 
   const questionsPerPage = 5;
   const totalPages = Math.ceil(matchingData.length / questionsPerPage);
 
   useEffect(() => {
-    const fetchMatchingInfo = async () => {
+    const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
           console.error("No token found");
           return;
         }
-
         const response = await axios.get(`${API_URL}/api/identificationinfo`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
-
         setUser(response.data);
       } catch (error) {
         console.error(
@@ -40,7 +39,15 @@ function MatchingTypes() {
       }
     };
 
-    fetchMatchingInfo();
+    const getLastScore = () => {
+      const savedScore = localStorage.getItem("user_score");
+      if (savedScore !== null) {
+        setLastScore(parseInt(savedScore, 10));
+      }
+    };
+
+    fetchUserInfo();
+    getLastScore();
   }, []);
 
   useEffect(() => {
@@ -86,11 +93,6 @@ function MatchingTypes() {
     setScore(correct);
   };
 
-  const currentQuestions = matchingData.slice(
-    currentPage * questionsPerPage,
-    (currentPage + 1) * questionsPerPage
-  );
-
   const handleSubmit = async () => {
     let correct = 0;
     matchingData.forEach((item) => {
@@ -110,13 +112,17 @@ function MatchingTypes() {
         lastname,
         score: correct,
       });
-
       console.log("Score submitted successfully!");
       localStorage.setItem("user_score", correct);
     } catch (error) {
       console.error("Error submitting score:", error);
     }
   };
+
+  const currentQuestions = matchingData.slice(
+    currentPage * questionsPerPage,
+    (currentPage + 1) * questionsPerPage
+  );
 
   if (loading) {
     return (
@@ -135,7 +141,6 @@ function MatchingTypes() {
           <h1 className="text-3xl font-bold text-green-700">
             🌿 BiExplorer Matching Quiz
           </h1>
-
           <p className="text-gray-600">
             Welcome,{" "}
             <span className="font-semibold">{user?.firstname || "User"}</span>
@@ -143,7 +148,6 @@ function MatchingTypes() {
           <p className="text-green-700 font-medium text-lg">
             🏆 Last Score: {lastScore !== 0 ? lastScore : "No score yet"}
           </p>
-
           <p className="text-gray-600">
             Match the common name (Column A) to its scientific name (Column B).
             Ready to explore?
@@ -264,11 +268,7 @@ function MatchingTypes() {
                 onClick={() =>
                   setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))
                 }
-                className={`px-4 py-2 rounded-lg ${
-                  currentPage === totalPages - 1
-                    ? "bg-gray-300 cursor-not-allowed"
-                    : "bg-green-600 text-white hover:bg-green-700"
-                }`}
+                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
               >
                 Next
               </button>
