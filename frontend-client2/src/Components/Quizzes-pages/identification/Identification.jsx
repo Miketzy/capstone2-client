@@ -27,6 +27,33 @@ function Identifications() {
   const questionsPerPage = 5;
 
   useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const response = await axios.get(
+          `${API_URL}/api/identification_question`
+        );
+        if (Array.isArray(response.data)) {
+          const formattedQuestions = response.data.map((item) => ({
+            id: item.id,
+            question: item.statement,
+            correctAnswer: item.answer,
+          }));
+          setQuestions(formattedQuestions.slice(0, 25));
+          setUserAnswers(Array(25).fill(""));
+        } else {
+          console.error("Invalid response format:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchQuestions();
+  }, []);
+
+  useEffect(() => {
     if (quizStarted && !loading) {
       setRandomizedQuestions(shuffleArray(questions));
     }
@@ -134,7 +161,6 @@ function Identifications() {
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🧬 Identification Quiz
           </h1>
-
           <p className="text-lg text-gray-800 mb-6">
             Welcome to the Identification Quiz! Test your knowledge of species
             and their scientific names. Click "Get Started" to begin.
