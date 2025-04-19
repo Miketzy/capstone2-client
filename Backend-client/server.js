@@ -813,53 +813,35 @@ app.post('/api/submit-quiz', (req, res) => {
   });
 });
 
-app.post('/api/submit-quiz', verifyUser, async (req, res) => {
+app.get('/api/userinfo', verifyUser, async (req, res) => {
   const userId = req.user.id;
-  const { newScore } = req.body; // bagong score galing sa frontend
 
   try {
-    // Kunin ang firstname at lastname ng user
+    // Kunin firstname at lastname mula sa users table
     const userResult = await pool.query('SELECT firstname, lastname FROM users WHERE id = $1', [userId]);
 
     if (userResult.rows.length === 0) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    const { firstname, lastname } = userResult.rows[0];
+    const userInfo = userResult.rows[0];
 
-    // Hanapin yung latest score niya sa quizzes table
+    // Kunin score mula sa quizzes table (based on firstname and lastname)
     const scoreResult = await pool.query(
-      'SELECT id, score FROM quizzes WHERE firstname ILIKE $1 AND lastname ILIKE $2 ORDER BY id DESC LIMIT 1',
-      [`%${firstname}%`, `%${lastname}%`]
+      'SELECT score FROM quizzes WHERE firstname = $1 AND lastname = $2 ORDER BY id DESC LIMIT 1',
+      [userInfo.firstname, userInfo.lastname]
     );
 
-    if (scoreResult.rows.length > 0) {
-      const { id: quizId, score: oldScore } = scoreResult.rows[0];
+    const scoreInfo = scoreResult.rows[0] || { score: null };
 
-      console.log(`Old score: ${oldScore}, New score: ${newScore}`);
-
-      // I-compare: kung mas mataas yung bagong score, i-update
-      if (newScore > oldScore) {
-        await pool.query(
-          'UPDATE quizzes SET score = $1 WHERE id = $2',
-          [newScore, quizId]
-        );
-        return res.json({ message: 'Score updated because it is higher!' });
-      } else {
-        return res.json({ message: 'New score is lower. Score not updated.' });
-      }
-
-    } else {
-      // Kung walang old score, insert as new
-      await pool.query(
-        'INSERT INTO quizzes (firstname, lastname, score) VALUES ($1, $2, $3)',
-        [firstname, lastname, newScore]
-      );
-      return res.json({ message: 'Score inserted for the first time!' });
-    }
+    res.json({
+      firstname: userInfo.firstname,
+      lastname: userInfo.lastname,
+      score: scoreInfo.score,
+    });
 
   } catch (error) {
-    console.error('Error saving quiz score:', error);
+    console.error(error);
     res.status(500).json({ message: 'Database error', error });
   }
 });
