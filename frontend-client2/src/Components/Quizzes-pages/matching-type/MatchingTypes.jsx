@@ -120,6 +120,20 @@ function MatchingTypes() {
             🌿 BiExplorer Matching Quiz
           </h1>
           <p className="text-gray-600">
+            Welcome,{" "}
+            <span className="font-semibold">
+              {user?.firstname && user?.lastname
+                ? `${user.firstname} ${user.lastname}`
+                : "User"}{" "}
+            </span>
+          </p>
+          {lastScore !== null && (
+            <p className="text-green-700 font-medium text-lg">
+              🏆 Last Score: {lastScore !== null ? lastScore : "No score yet"} /{" "}
+              {questions.length}
+            </p>
+          )}
+          <p className="text-gray-600">
             Match the common name (Column A) to its scientific name (Column B).
             Ready to explore?
           </p>
