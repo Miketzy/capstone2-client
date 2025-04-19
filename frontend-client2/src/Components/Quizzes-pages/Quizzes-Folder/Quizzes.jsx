@@ -20,7 +20,7 @@ function Quizzes() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const token = localStorage.getItem("authToken");
+        const token = localStorage.getItem("token");
         if (!token) {
           console.error("No token found");
           return;
