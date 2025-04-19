@@ -813,20 +813,20 @@ app.post('/api/submit-quiz', (req, res) => {
   });
 });
 
-// Route to get user info
-app.get('/api/userinfo', verifyUser, async (req, res) => {
-  const userId = req.user.id; // Assuming your JWT contains { id, firstname, lastname, etc. }
+app.get('/api/userinfo', verifyUser, (req, res) => {
+  const userId = req.user.id; // Dapat may naka-set na userID mula sa verifyUser middleware
 
-  const sql = 'SELECT firstname, lastname, score FROM quizzes WHERE id = $1'; // Use $1 for PostgreSQL
-  try {
-    const result = await pool.query(sql, [userId]);
+  const sql = 'SELECT firstname, lastname, score FROM quizzes WHERE id = $1';
+  pool.query(sql, [userId], (err, result) => {
+    if (err) {
+      return res.status(500).json({ message: 'Database error', error: err });
+    }
     if (result.rows.length === 0) {
       return res.status(404).json({ message: 'User not found' });
     }
+
     res.json(result.rows[0]);
-  } catch (err) {
-    res.status(500).json({ message: 'Database error', error: err });
-  }
+  });
 });
 
 
