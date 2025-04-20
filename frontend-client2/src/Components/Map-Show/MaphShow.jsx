@@ -4,7 +4,7 @@ import { HiLocationMarker } from "react-icons/hi";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import API_URL from "../../../Config";
+import API_URL from "../../Config";
 
 // Define a custom icon
 const customIcon = new L.Icon({
