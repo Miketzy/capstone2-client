@@ -45,7 +45,9 @@ function MaphShow() {
   }, []);
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-[500px]">
+      {" "}
+      {/* Pinalitan ko dito */}
       <MapContainer center={mapPosition} zoom={10} className="w-full h-full">
         <TileLayer
           url="https://api.maptiler.com/maps/jp-mierune-dark/256/{z}/{x}/{y}.png?key=txroCKKY059zWv1MqNe0"
