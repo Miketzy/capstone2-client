@@ -4,6 +4,7 @@ import axios from "axios"; // Import axios
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import CloseIcon from "@mui/icons-material/Close";
 import API_URL from "../../../Config"; // Dalawang level up ✅
+import MaphShow from "../../Map-Show/MaphShow";
 
 function Database() {
   const [images, setImages] = useState([]);
@@ -162,6 +163,8 @@ function Database() {
                 Habitat:{" "}
                 <span>{selectedSpecies?.habitat || "Insufficient data"}</span>
               </h3>
+
+              <MaphShow />
 
               <button className="modal-mapping" onClick={handleMappingClick}>
                 Mapping
