@@ -125,7 +125,7 @@ function MatchingTypes() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-200 flex items-center justify-center p-6">
+    <div className="min-h-screen  flex items-center justify-center p-6">
       {!started ? (
         <div className="text-center space-y-6 max-w-xl bg-white p-8 rounded-2xl shadow-lg">
           <h1 className="text-3xl font-bold text-green-700">

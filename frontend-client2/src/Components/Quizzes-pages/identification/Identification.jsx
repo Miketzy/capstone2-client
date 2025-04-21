@@ -184,7 +184,7 @@ function Identifications() {
 
   if (!quizStarted) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-green-50 to-green-200">
+      <div className="min-h-screen flex items-center justify-center p-6 ">
         <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full mb-[180px]">
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🧬 Identification Quiz
@@ -213,7 +213,7 @@ function Identifications() {
 
   if (showScore && !showAllAnswers) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-green-50 to-green-200">
+      <div className="min-h-screen flex items-center justify-center p-6 ">
         <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-lg w-full">
           <h1 className="text-3xl font-bold text-green-700 mb-4">
             🎉 Quiz Completed!
@@ -243,7 +243,7 @@ function Identifications() {
 
   if (showAllAnswers) {
     return (
-      <div className="min-h-screen p-6 bg-gradient-to-br from-green-50 to-green-200">
+      <div className="min-h-screen p-6 ">
         <div className="bg-white p-8 rounded-xl shadow-2xl max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">
             📚 All Correct Answers
