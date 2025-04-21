@@ -10,7 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
   Cell,
-  LabelList, // Import LabelList for positioning labels
+  LabelList,
 } from "recharts";
 import axios from "axios";
 
@@ -31,7 +31,6 @@ function Graph() {
   ]);
 
   useEffect(() => {
-    // Fetch species counts from the backend API
     axios
       .get(`${API_URL}/speciesCounts`)
       .then((res) => {
@@ -56,61 +55,65 @@ function Graph() {
       });
   }, []);
 
-  // Helper function to format large numbers
   const formatNumber = (number) => {
     if (number >= 1_000_000) {
-      return (number / 1_000_000).toFixed(1) + "M"; // Show in millions
+      return (number / 1_000_000).toFixed(1) + "M";
     } else if (number >= 1_000) {
-      return (number / 1_000).toFixed(1) + "K"; // Show in thousands
+      return (number / 1_000).toFixed(1) + "K";
     }
     return number;
   };
 
   return (
-    <div className=" min-h-screen py-12">
-      <div className="mt-1 p-8 bg-white rounded-lg shadow-2xl max-w-5xl mx-auto">
-        <div className="flex justify-center">
-          <ResponsiveContainer width="100%" height={400}>
-            <BarChart
-              data={data}
-              margin={{
-                top: 20,
-                right: 30,
-                left: 20,
-                bottom: 50,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-              <XAxis
-                dataKey="name"
-                interval={0}
-                angle={-45}
-                textAnchor="end"
-                fontSize={14}
-                fill="#4B5563"
-              />
-              <YAxis
-                fontSize={14}
-                tickFormatter={formatNumber}
-                fill="#4B5563"
-              />
-              <Tooltip formatter={(value) => formatNumber(value)} />
-              <Legend />
-              <Bar dataKey="count" radius={[10, 10, 0, 0]}>
-                {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-                {/* Add LabelList to display the count above each bar */}
-                <LabelList
-                  dataKey="count"
-                  position="top" // Position the label at the top of each bar
-                  fill="#4B5563" // Label color
-                  fontSize={12} // Font size for the labels
-                  formatter={(value) => formatNumber(value)} // Format the numbers
+    <div className="min-h-screen py-12">
+      <div className="mt-1 p-8 bg-white rounded-lg shadow-2xl max-w-7xl mx-auto">
+        <div className="flex justify-center overflow-x-auto">
+          <div
+            style={{
+              width: data.length > 8 ? `${data.length * 100}px` : "100%",
+            }}
+          >
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart
+                data={data}
+                margin={{
+                  top: 20,
+                  right: 30,
+                  left: 20,
+                  bottom: 50,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                <XAxis
+                  dataKey="name"
+                  interval={0}
+                  angle={-45}
+                  textAnchor="end"
+                  fontSize={14}
+                  fill="#4B5563"
                 />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+                <YAxis
+                  fontSize={14}
+                  tickFormatter={formatNumber}
+                  fill="#4B5563"
+                />
+                <Tooltip formatter={(value) => formatNumber(value)} />
+                <Legend />
+                <Bar dataKey="count" radius={[10, 10, 0, 0]}>
+                  {data.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                  <LabelList
+                    dataKey="count"
+                    position="top"
+                    fill="#4B5563"
+                    fontSize={12}
+                    formatter={(value) => formatNumber(value)}
+                  />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
     </div>
