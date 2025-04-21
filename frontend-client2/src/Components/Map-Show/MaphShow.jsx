@@ -45,7 +45,7 @@ function MaphShow() {
   }, []);
 
   return (
-    <div className="w-full h-[500px]">
+    <div className="w-full h-[400px]">
       {" "}
       {/* Pinalitan ko dito */}
       <MapContainer center={mapPosition} zoom={10} className="w-full h-full">
