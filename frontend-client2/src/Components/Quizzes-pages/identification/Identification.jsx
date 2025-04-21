@@ -310,7 +310,9 @@ function Identifications() {
         </h2>
         {currentQuestions.map((q, index) => (
           <div key={q.id} className="mb-6">
-            <p className="font-semibold text-gray-800">{q.question}</p>
+            <p className="font-semibold text-gray-800">
+              {index + 1}. {q.question}
+            </p>
             <input
               type="text"
               className="w-full p-2 mt-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
