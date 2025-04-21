@@ -21,7 +21,7 @@ function Quizzes() {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log("Token:", token); // Para makita kung may token
+        console.log("Token:", token);
 
         if (!token) {
           console.error("No token found");
@@ -35,9 +35,9 @@ function Quizzes() {
           withCredentials: true,
         });
 
-        console.log("Fetched user info:", response.data); // Para makita kung anong sagot
+        console.log("Fetched user info:", response.data);
         setUser(response.data);
-        setLastScore(response.data.score || 0); // Set last score to 0 if null
+        setLastScore(response.data.score || 0);
       } catch (error) {
         console.error(
           "Error fetching user info:",
@@ -52,9 +52,20 @@ function Quizzes() {
   useEffect(() => {
     axios
       .get(`${API_URL}/api/multiple-choice`)
-      .then((res) => setQuestions(res.data))
+      .then((res) => {
+        const shuffledQuestions = shuffleArray(res.data); // <-- shuffle here
+        setQuestions(shuffledQuestions);
+      })
       .catch((err) => console.error("Failed to fetch questions", err));
   }, []);
+
+  // Shuffle function
+  const shuffleArray = (array) => {
+    return array
+      .map((item) => ({ item, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ item }) => item);
+  };
 
   const handleOptionChange = (questionId, selectedOption) => {
     setUserAnswers((prev) => ({ ...prev, [questionId]: selectedOption }));
@@ -72,14 +83,12 @@ function Quizzes() {
   const handleSubmit = () => {
     let finalScore = 0;
 
-    // Calculate the score
     questions.forEach((q) => {
       if (userAnswers[q.id] === q.correctAnswer) {
         finalScore++;
       }
     });
 
-    // Retrieve firstname and lastname from user state or localStorage
     const firstname = user?.firstname || "Unknown";
     const lastname = user?.lastname || "User";
 
@@ -88,7 +97,6 @@ function Quizzes() {
       return;
     }
 
-    // Submit the score to the backend (quiz_results table)
     axios
       .post(`${API_URL}/api/submit-score`, {
         firstname,
