@@ -283,12 +283,18 @@ function Identifications() {
               </div>
             );
           })}
-          <div className="text-center mt-6">
+          <div className="mt-6 flex justify-center gap-4">
+            <button
+              onClick={handleBackToIntro}
+              className="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg font-medium transition"
+            >
+              Back to Intro
+            </button>
             <button
               onClick={() => window.location.reload()}
-              className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-lg font-medium transition"
+              className="bg-gray-400 hover:bg-gray-500 text-white py-2 px-6 rounded-lg font-medium transition"
             >
-              🔁 Retake Quiz
+              Retry Quiz
             </button>
           </div>
         </div>
@@ -297,40 +303,36 @@ function Identifications() {
   }
 
   return (
-    <div className="min-h-screen p-6 bg-gradient-to-br from-green-50 to-green-200 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-3xl">
-        <h2 className="text-2xl font-bold mb-6 text-center text-green-700">
-          🧬 Identification Quiz
+    <div className="min-h-screen p-6 bg-gradient-to-br from-green-50 to-green-200">
+      <div className="bg-white p-8 rounded-xl shadow-2xl max-w-3xl mx-auto">
+        <h2 className="text-3xl font-bold text-green-700 mb-6">
+          📚 Identification Quiz
         </h2>
         {currentQuestions.map((q, index) => (
           <div key={q.id} className="mb-6">
-            <p className="font-semibold mb-2">
-              {start + index + 1}. {q.question}
-            </p>
+            <p className="font-semibold text-gray-800">{q.question}</p>
             <input
               type="text"
+              className="w-full p-2 mt-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
               value={userAnswers[start + index] || ""}
               onChange={(e) => handleChange(index, e.target.value)}
-              className="border rounded-lg w-full p-2"
-              placeholder="Type your answer"
+              placeholder="Your answer"
             />
           </div>
         ))}
-        <div className="flex justify-between mt-8">
-          {currentPage > 0 && (
-            <button
-              onClick={() => setCurrentPage(currentPage - 1)}
-              className="bg-gray-400 hover:bg-gray-500 text-white py-2 px-4 rounded-lg transition"
-            >
-              ◀️ Previous
-            </button>
-          )}
+        <div className="flex justify-between">
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 0}
+            className="bg-gray-400 hover:bg-gray-500 text-white py-2 px-6 rounded-lg font-medium transition disabled:opacity-50"
+          >
+            Back
+          </button>
           <button
             onClick={handleNextOrSubmit}
-            disabled={isSubmitting}
             className="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg font-medium transition"
           >
-            {end >= randomizedQuestions.length ? "Submit Quiz" : "Next ➡️"}
+            {end >= randomizedQuestions.length ? "Submit" : "Next"}
           </button>
         </div>
       </div>
