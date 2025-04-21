@@ -1,8 +1,8 @@
-import "./GraphClient.css";
+import "./GraphClient2.css";
 import React, { useState } from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import Sidebar from "../../Components/sidebar/Sidebar";
-import Graph from "../../Components/Analytics-page/Graph-page/Graph";
+import Graph2 from "../../Components/Analytics-page/Graph-page2/Graph2";
 
 function GrapClient() {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
@@ -26,9 +26,8 @@ function GrapClient() {
       <br />
 
       <div className="Grap-home">
-        <Graph />
+        <Graph2 />
       </div>
-
       <br />
     </div>
   );
