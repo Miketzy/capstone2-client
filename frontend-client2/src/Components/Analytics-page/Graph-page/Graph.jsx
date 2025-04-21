@@ -68,7 +68,7 @@ function Graph() {
 
   return (
     <div className=" min-h-screen py-12">
-      <div className="mt-5 p-8 bg-white rounded-lg shadow-2xl max-w-5xl mx-auto">
+      <div className="mt-1 p-8 bg-white rounded-lg shadow-2xl max-w-5xl mx-auto">
         <div className="flex justify-center">
           <ResponsiveContainer width="100%" height={400}>
             <BarChart
