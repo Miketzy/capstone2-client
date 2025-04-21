@@ -18,7 +18,7 @@ const customIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
-function MaphShow() {
+function MaphShow({ selectedSpecies }) {
   const [speciesData, setSpeciesData] = useState([]);
   const [mapPosition, setMapPosition] = useState([7.1529, 126.4517]);
 
@@ -28,13 +28,6 @@ function MaphShow() {
         const response = await axios.get(`${API_URL}/api/species`);
         if (response.data && response.data.length > 0) {
           setSpeciesData(response.data);
-
-          const firstResult = response.data.find(
-            (species) => species.latitude && species.longitude
-          );
-          if (firstResult) {
-            setMapPosition([firstResult.latitude, firstResult.longitude]);
-          }
         }
       } catch (err) {
         console.error("Error fetching species data:", err);
@@ -44,36 +37,72 @@ function MaphShow() {
     fetchSpecies();
   }, []);
 
+  useEffect(() => {
+    if (
+      selectedSpecies &&
+      selectedSpecies.latitude &&
+      selectedSpecies.longitude
+    ) {
+      setMapPosition([selectedSpecies.latitude, selectedSpecies.longitude]);
+    }
+  }, [selectedSpecies]);
+
   return (
     <div className="w-full h-[400px]">
-      {" "}
-      {/* Pinalitan ko dito */}
-      <MapContainer center={mapPosition} zoom={10} className="w-full h-full">
+      <MapContainer
+        center={mapPosition}
+        zoom={10}
+        className="w-full h-full"
+        key={mapPosition.toString()}
+      >
         <TileLayer
           url="https://api.maptiler.com/maps/jp-mierune-dark/256/{z}/{x}/{y}.png?key=txroCKKY059zWv1MqNe0"
           attribution='&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>'
         />
-        {speciesData
-          .filter((species) => species.latitude && species.longitude)
-          .map((species, index) => (
-            <Marker
-              key={index}
-              position={[species.latitude, species.longitude]}
-              icon={customIcon}
-            >
-              <Popup>
-                <div className="text-center text-gray-800">
-                  <strong className="block text-lg font-semibold">
-                    {species.commonname}
-                  </strong>
-                  <div className="flex items-center justify-center text-blue-500 mt-1">
-                    <HiLocationMarker className="mr-1" />
-                    <span>{species.location}</span>
-                  </div>
+        {/* Kung may selected species, marker lang sa kanya */}
+        {selectedSpecies &&
+        selectedSpecies.latitude &&
+        selectedSpecies.longitude ? (
+          <Marker
+            position={[selectedSpecies.latitude, selectedSpecies.longitude]}
+            icon={customIcon}
+          >
+            <Popup>
+              <div className="text-center text-gray-800">
+                <strong className="block text-lg font-semibold">
+                  {selectedSpecies.commonname}
+                </strong>
+                <div className="flex items-center justify-center text-blue-500 mt-1">
+                  <HiLocationMarker className="mr-1" />
+                  <span>{selectedSpecies.location}</span>
                 </div>
-              </Popup>
-            </Marker>
-          ))}
+              </div>
+            </Popup>
+          </Marker>
+        ) : (
+          // Kung walang selectedSpecies, normal na lahat ng species markers
+          speciesData
+            .filter((species) => species.latitude && species.longitude)
+            .map((species, index) => (
+              <Marker
+                key={index}
+                position={[species.latitude, species.longitude]}
+                icon={customIcon}
+              >
+                <Popup>
+                  <div className="text-center text-gray-800">
+                    <strong className="block text-lg font-semibold">
+                      {species.commonname}
+                    </strong>
+                    <div className="flex items-center justify-center text-blue-500 mt-1">
+                      <HiLocationMarker className="mr-1" />
+                      <span>{species.location}</span>
+                    </div>
+                  </div>
+                </Popup>
+              </Marker>
+            ))
+        )}
       </MapContainer>
     </div>
   );
