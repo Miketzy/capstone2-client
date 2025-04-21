@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { HiLocationMarker } from "react-icons/hi";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import API_URL from "../../Config";
@@ -17,6 +17,23 @@ const customIcon = new L.Icon({
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
   shadowSize: [41, 41],
 });
+
+// Component para mag move at zoom yung mapa kapag may selected species
+function FlyToSelectedSpecies({ selectedSpecies }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (
+      selectedSpecies &&
+      selectedSpecies.latitude &&
+      selectedSpecies.longitude
+    ) {
+      map.flyTo([selectedSpecies.latitude, selectedSpecies.longitude], 15); // Zoom level 15 para close-up
+    }
+  }, [selectedSpecies, map]);
+
+  return null;
+}
 
 function MaphShow({ selectedSpecies }) {
   const [speciesData, setSpeciesData] = useState([]);
@@ -59,7 +76,8 @@ function MaphShow({ selectedSpecies }) {
           url="https://api.maptiler.com/maps/jp-mierune-dark/256/{z}/{x}/{y}.png?key=txroCKKY059zWv1MqNe0"
           attribution='&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>'
         />
-        {/* Kung may selected species, marker lang sa kanya */}
+        <FlyToSelectedSpecies selectedSpecies={selectedSpecies} />{" "}
+        {/* Dito ko pinasok para mag zoom-in */}
         {selectedSpecies &&
         selectedSpecies.latitude &&
         selectedSpecies.longitude ? (
@@ -80,7 +98,6 @@ function MaphShow({ selectedSpecies }) {
             </Popup>
           </Marker>
         ) : (
-          // Kung walang selectedSpecies, normal na lahat ng species markers
           speciesData
             .filter((species) => species.latitude && species.longitude)
             .map((species, index) => (
