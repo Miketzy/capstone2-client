@@ -301,7 +301,7 @@ function Identifications() {
   }
 
   return (
-    <div className="min-h-screen p-6 bg-gradient-to-br from-green-50 to-green-200">
+    <div className="min-h-screen p-6 ">
       <div className="bg-white p-8 rounded-xl shadow-2xl max-w-3xl mx-auto">
         <h2 className="text-3xl font-bold text-green-700 mb-6">
           📚 Identification Quiz
