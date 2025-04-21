@@ -141,8 +141,7 @@ function MatchingTypes() {
           </p>
 
           <p className="text-gray-600">
-            Match the common name (Column A) to its scientific name (Column B).
-            Ready to explore?
+            Match the Column A to its Column B. Ready to explore?
           </p>
           <button
             onClick={handleStart}
@@ -198,9 +197,7 @@ function MatchingTypes() {
           <div className="grid grid-cols-2 gap-6">
             {/* Column A */}
             <div>
-              <h3 className="font-semibold text-green-600 mb-2">
-                Column A (Common Name)
-              </h3>
+              <h3 className="font-semibold text-green-600 mb-2">Column A</h3>
               {currentQuestions.map((item) => (
                 <div key={item.id} className="mb-3">
                   <div className="p-3 bg-green-100 rounded-lg">
@@ -212,9 +209,7 @@ function MatchingTypes() {
 
             {/* Column B */}
             <div>
-              <h3 className="font-semibold text-green-600 mb-2">
-                Column B (Scientific Name)
-              </h3>
+              <h3 className="font-semibold text-green-600 mb-2">Column B</h3>
               {currentQuestions.map((item) => (
                 <div key={item.id} className="mb-3">
                   <select
