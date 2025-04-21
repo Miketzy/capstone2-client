@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react"; // ➡️ Added useRef
 import { HiLocationMarker } from "react-icons/hi";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet"; // Import Leaflet
@@ -11,20 +11,21 @@ import API_URL from "../../../Config"; // Dalawang level up ✅
 const customIcon = new L.Icon({
   iconUrl:
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  iconSize: [25, 41], // Size of the icon
-  iconAnchor: [12, 41], // Anchor point of the icon
-  popupAnchor: [1, -34], // Popup anchor point
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
   shadowUrl:
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-  shadowSize: [41, 41], // Size of the shadow
+  shadowSize: [41, 41],
 });
 
 function MapSpecies() {
   const [searchTerm, setSearchTerm] = useState("");
   const [speciesData, setSpeciesData] = useState([]);
   const [error, setError] = useState("");
-  const [mapPosition, setMapPosition] = useState([7.1529, 126.4517]); // Default map position (Davao Oriental)
+  const [mapPosition, setMapPosition] = useState([7.1529, 126.4517]); // Default map position
   const location = useLocation();
+  const mapRef = useRef(); // ➡️ Create a reference for the map
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -48,12 +49,20 @@ function MapSpecies() {
           (species) => species.latitude && species.longitude
         );
 
-        // Focus the map on the first result with coordinates
         if (firstResult) {
           setMapPosition([firstResult.latitude, firstResult.longitude]);
+          if (mapRef.current) {
+            mapRef.current.flyTo(
+              [firstResult.latitude, firstResult.longitude],
+              15 // ➡️ Zoom level 15 para malapitan
+            );
+          }
         } else {
           setError("No valid location for the searched species.");
-          setMapPosition([7.1529, 126.4517]); // Default position
+          setMapPosition([7.1529, 126.4517]);
+          if (mapRef.current) {
+            mapRef.current.flyTo([7.1529, 126.4517], 10); // ➡️ Fly back to default zoom
+          }
         }
       } else {
         setError("No species found.");
@@ -90,7 +99,12 @@ function MapSpecies() {
 
       {/* Map Container */}
       <div className="w-full max-w-5xl h-[500px] rounded-md shadow-lg overflow-hidden">
-        <MapContainer center={mapPosition} zoom={10} className="w-full h-full">
+        <MapContainer
+          center={mapPosition}
+          zoom={10}
+          className="w-full h-full"
+          whenCreated={(mapInstance) => (mapRef.current = mapInstance)} // ➡️ Save the map instance
+        >
           <TileLayer
             url="https://api.maptiler.com/maps/jp-mierune-dark/256/{z}/{x}/{y}.png?key=txroCKKY059zWv1MqNe0"
             attribution='&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>'
@@ -101,17 +115,15 @@ function MapSpecies() {
               <Marker
                 key={index}
                 position={[species.latitude, species.longitude]}
-                icon={customIcon} // Apply the custom icon here
+                icon={customIcon}
               >
                 <Popup>
                   <div className="flex flex-col items-center space-y-2">
-                    {/* Image */}
                     <img
-                      src={species.uploadimage} // Use the Cloudinary image URL
+                      src={species.uploadimage}
                       alt={species.specificname}
-                      className="w-32 h-32  rounded-md"
+                      className="w-32 h-32 rounded-md"
                     />
-                    {/* Species Details */}
                     <div className="text-sm text-gray-800 text-center">
                       <strong className="block text-lg font-semibold">
                         {species.commonname}
