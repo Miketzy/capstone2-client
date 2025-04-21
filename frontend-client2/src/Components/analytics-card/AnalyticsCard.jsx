@@ -2,7 +2,7 @@ import React from "react";
 
 function AnalyticsCard() {
   return (
-    <div className="flex items-center justify-center min-h-screen pt-24 bg-green-100">
+    <div className="flex items-center justify-center min-h-screen pt-40">
       <div className="p-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {/* Card for Bar Chart Intro */}
