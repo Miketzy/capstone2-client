@@ -912,6 +912,16 @@ app.get('/api/identificationinfo', verifyUser, async (req, res) => {
   }
 });
 
+app.get("/keep-alive", (req, res) =>{
+  db.query("Select 1", (err) => {
+    if(err) {
+      console.error("Database keep-alive error:", err);
+      return res.status(500).send("Database connection error");
+    }
+    res.send("Backend and database are alive");
+  })
+})
+
 
 
 
