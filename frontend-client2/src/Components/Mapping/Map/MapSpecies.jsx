@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useState, useEffect, useRef } from "react"; // ➡️ Added useRef
+import React, { useState, useEffect, useRef } from "react";
 import { HiLocationMarker } from "react-icons/hi";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet"; // Import Leaflet
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import L from "leaflet";
 import { useLocation } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
-import API_URL from "../../../Config"; // Dalawang level up ✅
+import API_URL from "../../../Config";
 
 // Define a custom icon
 const customIcon = new L.Icon({
@@ -19,13 +19,24 @@ const customIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
+// Component para mag move ng mapa
+function FlyToMarker({ position }) {
+  const map = useMap();
+  useEffect(() => {
+    if (position) {
+      map.flyTo(position, 15, { duration: 1.5 }); // ➡️ Smooth fly and zoom
+    }
+  }, [position, map]);
+  return null;
+}
+
 function MapSpecies() {
   const [searchTerm, setSearchTerm] = useState("");
   const [speciesData, setSpeciesData] = useState([]);
   const [error, setError] = useState("");
-  const [mapPosition, setMapPosition] = useState([7.1529, 126.4517]); // Default map position
+  const [selectedPosition, setSelectedPosition] = useState([7.1529, 126.4517]); // Default Davao Oriental
   const location = useLocation();
-  const mapRef = useRef(); // ➡️ Create a reference for the map
+  const mapRef = useRef();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -50,19 +61,9 @@ function MapSpecies() {
         );
 
         if (firstResult) {
-          setMapPosition([firstResult.latitude, firstResult.longitude]);
-          if (mapRef.current) {
-            mapRef.current.flyTo(
-              [firstResult.latitude, firstResult.longitude],
-              15 // ➡️ Zoom level 15 para malapitan
-            );
-          }
+          setSelectedPosition([firstResult.latitude, firstResult.longitude]); // ✅ Set mo agad yung tamang position
         } else {
           setError("No valid location for the searched species.");
-          setMapPosition([7.1529, 126.4517]);
-          if (mapRef.current) {
-            mapRef.current.flyTo([7.1529, 126.4517], 10); // ➡️ Fly back to default zoom
-          }
         }
       } else {
         setError("No species found.");
@@ -100,15 +101,18 @@ function MapSpecies() {
       {/* Map Container */}
       <div className="w-full max-w-5xl h-[500px] rounded-md shadow-lg overflow-hidden">
         <MapContainer
-          center={mapPosition}
+          center={selectedPosition}
           zoom={10}
           className="w-full h-full"
-          whenCreated={(mapInstance) => (mapRef.current = mapInstance)} // ➡️ Save the map instance
+          ref={mapRef}
         >
           <TileLayer
             url="https://api.maptiler.com/maps/jp-mierune-dark/256/{z}/{x}/{y}.png?key=txroCKKY059zWv1MqNe0"
             attribution='&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>'
           />
+          {/* Component para mag lipat ng mapa */}
+          <FlyToMarker position={selectedPosition} />
+
           {speciesData
             .filter((species) => species.latitude && species.longitude)
             .map((species, index) => (
