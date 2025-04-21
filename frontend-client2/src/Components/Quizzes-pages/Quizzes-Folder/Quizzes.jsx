@@ -53,7 +53,7 @@ function Quizzes() {
     axios
       .get(`${API_URL}/api/multiple-choice`)
       .then((res) => {
-        const shuffledQuestions = shuffleArray(res.data); // <-- shuffle here
+        const shuffledQuestions = shuffleArray(res.data).slice(0, 25); // LIMIT TO 25 questions
         setQuestions(shuffledQuestions);
       })
       .catch((err) => console.error("Failed to fetch questions", err));
