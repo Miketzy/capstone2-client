@@ -28,6 +28,7 @@ import CardQuizFolder from './Home/Quizzes-Dashboard/cardquiz-folder/CardQuizFol
 import IdentificationFolder from './Home/Quizzes-Dashboard/Identification-folder/IdentificationFolder';
 import MatchingTypeFolder from './Home/Quizzes-Dashboard/matchingtype-folder/MatchingTypeFolder';
 import CardAnalytics from './Home/card-analytic/CardAnalytics';
+import GrapClient2 from './Home/AnalyticsHome2/GrapClient2';
 
 function App() {
   useEffect(() => {
@@ -59,6 +60,9 @@ function App() {
     <Route path="/Enter-new-password" element={<EnterNewPassword />} />
 
     <Route path="/analytics" element={<CardAnalytics />} />
+    <Route path="/analytics/Graph" element={<GrapClient/>} />
+    <Route path="/analytics/pie-chart" element={<GrapClient2/>} />
+
     <Route path="/quizzes-intro" element={<QuizzesIntroDashboard />} />
     <Route path="/quizzes" element={<QuizzesDashboard />} />
     <Route path="/cardquizzes" element={<CardQuizFolder />} />
