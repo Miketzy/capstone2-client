@@ -41,7 +41,7 @@ function Graph2() {
 
   return (
     <div className="flex justify-center items-center my-10">
-      <div className="w-full max-w-3xl p-6 bg-white rounded-lg shadow-lg">
+      <div className="w-full max-w-5xl p-10 bg-white rounded-lg shadow-lg">
         <ResponsiveContainer width="100%" height={540}>
           <PieChart>
             <Pie
