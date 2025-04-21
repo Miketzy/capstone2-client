@@ -164,11 +164,9 @@ function Database() {
                 <span>{selectedSpecies?.habitat || "Insufficient data"}</span>
               </h3>
 
-              <MaphShow selectedSpecies={selectedSpecies} />
-
-              <button className="modal-mapping" onClick={handleMappingClick}>
-                Mapping
-              </button>
+              <div onClick={handleMappingClick} style={{ cursor: "pointer" }}>
+                <MaphShow selectedSpecies={selectedSpecies} />
+              </div>
             </div>
           </div>
 
