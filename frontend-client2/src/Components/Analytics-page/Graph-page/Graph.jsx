@@ -67,7 +67,7 @@ function Graph() {
   };
 
   return (
-    <div className="from-purple-200 via-indigo-200 to-pink-200 min-h-screen py-12">
+    <div className="bg-white min-h-screen py-12">
       <div className="mt-12 p-8 bg-gradient-to-r from-purple-100 via-indigo-100 to-pink-100 rounded-lg shadow-2xl max-w-5xl mx-auto">
         <div className="flex justify-center">
           <ResponsiveContainer width="100%" height={400}>
