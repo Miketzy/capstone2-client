@@ -15,7 +15,7 @@ function AnalyticsCard() {
           {/* Card for Bar Chart Intro */}
           <div
             className="bg-blue-50 p-6 rounded-2xl shadow-md cursor-pointer hover:bg-blue-100 transition"
-            onClick={() => handleCardClick("/bar-graph-page")}
+            onClick={() => handleCardClick("/analytics/Graph")}
           >
             <h2 className="mb-4 text-xl font-semibold text-gray-800 border-b-2 border-teal-600 pb-2">
               Species Comparison (Bar Graph) - Introduction
@@ -31,7 +31,7 @@ function AnalyticsCard() {
           {/* Card for Pie Chart Intro */}
           <div
             className="bg-blue-50 p-6 rounded-2xl shadow-md cursor-pointer hover:bg-blue-100 transition"
-            onClick={() => handleCardClick("/pie-chart-page")}
+            onClick={() => handleCardClick("/analytics/pie-chart")}
           >
             <h2 className="mb-4 text-xl font-semibold text-gray-800 border-b-2 border-teal-600 pb-2">
               Endangered Status (Pie Chart) - Introduction
