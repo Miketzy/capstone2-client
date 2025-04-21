@@ -37,18 +37,18 @@ function Graph() {
       .then((res) => {
         const counts = res.data;
         setData([
-          { name: "Mammals", count: counts.mammals, color: "#FFB3C6" },
-          { name: "Fish", count: counts.fish, color: "#FFE6A6" },
-          { name: "Birds", count: counts.birds, color: "#B3E0FF" },
-          { name: "Reptiles", count: counts.reptiles, color: "#D9FFCC" },
-          { name: "Amphibians", count: counts.amphibians, color: "#FFDAA6" },
-          { name: "Insects", count: counts.insects, color: "#FFB3C6" },
-          { name: "Arachnids", count: counts.arachnids, color: "#B3E0FF" },
-          { name: "Mollusks", count: counts.mollusks, color: "#D9FFCC" },
-          { name: "Echinoderms", count: counts.echinoderms, color: "#FFDAA6" },
-          { name: "Cnidarians", count: counts.cnidarians, color: "#FFDAA6" },
-          { name: "Worms", count: counts.worms, color: "#C1A3FF" },
-          { name: "Sponges", count: counts.sponges, color: "#A8E6CF" },
+          { name: "Mammals", count: counts.mammals, color: "#4CAF50" },
+          { name: "Fish", count: counts.fish, color: "#4CAF50" },
+          { name: "Birds", count: counts.birds, color: "#4CAF50" },
+          { name: "Reptiles", count: counts.reptiles, color: "#4CAF50" },
+          { name: "Amphibians", count: counts.amphibians, color: "#4CAF50" },
+          { name: "Insects", count: counts.insects, color: "#4CAF50" },
+          { name: "Arachnids", count: counts.arachnids, color: "#4CAF50" },
+          { name: "Mollusks", count: counts.mollusks, color: "#4CAF50" },
+          { name: "Echinoderms", count: counts.echinoderms, color: "#4CAF50" },
+          { name: "Cnidarians", count: counts.cnidarians, color: "#4CAF50" },
+          { name: "Worms", count: counts.worms, color: "#4CAF50" },
+          { name: "Sponges", count: counts.sponges, color: "#4CAF50" },
         ]);
       })
       .catch((err) => {
