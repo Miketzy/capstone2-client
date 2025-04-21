@@ -21,7 +21,7 @@ function GrapClient2() {
       </div>
 
       <div className="graphtitlehome">
-        <h1 className="graphtitlewelocome">Species Analytics</h1>
+        <h1 className="graphtitlewelocome">Species Status</h1>
       </div>
       <br />
 

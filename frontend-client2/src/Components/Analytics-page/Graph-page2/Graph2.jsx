@@ -42,9 +42,6 @@ function Graph2() {
   return (
     <div className="flex justify-center items-center my-10">
       <div className="w-full max-w-3xl p-6 from-purple-100 via-indigo-100 to-pink-100 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
-          Species Status
-        </h1>
         <ResponsiveContainer width="100%" height={540}>
           <PieChart>
             <Pie
