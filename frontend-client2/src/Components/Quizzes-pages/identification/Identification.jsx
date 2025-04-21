@@ -274,12 +274,10 @@ function Identifications() {
                     {userAnswer || "No answer"}
                   </span>
                 </p>
-                {!isCorrect && (
-                  <p className="text-sm">
-                    <span className="font-medium">Correct Answer: </span>
-                    <span className="text-green-800">{correctAnswer}</span>
-                  </p>
-                )}
+                <p className="text-sm">
+                  <span className="font-medium">Correct Answer: </span>
+                  <span className="text-green-700">{correctAnswer}</span>
+                </p>
               </div>
             );
           })}
@@ -311,7 +309,7 @@ function Identifications() {
         {currentQuestions.map((q, index) => (
           <div key={q.id} className="mb-6">
             <p className="font-semibold text-gray-800">
-              {index + 1}. {q.question}
+              {start + index + 1}. {q.question}
             </p>
             <input
               type="text"
