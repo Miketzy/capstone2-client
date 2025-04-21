@@ -20,11 +20,6 @@ function GrapClient2() {
         <Sidebar isSidebarVisible={isSidebarVisible} />
       </div>
 
-      <div className="graphtitlehome">
-        <h1 className="graphtitlewelocome">Species Analytics</h1>
-      </div>
-      <br />
-
       <div className="Grap-home">
         <Graph2 />
       </div>
