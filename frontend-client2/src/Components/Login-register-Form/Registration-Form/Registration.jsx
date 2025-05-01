@@ -59,7 +59,13 @@ const Registration = () => {
       });
     } catch (error) {
       console.error("Registration failed:", error);
-      alert("Registration failed. Please try again.");
+      if (error.message === "Network Error") {
+        alert(
+          "Registration failed due to weak or no internet connection. Please check your connection and try again."
+        );
+      } else {
+        alert("Registration failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
