@@ -59,17 +59,16 @@ const Registration = () => {
       });
     } catch (error) {
       console.error("Registration failed:", error);
-      if (error.message === "Network Error") {
-        alert(
-          "Registration failed due to weak or no internet connection. Please check your connection and try again."
-        );
+    
+      // Check for network-related errors
+      if (!error.response) {
+        alert("Registration failed due to weak or no internet connection. Please check your connection and try again.");
       } else {
+        // Other errors (e.g., server errors)
         alert("Registration failed. Please try again.");
       }
-    } finally {
-      setLoading(false);
     }
-  };
+    
 
   const GoToLogin = async () => {
     try {
