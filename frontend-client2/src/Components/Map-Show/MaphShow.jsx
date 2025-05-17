@@ -65,11 +65,11 @@ function MaphShow({ selectedSpecies }) {
   }, [selectedSpecies]);
 
   return (
-    <div className="w-[100%] h-[400px]">
+    <div className="w-full h-[400px]">
       <MapContainer
         center={mapPosition}
         zoom={10}
-        className="w-[400px] h-[400px]"
+        className="w-full h-full"
         key={mapPosition.toString()}
       >
         <TileLayer
