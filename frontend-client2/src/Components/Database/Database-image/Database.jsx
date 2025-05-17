@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./Database.css";
-import axios from "axios"; // Import axios
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
-import API_URL from "../../../Config"; // Dalawang level up ✅
+import API_URL from "../../../Config";
 import MaphShow from "../../Map-Show/MaphShow";
 
 function Database() {
   const [images, setImages] = useState([]);
-  const [filteredImages, setFilteredImages] = useState([]); // State for filtered images
+  const [filteredImages, setFilteredImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedSpecies, setSelectedSpecies] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // State for search term
-  const navigate = useNavigate(); // Initialize navigate
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const openModal = (species) => {
-    setSelectedImage(species.uploadimage); // Diretso Cloudinary URL
+    setSelectedImage(species.uploadimage);
     setSelectedSpecies(species);
   };
 
@@ -24,14 +24,13 @@ function Database() {
     setSelectedSpecies(null);
   };
 
-  // Fetch species data from the backend
   useEffect(() => {
     axios
       .get(`${API_URL}/api/images`)
       .then((response) => {
         console.log("Fetched images:", response.data);
-        setImages(response.data); // Set the fetched images to state
-        setFilteredImages(response.data); // Initialize filtered images
+        setImages(response.data);
+        setFilteredImages(response.data);
       })
       .catch((error) => {
         console.error("Error fetching images:", error);
@@ -40,17 +39,16 @@ function Database() {
 
   useEffect(() => {
     if (selectedImage) {
-      document.body.style.overflow = "hidden"; // Disable scrolling when modal is open
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "auto"; // Enable scrolling when modal is closed
+      document.body.style.overflow = "auto";
     }
 
     return () => {
-      document.body.style.overflow = "auto"; // Cleanup on unmount
+      document.body.style.overflow = "auto";
     };
   }, [selectedImage]);
 
-  // Filter images based on the search term and sort alphabetically
   useEffect(() => {
     const results = images
       .filter((species) =>
@@ -65,7 +63,7 @@ function Database() {
             field && field.toLowerCase().includes(searchTerm.toLowerCase())
         )
       )
-      .sort((a, b) => a.commonname.localeCompare(b.commonname)); // Sort alphabetically by common name
+      .sort((a, b) => a.commonname.localeCompare(b.commonname));
 
     setFilteredImages(results);
   }, [searchTerm, images]);
@@ -86,8 +84,8 @@ function Database() {
             placeholder="Search the species..."
             aria-label="Search"
             className="search-input w-full p-2 rounded-lg focus:outline-none"
-            value={searchTerm} // Bind the search input value to state
-            onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           <i className="fas fa-search search-icon text-gray-500 ml-2"></i>
         </div>
@@ -100,10 +98,10 @@ function Database() {
             <div
               className="gallery-item cursor-pointer relative rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
               key={species.id}
-              onClick={() => openModal(species)} // Open modal with the entire species object
+              onClick={() => openModal(species)}
             >
               <img
-                src={species.uploadimage} // Cloudinary URL
+                src={species.uploadimage}
                 alt={species.commonname}
                 className="gallery-image w-full h-64 "
               />
@@ -113,7 +111,7 @@ function Database() {
             </div>
           ))
         ) : (
-          <p>No images available.</p> // Message if no images are available
+          <p>No images available.</p>
         )}
       </div>
 
@@ -132,24 +130,37 @@ function Database() {
               />
 
               {/* Thumbnails */}
-              <div className="flex gap-4 mt-4 justify-center flex-wrap">
-                {thumbnails.map((img, index) => (
-                  <img
-                    key={index}
-                    src={img}
-                    alt={`thumbnail-${index}`}
-                    onClick={() => setSelectedImage(img)}
-                    className={`w-20 h-14 object-cover rounded-md cursor-pointer
-                border-4 transition-all duration-200
-                ${
-                  selectedImage === img
-                    ? "border-blue-500 opacity-100"
-                    : "border-gray-300 opacity-70"
-                }`}
-                  />
-                ))}
-              </div>
+              {selectedSpecies &&
+                (() => {
+                  const thumbnails = [
+                    selectedSpecies.uploadimage,
+                    selectedSpecies.uploadimage1,
+                    selectedSpecies.uploadimage2,
+                    selectedSpecies.uploadimage3,
+                  ].filter(Boolean); // Removes null/undefined images
+
+                  return (
+                    <div className="flex gap-4 mt-4 justify-center flex-wrap">
+                      {thumbnails.map((img, index) => (
+                        <img
+                          key={index}
+                          src={img}
+                          alt={`thumbnail-${index}`}
+                          onClick={() => setSelectedImage(img)}
+                          className={`w-20 h-14 object-cover rounded-md cursor-pointer
+                          border-4 transition-all duration-200
+                          ${
+                            selectedImage === img
+                              ? "border-blue-500 opacity-100"
+                              : "border-gray-300 opacity-70"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  );
+                })()}
             </div>
+
             <div className="title-text">
               <h3 className="line1">
                 Specific Name:{" "}
