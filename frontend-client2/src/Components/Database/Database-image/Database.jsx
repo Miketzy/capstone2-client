@@ -132,17 +132,17 @@ function Database() {
               />
 
               {/* Thumbnails */}
-              <div className="flex flex-wrap gap-3 mt-4 justify-center md:justify-start">
-                {images.map((url, idx) => (
+              <div className="flex gap-4 mt-4 justify-center flex-wrap">
+                {imageList.map((img, idx) => (
                   <img
                     key={idx}
-                    src={url}
+                    src={img}
                     alt={`thumb-${idx}`}
-                    onClick={() => setSelectedImage(url)}
+                    onClick={() => setSelectedImage(img)}
                     className={`w-20 h-14 object-cover rounded-md cursor-pointer
                   border-4 transition-opacity duration-300
                   ${
-                    selectedImage === url
+                    selectedImage === img
                       ? "border-blue-600 opacity-100"
                       : "border-gray-300 opacity-70"
                   }`}
