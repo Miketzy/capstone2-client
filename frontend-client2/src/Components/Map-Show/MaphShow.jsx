@@ -65,7 +65,7 @@ function MaphShow({ selectedSpecies }) {
   }, [selectedSpecies]);
 
   return (
-    <div className="w-full h-[400px]">
+    <div className="w-[400px] h-[400px]">
       <MapContainer
         center={mapPosition}
         zoom={10}
