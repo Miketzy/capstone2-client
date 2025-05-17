@@ -124,31 +124,32 @@ function Database() {
               <CloseIcon />
             </span>
             <div className="p-4 md:p-8">
-          {/* Main Image */}
-          <img
-            src={selectedImage}
-            alt="Selected"
-            className="w-full max-h-[400px] object-contain rounded-lg"
-          />
-
-          {/* Thumbnails */}
-          <div className="flex flex-wrap gap-3 mt-4 justify-center md:justify-start">
-            {images.map((url, idx) => (
+              {/* Main Image */}
               <img
-                key={idx}
-                src={url}
-                alt={`thumb-${idx}`}
-                onClick={() => setSelectedImage(url)}
-                className={`w-20 h-14 object-cover rounded-md cursor-pointer
+                src={selectedImage}
+                alt="Selected"
+                className="w-full max-h-[400px] object-contain rounded-lg"
+              />
+
+              {/* Thumbnails */}
+              <div className="flex flex-wrap gap-3 mt-4 justify-center md:justify-start">
+                {images.map((url, idx) => (
+                  <img
+                    key={idx}
+                    src={url}
+                    alt={`thumb-${idx}`}
+                    onClick={() => setSelectedImage(url)}
+                    className={`w-20 h-14 object-cover rounded-md cursor-pointer
                   border-4 transition-opacity duration-300
                   ${
                     selectedImage === url
                       ? "border-blue-600 opacity-100"
                       : "border-gray-300 opacity-70"
                   }`}
-              />
-            ))}
-          </div>
+                  />
+                ))}
+              </div>
+            </div>
             <div className="title-text">
               <h3 className="line1">
                 Specific Name:{" "}
