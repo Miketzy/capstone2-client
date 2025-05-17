@@ -126,6 +126,7 @@ function Database() {
               <img
                 src={selectedImage}
                 alt="Selected"
+                id="main-image"
                 className="w-full max-h-[500px] object-contain rounded-lg"
               />
 
@@ -145,6 +146,7 @@ function Database() {
                         <img
                           key={index}
                           src={img}
+                          id="thumbnail"
                           alt={`thumbnail-${index}`}
                           onClick={() => setSelectedImage(img)}
                           className={`w-20 h-18 object-cover rounded-md cursor-pointer
