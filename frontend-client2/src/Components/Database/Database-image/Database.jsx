@@ -123,11 +123,7 @@ function Database() {
             </span>
             <div className="">
               {/* Main Image */}
-              <img
-                src={selectedImage}
-                alt="Selected"
-                className="w-full max-h-[400px] object-contain rounded-lg"
-              />
+              <img src={selectedImage} alt="Selected" className="modalimages" />
 
               {/* Thumbnails */}
               {selectedSpecies &&

@@ -39,7 +39,7 @@
     border-radius: 20px;
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
 }
-.modal img{
+.modal .modalimages{
     width: 100%;
     height: 100%;
 }
