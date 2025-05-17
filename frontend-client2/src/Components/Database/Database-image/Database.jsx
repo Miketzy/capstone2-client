@@ -197,7 +197,10 @@ function Database() {
                 <span>{selectedSpecies?.habitat || "Insufficient data"}</span>
               </h3>
 
-              <div onClick={handleMappingClick} style={{ cursor: "pointer" }}>
+              <div
+                onClick={handleMappingClick}
+                style={{ cursor: "pointer", width: "400px" }}
+              >
                 <MaphShow selectedSpecies={selectedSpecies} />
               </div>
             </div>
