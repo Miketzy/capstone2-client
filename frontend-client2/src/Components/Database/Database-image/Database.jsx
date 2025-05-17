@@ -121,12 +121,12 @@ function Database() {
             <span className="close-icon" onClick={closeModal}>
               <CloseIcon />
             </span>
-            <div className="p-4 md:p-8">
+            <div className="">
               {/* Main Image */}
               <img
                 src={selectedImage}
                 alt="Selected"
-                className="w-[100%] h-[400px] rounded-lg"
+                className="w-full max-h-[400px] object-contain rounded-lg"
               />
 
               {/* Thumbnails */}
