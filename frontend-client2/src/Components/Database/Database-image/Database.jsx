@@ -126,7 +126,7 @@ function Database() {
               <img
                 src={selectedImage}
                 alt="Selected"
-                className="w-[400px] h-[400px] rounded-lg"
+                className="w-[100%] h-[400px] rounded-lg"
               />
 
               {/* Thumbnails */}
