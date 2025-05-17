@@ -147,7 +147,7 @@ function Database() {
                           src={img}
                           alt={`thumbnail-${index}`}
                           onClick={() => setSelectedImage(img)}
-                          className={`w-25 h-25 object-cover rounded-md cursor-pointer
+                          className={`w-20 h-15 object-cover rounded-md cursor-pointer
                           border-4 transition-all duration-200
                           ${
                             selectedImage === img
