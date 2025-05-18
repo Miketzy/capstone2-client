@@ -130,7 +130,7 @@ function MapSpecies() {
                     <img
                       src={species.uploadimage}
                       alt={species.specificname}
-                      className="w-32 h-32 rounded-md"
+                      className="w-32 h-32 rounded-md cursor-pointer"
                       onClick={handleImageClick}
                     />
                     <div className="text-sm text-gray-800 text-center">
