@@ -112,7 +112,25 @@ function Graph() {
                     position="top"
                     fill="#4B5563"
                     fontSize={12}
-                    formatter={(value) => formatNumber(value)}
+                    content={({ x, y, width, value, index }) => {
+                      const total = data.reduce(
+                        (sum, item) => sum + item.count,
+                        0
+                      );
+                      const percentage =
+                        total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                      return (
+                        <text
+                          x={x + width / 2}
+                          y={y - 10}
+                          fill="#4B5563"
+                          textAnchor="middle"
+                          fontSize={12}
+                        >
+                          {`${value} (${percentage}%)`}
+                        </text>
+                      );
+                    }}
                   />
                 </Bar>
               </BarChart>
