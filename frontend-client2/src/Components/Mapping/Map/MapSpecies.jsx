@@ -6,7 +6,7 @@ import L from "leaflet";
 import { useLocation } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import API_URL from "../../../Config";
-
+import { useNavigate } from "react-router-dom";
 // Define a custom icon
 const customIcon = new L.Icon({
   iconUrl:
@@ -76,6 +76,10 @@ function MapSpecies() {
     }
   };
 
+  const handleImageClick = () => {
+    navigate(`/database`); // Palitan ang path ayon sa gusto mong puntahan
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-8">
       {/* Search Bar */}
@@ -127,6 +131,7 @@ function MapSpecies() {
                       src={species.uploadimage}
                       alt={species.specificname}
                       className="w-32 h-32 rounded-md"
+                      onClick={handleImageClick}
                     />
                     <div className="text-sm text-gray-800 text-center">
                       <strong className="block text-lg font-semibold">
