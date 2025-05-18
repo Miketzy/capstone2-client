@@ -129,7 +129,7 @@ function Database() {
                 id="main-image"
                 style={{
                   width: "400px",
-                  height: "500px",
+                  height: "300px",
                   objectFit: "cover",
                 }}
               />
