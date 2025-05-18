@@ -23,28 +23,53 @@ function Graph() {
       .then((res) => {
         const counts = res.data;
 
-        // Step 1: Compute total
+        // Step 1: Create array with counts as numbers
         const categories = [
-          { name: "Mammals", count: counts.mammals, color: "#4CAF50" },
-          { name: "Fish", count: counts.fish, color: "#4CAF50" },
-          { name: "Birds", count: counts.birds, color: "#4CAF50" },
-          { name: "Reptiles", count: counts.reptiles, color: "#4CAF50" },
-          { name: "Amphibians", count: counts.amphibians, color: "#4CAF50" },
-          { name: "Insects", count: counts.insects, color: "#4CAF50" },
-          { name: "Arachnids", count: counts.arachnids, color: "#4CAF50" },
-          { name: "Mollusks", count: counts.mollusks, color: "#4CAF50" },
-          { name: "Echinoderms", count: counts.echinoderms, color: "#4CAF50" },
-          { name: "Cnidarians", count: counts.cnidarians, color: "#4CAF50" },
-          { name: "Worms", count: counts.worms, color: "#4CAF50" },
-          { name: "Sponges", count: counts.sponges, color: "#4CAF50" },
+          { name: "Mammals", count: Number(counts.mammals), color: "#4CAF50" },
+          { name: "Fish", count: Number(counts.fish), color: "#4CAF50" },
+          { name: "Birds", count: Number(counts.birds), color: "#4CAF50" },
+          {
+            name: "Reptiles",
+            count: Number(counts.reptiles),
+            color: "#4CAF50",
+          },
+          {
+            name: "Amphibians",
+            count: Number(counts.amphibians),
+            color: "#4CAF50",
+          },
+          { name: "Insects", count: Number(counts.insects), color: "#4CAF50" },
+          {
+            name: "Arachnids",
+            count: Number(counts.arachnids),
+            color: "#4CAF50",
+          },
+          {
+            name: "Mollusks",
+            count: Number(counts.mollusks),
+            color: "#4CAF50",
+          },
+          {
+            name: "Echinoderms",
+            count: Number(counts.echinoderms),
+            color: "#4CAF50",
+          },
+          {
+            name: "Cnidarians",
+            count: Number(counts.cnidarians),
+            color: "#4CAF50",
+          },
+          { name: "Worms", count: Number(counts.worms), color: "#4CAF50" },
+          { name: "Sponges", count: Number(counts.sponges), color: "#4CAF50" },
         ];
 
+        // Step 2: Compute total count
         const totalCount = categories.reduce(
           (sum, item) => sum + item.count,
           0
         );
 
-        // Step 2: Add percentage to each item
+        // Step 3: Add percent to each item
         const updatedData = categories.map((item) => ({
           ...item,
           percent:
