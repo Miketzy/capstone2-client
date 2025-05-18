@@ -75,6 +75,7 @@ function MapSpecies() {
       setSpeciesData([]);
     }
   };
+  const navigate = useNavigate();
 
   const handleImageClick = () => {
     navigate(`/database`); // Palitan ang path ayon sa gusto mong puntahan
