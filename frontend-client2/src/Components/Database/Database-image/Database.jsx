@@ -127,7 +127,11 @@ function Database() {
                 src={selectedImage}
                 alt="Selected"
                 id="main-image"
-                className="w-[400px] max-h-[500px] object-contain rounded-lg"
+                style={{
+                  width: "400px",
+                  height: "500px",
+                  objectFit: "cover",
+                }}
               />
 
               {/* Thumbnails */}
