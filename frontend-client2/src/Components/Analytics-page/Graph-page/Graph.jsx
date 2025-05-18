@@ -56,16 +56,34 @@ function Graph() {
   }, []);
 
   const formatNumber = (number) => {
-    if (number >= 1_000_000) {
-      return (number / 1_000_000).toFixed(1) + "M";
-    } else if (number >= 1_000) {
-      return (number / 1_000).toFixed(1) + "K";
-    }
+    if (number >= 1_000_000) return (number / 1_000_000).toFixed(1) + "M";
+    if (number >= 1_000) return (number / 1_000).toFixed(1) + "K";
     return number;
   };
 
-  // Get the maximum count to set the YAxis domain dynamically
+  const totalCount = data.reduce((acc, entry) => acc + entry.count, 0);
   const maxCount = Math.max(...data.map((entry) => entry.count));
+
+  // Custom label formatter to show count + percentage
+  const renderCustomizedLabel = (props) => {
+    const { x, y, width, value, index } = props;
+    const entry = data[index];
+    const percent = totalCount
+      ? ((entry.count / totalCount) * 100).toFixed(1)
+      : 0;
+
+    return (
+      <text
+        x={x + width / 2}
+        y={y - 5}
+        fill="#4B5563"
+        textAnchor="middle"
+        fontSize={12}
+      >
+        {`${formatNumber(value)} (${percent}%)`}
+      </text>
+    );
+  };
 
   return (
     <div className="min-h-screen py-12">
@@ -79,12 +97,7 @@ function Graph() {
             <ResponsiveContainer width="100%" height={400}>
               <BarChart
                 data={data}
-                margin={{
-                  top: 20,
-                  right: 30,
-                  left: 20,
-                  bottom: 50,
-                }}
+                margin={{ top: 20, right: 30, left: 20, bottom: 50 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
                 <XAxis
@@ -99,7 +112,7 @@ function Graph() {
                   fontSize={14}
                   tickFormatter={formatNumber}
                   fill="#4B5563"
-                  domain={[0, maxCount]} // Dynamically adjust the YAxis domain
+                  domain={[0, maxCount]}
                 />
                 <Tooltip formatter={(value) => formatNumber(value)} />
                 <Legend />
@@ -107,31 +120,7 @@ function Graph() {
                   {data.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
-                  <LabelList
-                    dataKey="count"
-                    position="top"
-                    fill="#4B5563"
-                    fontSize={12}
-                    content={({ x, y, width, value, index }) => {
-                      const total = data.reduce(
-                        (sum, item) => sum + item.count,
-                        0
-                      );
-                      const percentage =
-                        total > 0 ? ((value / total) * 100).toFixed(1) : 0;
-                      return (
-                        <text
-                          x={x + width / 2}
-                          y={y - 10}
-                          fill="#4B5563"
-                          textAnchor="middle"
-                          fontSize={12}
-                        >
-                          {`${value} (${percentage}%)`}
-                        </text>
-                      );
-                    }}
-                  />
+                  <LabelList dataKey="count" content={renderCustomizedLabel} />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
