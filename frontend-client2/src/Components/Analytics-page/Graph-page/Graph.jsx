@@ -15,40 +15,45 @@ import {
 import axios from "axios";
 
 function Graph() {
-  const [data, setData] = useState([
-    { name: "Mammals", count: 0, color: "#FFB3C6" },
-    { name: "Fish", count: 0, color: "#FFE6A6" },
-    { name: "Birds", count: 0, color: "#B3E0FF" },
-    { name: "Reptiles", count: 0, color: "#D9FFCC" },
-    { name: "Amphibians", count: 0, color: "#FFDAA6" },
-    { name: "Insects", count: 0, color: "#FFB3C6" },
-    { name: "Arachnids", count: 0, color: "#B3E0FF" },
-    { name: "Mollusks", count: 0, color: "#D9FFCC" },
-    { name: "Echinoderms", count: 0, color: "#FFDAA6" },
-    { name: "Cnidarians", count: 0, color: "#FFDAA6" },
-    { name: "Worms", count: 0, color: "#C1A3FF" },
-    { name: "Sponges", count: 0, color: "#A8E6CF" },
-  ]);
+  const [data, setData] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     axios
       .get(`${API_URL}/speciesCounts`)
       .then((res) => {
         const counts = res.data;
-        setData([
-          { name: "Mammals", count: counts.mammals, color: "#4CAF50" },
-          { name: "Fish", count: counts.fish, color: "#4CAF50" },
-          { name: "Birds", count: counts.birds, color: "#4CAF50" },
-          { name: "Reptiles", count: counts.reptiles, color: "#4CAF50" },
-          { name: "Amphibians", count: counts.amphibians, color: "#4CAF50" },
-          { name: "Insects", count: counts.insects, color: "#4CAF50" },
-          { name: "Arachnids", count: counts.arachnids, color: "#4CAF50" },
-          { name: "Mollusks", count: counts.mollusks, color: "#4CAF50" },
-          { name: "Echinoderms", count: counts.echinoderms, color: "#4CAF50" },
-          { name: "Cnidarians", count: counts.cnidarians, color: "#4CAF50" },
-          { name: "Worms", count: counts.worms, color: "#4CAF50" },
-          { name: "Sponges", count: counts.sponges, color: "#4CAF50" },
-        ]);
+
+        const formattedData = [
+          { name: "Mammals", count: counts.mammals || 0, color: "#4CAF50" },
+          { name: "Fish", count: counts.fish || 0, color: "#4CAF50" },
+          { name: "Birds", count: counts.birds || 0, color: "#4CAF50" },
+          { name: "Reptiles", count: counts.reptiles || 0, color: "#4CAF50" },
+          {
+            name: "Amphibians",
+            count: counts.amphibians || 0,
+            color: "#4CAF50",
+          },
+          { name: "Insects", count: counts.insects || 0, color: "#4CAF50" },
+          { name: "Arachnids", count: counts.arachnids || 0, color: "#4CAF50" },
+          { name: "Mollusks", count: counts.mollusks || 0, color: "#4CAF50" },
+          {
+            name: "Echinoderms",
+            count: counts.echinoderms || 0,
+            color: "#4CAF50",
+          },
+          {
+            name: "Cnidarians",
+            count: counts.cnidarians || 0,
+            color: "#4CAF50",
+          },
+          { name: "Worms", count: counts.worms || 0, color: "#4CAF50" },
+          { name: "Sponges", count: counts.sponges || 0, color: "#4CAF50" },
+        ];
+
+        const total = formattedData.reduce((sum, item) => sum + item.count, 0);
+        setData(formattedData);
+        setTotalCount(total);
       })
       .catch((err) => {
         console.error("Error fetching species counts:", err);
@@ -56,21 +61,27 @@ function Graph() {
   }, []);
 
   const formatNumber = (number) => {
-    if (number >= 1_000_000) return (number / 1_000_000).toFixed(1) + "M";
-    if (number >= 1_000) return (number / 1_000).toFixed(1) + "K";
+    if (number >= 1_000_000) {
+      return (number / 1_000_000).toFixed(1) + "M";
+    } else if (number >= 1_000) {
+      return (number / 1_000).toFixed(1) + "K";
+    }
     return number;
   };
 
-  const totalCount = data.reduce((acc, entry) => acc + entry.count, 0);
   const maxCount = Math.max(...data.map((entry) => entry.count));
 
-  // Custom label formatter to show count + percentage
+  // Custom label with percentage
   const renderCustomizedLabel = (props) => {
     const { x, y, width, value, index } = props;
     const entry = data[index];
-    const percent = totalCount
-      ? ((entry.count / totalCount) * 100).toFixed(1)
-      : 0;
+    let percent = 0;
+
+    if (totalCount && entry.count > 0) {
+      percent = (entry.count / totalCount) * 100;
+      percent = percent < 0.1 ? 0.1 : percent;
+      percent = percent.toFixed(1);
+    }
 
     return (
       <text
@@ -97,7 +108,12 @@ function Graph() {
             <ResponsiveContainer width="100%" height={400}>
               <BarChart
                 data={data}
-                margin={{ top: 20, right: 30, left: 20, bottom: 50 }}
+                margin={{
+                  top: 20,
+                  right: 30,
+                  left: 20,
+                  bottom: 50,
+                }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
                 <XAxis
@@ -114,7 +130,14 @@ function Graph() {
                   fill="#4B5563"
                   domain={[0, maxCount]}
                 />
-                <Tooltip formatter={(value) => formatNumber(value)} />
+                <Tooltip
+                  formatter={(value) =>
+                    `${formatNumber(value)} (${(
+                      (value / totalCount) *
+                      100
+                    ).toFixed(1)}%)`
+                  }
+                />
                 <Legend />
                 <Bar dataKey="count" radius={[10, 10, 0, 0]}>
                   {data.map((entry, index) => (
