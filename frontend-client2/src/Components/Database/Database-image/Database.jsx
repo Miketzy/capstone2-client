@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import API_URL from "../../../Config";
 import MaphShow from "../../Map-Show/MaphShow";
-import { useNavigate } from "react-router-dom";
 
 function Database() {
   const [images, setImages] = useState([]);
