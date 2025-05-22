@@ -120,10 +120,9 @@ function Database() {
           <div className="page1-container">
             <span className="close-icon" onClick={closeModal}>
               <CloseIcon />
-              <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
-                Your Button Text
-              </button>
             </span>
+            <div className="pagebutton-container"></div>
+            <button className="buttonAnalytics">Your Button Text</button>
 
             <div className="">
               {/* Main Image */}
