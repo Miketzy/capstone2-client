@@ -55,13 +55,20 @@
 }
 
 .pagebutton-container{
-     width: 40vh;
-    height: 40vh;
-    margin-left: 10vh;
-    margin-bottom: 30vh;
-    margin: 10px;
+    display: flex;
+    background-color: #fff;
+    margin-left: 20px;
+    margin-top: 2vh;
     border-radius: 20px;
-    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
+    width: 205vh;
+    height: auto;
+    margin-right: 20px;
+    padding: 10px;
+    box-shadow: 
+        10px 10px 30px rgba(0, 0, 0, 0.2),  
+        -10px -10px 30px rgba(255, 255, 255, 0.5), 
+        inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
+        inset -5px -5px 15px rgba(255, 255, 255, 0.9);
 }
 
 .buttonAnalytics{
