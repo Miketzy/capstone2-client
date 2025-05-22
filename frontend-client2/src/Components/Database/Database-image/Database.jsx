@@ -121,9 +121,7 @@ function Database() {
             <span className="close-icon" onClick={closeModal}>
               <CloseIcon />
             </span>
-            <div className="pagebutton-container">
-              <button className="buttonAnalytics">Your Button Text</button>
-            </div>
+            <button className="buttonAnalytics">Your Button Text</button>
 
             <div className="">
               {/* Main Image */}
