@@ -58,14 +58,15 @@
  .page1-container button{
      position: absolute;
     margin-top: 50px;
-    right: 40px;
+    margin-left: 50px;
     font-size: 2rem;
     color: black;
     cursor: pointer;
     z-index: 1001;
     padding: 10px;
-    background-color: blue;
+    background-color: lightgreen;
     font-size: 18px;
+    color: black;
 }
 
 .close-icon:hover {
