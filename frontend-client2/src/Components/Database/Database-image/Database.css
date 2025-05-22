@@ -68,7 +68,11 @@
     font-size: 18px;
     color: black;
     border-radius: 10px;
-    width: 60px;
+    height: 50px;
+}
+
+.buttonAnalytics{
+    width: 80px;
 }
 
 .close-icon:hover {
