@@ -58,7 +58,7 @@
  .page1-container button{
      position: absolute;
     margin-top: 50px;
-    margin-left: 50px;
+    right: 40px;
     font-size: 2rem;
     color: black;
     cursor: pointer;
