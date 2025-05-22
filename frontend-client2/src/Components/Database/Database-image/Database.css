@@ -58,7 +58,7 @@
  .page1-container button{
      position: absolute;
     margin-top: 50px;
-    margin-left: 50px;
+    right: 20px;
     font-size: 2rem;
     color: black;
     cursor: pointer;
@@ -68,8 +68,6 @@
     font-size: 18px;
     color: black;
     border-radius: 10px;
-     width: 40px;
-    height: 40px;
 }
 
 .close-icon:hover {
