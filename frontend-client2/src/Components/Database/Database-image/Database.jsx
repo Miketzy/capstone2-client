@@ -121,9 +121,11 @@ function Database() {
             <span className="close-icon" onClick={closeModal}>
               <CloseIcon />
             </span>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
-              Your Button Text
-            </button>
+            <div className="flex justify-end items-center gap-2 mb-4">
+              <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                Your Button Text
+              </button>
+            </div>
             <div className="">
               {/* Main Image */}
               <img
