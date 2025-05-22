@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import API_URL from "../../../Config";
 import MaphShow from "../../Map-Show/MaphShow";
+import { useNavigate } from "react-router-dom";
 
 function Database() {
   const [images, setImages] = useState([]);
@@ -121,7 +122,12 @@ function Database() {
             <span className="close-icon" onClick={closeModal}>
               <CloseIcon />
             </span>
-            <button className="buttonAnalytics">Your Button Text</button>
+            <button
+              className="buttonAnalytics"
+              onClick={() => navigate("/analytics")}
+            >
+              Analytics
+            </button>
 
             <div className="">
               {/* Main Image */}

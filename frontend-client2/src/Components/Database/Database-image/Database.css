@@ -67,6 +67,7 @@
     background-color: lightgreen;
     font-size: 18px;
     color: black;
+    border-radius: 10px;
 }
 
 .close-icon:hover {
