@@ -182,7 +182,7 @@ function Database() {
               </h3>
               <h3 className="line2">
                 Scientific Name:{" "}
-                <span>
+                <span className="italic">
                   {selectedSpecies?.scientificname || "Insufficient data"}
                 </span>
               </h3>
